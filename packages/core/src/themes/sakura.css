@@ -1,0 +1,29 @@
+/**
+ * Kirari — thème Sakura (défaut).
+ *
+ * Un thème ne déclare QUE l'échelle de marque et les couleurs de texte posées
+ * dessus. Le mapping vers les 25 tokens sémantiques — différent en clair et en
+ * sombre — est le travail de `tokens/color.css`, pas le tien.
+ *
+ * C'est pour ça qu'un thème s'écrit une seule fois et non deux.
+ */
+:root {
+  /* Palier 1 — l'échelle de marque. Sept nuances, du plus clair au plus foncé. */
+  --k-brand-100: #fbe5ee;
+  --k-brand-200: #f7c9da;
+  --k-brand-300: #f2a5c1;
+  --k-brand-400: #ec7ba3;
+  --k-brand-500: #e05586;
+  --k-brand-600: #c73c6d;
+  --k-brand-700: #a12d57;
+
+  /* Texte posé SUR la couleur d'accent. Le CSS ne peut pas le calculer :
+     `color-contrast()` n'est pas utilisable aujourd'hui. À vérifier à l'œil. */
+  --k-on-accent-light: #ffffff; /* sur --k-brand-500, en thème clair */
+  --k-on-accent-dark: #55182e;  /* sur --k-brand-400, en thème sombre */
+
+  /* Accent secondaire — optionnel, retombe sur la marque s'il est absent. */
+  --k-brand-2-100: #e0eaf7;
+  --k-brand-2-400: #6690d3;
+  --k-brand-2-500: #4470c0;
+}

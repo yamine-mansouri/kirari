@@ -1,0 +1,42 @@
+/**
+ * Kirari — courbes d'accélération.
+ *
+ * Ces béziers sont la « patte » de Kirari : très typées, loin des
+ * `ease-in-out` symétriques. C'est ce qui fait qu'un mouvement se remarque.
+ *
+ * Règle d'or : une entrée démarre instantanément et se dépose longuement ;
+ * une sortie retient puis claque. Ne jamais utiliser la même courbe
+ * pour les deux sens.
+ */
+:root {
+  /* — Directionnelles ————————————————————————————————— */
+  /* Entrée : départ immédiat, dépose très longue. (192) */
+  --k-ease-enter: cubic-bezier(0.01, 0.24, 0, 1);
+  /* Sortie : légère anticipation à rebours puis départ sec. (531) */
+  --k-ease-exit: cubic-bezier(0.87, -0.01, 1, 1);
+
+  /* — Tenue / accent ——————————————————————————————————— */
+  /* Reste immobile longtemps, puis rattrape tout à la fin. (305) */
+  --k-ease-hold: cubic-bezier(1, 0.01, 1, 0.99);
+  /* Entrée sèche puis freinage brutal. (156) */
+  --k-ease-brake: cubic-bezier(0.01, 0, 1, 0.26);
+  /* Le plus dramatique : tenue absolue des deux côtés. (57) */
+  --k-ease-snap: cubic-bezier(1, 0, 0, 1);
+
+  /* — Confort ——————————————————————————————————————————— */
+  /* In-out doux avec un soupçon de dépassement. (92) */
+  --k-ease-smooth: cubic-bezier(0.16, 0.46, 0.18, 1.01);
+  /* Symétrique et rapide, pour les micro-interactions. (77) */
+  --k-ease-swift: cubic-bezier(0.76, -0.01, 0.25, 1);
+  /* Longue glissade régulière. (40) */
+  --k-ease-glide: cubic-bezier(0.64, 0.04, 0.13, 1);
+
+  /* — Élastiques ————————————————————————————————————————— */
+  /* Dépassement franc puis retour. (88) */
+  --k-ease-bounce: cubic-bezier(0.34, 1.63, 0.61, 0.3);
+  /* Ressort marqué — à réserver aux moments forts. (22) */
+  --k-ease-spring: cubic-bezier(0.39, 2, 0.41, 0.39);
+
+  /* Linéaire, pour les boucles d'ambiance (rotation, dérive). */
+  --k-ease-linear: linear;
+}

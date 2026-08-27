@@ -1,0 +1,14 @@
+/**
+ * Kirari — la couche motion seule.
+ *
+ * Pour poser le mouvement Kirari par-dessus un projet qui a déjà son propre
+ * système de couleurs. Inclut la passerelle Tailwind des courbes et des
+ * animations, mais pas les couleurs ni les composants.
+ */
+@import "./tokens/easing.css";
+@import "./tokens/duration.css";
+@import "./theme/motion.css";
+@import "./motion/keyframes.css";
+@import "./motion/stagger.css";
+@import "./motion/reveal.css";
+@import "./motion/reduced-motion.css";

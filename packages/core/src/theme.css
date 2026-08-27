@@ -1,0 +1,27 @@
+/**
+ * Kirari — passerelle Tailwind v4.
+ *
+ * Traduit les tokens Kirari en variables de thème Tailwind, pour qu'ils
+ * deviennent du vocabulaire d'utilitaires : `bg-accent`, `text-ink-muted`,
+ * `ease-enter`, `animate-slide-up`.
+ *
+ * ── Pourquoi deux blocs ───────────────────────────────────────────────────
+ *
+ * `@theme inline` pour tout ce qui pointe vers une AUTRE variable CSS.
+ * Sans `inline`, l'utilitaire généré référencerait `var(--color-accent)`,
+ * résolu à la racine — là où `--k-accent` n'a pas encore la valeur du thème
+ * actif. Le bug serait silencieux : correct en clair, figé en sombre.
+ * Avec `inline`, l'utilitaire porte directement `var(--k-accent)`, résolu au
+ * point d'usage, donc sensible au thème.
+ *
+ * `@theme` simple pour les valeurs littérales, forme idiomatique en v4.
+ *
+ * ── Ce que Tailwind ne sait pas exprimer ──────────────────────────────────
+ *
+ * Il n'existe pas de namespace `--duration-*` en v4. Les durées s'utilisent
+ * donc ainsi : `duration-(--k-dur-3)`. Les animations, elles, encapsulent
+ * déjà leur durée dans le raccourci `--animate-*`.
+ */
+
+@import "./theme/colors.css";
+@import "./theme/motion.css";

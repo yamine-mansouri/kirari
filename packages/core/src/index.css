@@ -1,0 +1,35 @@
+/**
+ * Kirari — point d'entrée.
+ *
+ * À importer APRÈS Tailwind dans la feuille de style du projet :
+ *
+ *   @import "tailwindcss";
+ *   @import "@kirari-ds/core";
+ *   @import "./kirari-theme.css";   (optionnel — la palette du projet)
+ *
+ * L'ordre compte deux fois : Tailwind d'abord pour que `@theme` s'y greffe,
+ * le thème du projet en dernier pour qu'il l'emporte sur Sakura.
+ */
+
+/* Tokens et thème par défaut. */
+@import "./tokens.css";
+
+/* Passerelle : expose les tokens comme vocabulaire d'utilitaires Tailwind. */
+@import "./theme.css";
+
+/* Keyframes — référencés par les raccourcis `--animate-*` de la passerelle. */
+@import "./motion/keyframes.css";
+
+/* Ce que Tailwind ne sait pas exprimer. Volontairement hors @layer : ces
+   règles doivent primer sur les utilitaires. Voir l'en-tête de stagger.css. */
+@import "./motion/stagger.css";
+@import "./motion/reveal.css";
+
+@import "./base/app.css";
+@import "./motion/reduced-motion.css";
+
+/* Fait analyser les classes de la bibliothèque React par Tailwind, pour que
+   le consommateur n'ait pas à déclarer `@source` lui-même.
+   Le chemin fonctionne depuis `src/` comme depuis `dist/` : les deux sont à
+   un niveau de profondeur dans leur package. */
+@source "../../react/dist";

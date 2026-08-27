@@ -1,0 +1,118 @@
+/**
+ * ─────────────────────────────────────────────────────────────────────────
+ *  MODÈLE DE THÈME KIRARI
+ *  Copier ce fichier dans le projet, le renommer (ex. `kirari-theme.css`),
+ *  puis l'importer APRÈS Kirari :
+ *
+ *      import "@kirari-ds/core";
+ *      import "./kirari-theme.css";
+ *
+ *  À spécificité égale, le dernier chargé gagne. L'ordre est donc la seule
+ *  chose à ne pas rater.
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ *  Le fichier est en trois paliers. Seul le PALIER 1 est à remplir.
+ *  Les paliers 2 et 3 sont commentés : les décommenter uniquement pour ce
+ *  qu'on veut réellement changer, et supprimer le reste.
+ *
+ *  Ne PAS écrire de bloc sombre ici : le mapping clair/sombre est le travail
+ *  de Kirari. Une échelle de marque suffit pour les deux thèmes.
+ */
+
+:root {
+  /* ═══ PALIER 1 — OBLIGATOIRE ═══════════════════════════════════════════
+   *
+   * L'échelle de marque, du plus clair au plus foncé.
+   *
+   * Kirari s'en sert ainsi :
+   *   thème clair  → accent = 500, survol = 600, actif = 700, discret = 100
+   *   thème sombre → accent = 400, survol = 300, actif = 200
+   *
+   * Les sept nuances sont donc toutes utilisées : n'en omettre aucune.
+   * Une échelle régulière donne un résultat régulier — partir d'un
+   * générateur perceptuel (OKLCH) plutôt que d'éclaircir à la main.
+   */
+  --k-brand-100: #fbe5ee;
+  --k-brand-200: #f7c9da;
+  --k-brand-300: #f2a5c1;
+  --k-brand-400: #ec7ba3;
+  --k-brand-500: #e05586;
+  --k-brand-600: #c73c6d;
+  --k-brand-700: #a12d57;
+
+  /* Couleur du texte POSÉ SUR l'accent (label de bouton plein, par exemple).
+   *
+   * À vérifier soi-même : le CSS ne sait pas la calculer — `color-contrast()`
+   * n'est pas utilisable aujourd'hui. Viser 4.5:1 minimum.
+   *   • marque foncée ou saturée  → blanc
+   *   • marque claire (jaune, lime, vert clair) → une nuance très foncée
+   */
+  --k-on-accent-light: #ffffff; /* texte sur --k-brand-500 (thème clair)  */
+  --k-on-accent-dark: #55182e;  /* texte sur --k-brand-400 (thème sombre) */
+
+  /* Accent secondaire — supprimer ces trois lignes pour qu'il retombe
+   * automatiquement sur la marque principale. */
+  --k-brand-2-100: #e0eaf7;
+  --k-brand-2-400: #6690d3;
+  --k-brand-2-500: #4470c0;
+
+  /* ═══ PALIER 2 — RAREMENT NÉCESSAIRE ═══════════════════════════════════
+   *
+   * Neutres, surfaces et bordures. Les défauts de Kirari sont des gris
+   * légèrement chauds. Ne toucher que pour un neutre franchement froid, ou
+   * un fond qui doit s'aligner sur une charte existante.
+   *
+   * ATTENTION : contrairement au palier 1, ces tokens sont SÉMANTIQUES et
+   * donc spécifiques à un thème. Les surcharger ici ne vaut que pour le
+   * thème clair — pour le sombre, répéter dans les deux blocs prévus en bas
+   * de ce fichier.
+   */
+  /* --k-bg: #fafafa; */
+  /* --k-surface: #ffffff; */
+  /* --k-surface-raised: #ffffff; */
+  /* --k-surface-sunken: #f4f4f3; */
+  /* --k-text: #1a1a18; */
+  /* --k-text-muted: #66655f; */
+  /* --k-text-subtle: #86857f; */
+  /* --k-border: #e8e7e5; */
+  /* --k-border-strong: #d4d3d0; */
+  /* --k-overlay: rgb(26 26 24 / 0.42); */
+
+  /* ═══ PALIER 3 — PRESQUE JAMAIS ════════════════════════════════════════
+   *
+   * Couleurs d'état. Elles portent un sens partagé par tous les projets :
+   * les changer pour des raisons esthétiques est presque toujours une
+   * mauvaise idée. Les toucher seulement si une charte l'impose.
+   */
+  /* --k-success: #3f9e6a; */
+  /* --k-warning: #d98424; */
+  /* --k-danger:  #d1443f; */
+
+  /* Anneau de focus. Par défaut la nuance 400 de la marque. Le changer
+   * uniquement si le contraste avec les surfaces est insuffisant. */
+  /* --k-focus-ring: #ec7ba3; */
+}
+
+/* ═══ SURCHARGES DE THÈME SOMBRE ═══════════════════════════════════════════
+ *
+ * Inutile pour le palier 1 : Kirari dérive déjà le sombre de l'échelle de
+ * marque. Ces blocs ne servent qu'aux surcharges de palier 2 ou 3.
+ *
+ * Les deux blocs sont nécessaires : le premier couvre la préférence système,
+ * le second le choix explicite via `data-theme`. Garder leur contenu
+ * identique.
+ */
+
+/*
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --k-bg: #101010;
+    --k-surface: #1a1a18;
+  }
+}
+
+:root[data-theme="dark"] {
+  --k-bg: #101010;
+  --k-surface: #1a1a18;
+}
+*/

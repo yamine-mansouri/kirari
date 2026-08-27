@@ -1,0 +1,67 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# Kirari キラリ
+
+Bibliothèque de composants React **motion-first**, bâtie sur Tailwind v4.
+
+Le mouvement n'est pas une finition posée à la fin : les courbes et les durées
+sont des tokens de première classe, au même titre que les couleurs, et les
+composants sont conçus autour d'elles.
+
+---
+
+## Les trois règles
+
+**Une entrée et une sortie n'ont jamais la même courbe.**
+Une entrée démarre instantanément et se dépose longuement (`ease-enter`).
+Une sortie retient puis claque (`ease-exit`). C'est ce qui distingue un
+mouvement vivant d'un `ease-in-out` générique.
+
+**La chorégraphie se fait en CSS.**
+Les séquences reposent sur des `animation-delay` échelonnés, calculés par
+`nth-child`. Aucun runtime d'animation, aucun timer JS.
+
+**Chaque animation embarque sa durée et sa courbe.**
+`animate-slide-up` suffit, et respecte la première règle sans qu'on y pense.
+
+---
+
+## Par où commencer
+
+**Fondations** — les tokens : couleurs, courbes, animations, séquençage, et la
+mécanique de marque. C'est la référence quand on conçoit un écran.
+
+**Composants** — chacun a sa documentation, sa **galerie** (toutes les
+variantes et tous les états en une vue) et son **playground**. Ceux dont le
+mouvement est signifiant ont en plus une story *Mouvement* : une grille figée
+ne montre pas une animation.
+
+---
+
+## La barre d'outils
+
+Deux sélecteurs en haut de l'écran, et ils comptent.
+
+**Thème** bascule clair / sombre / système.
+
+**Marque** change la palette en direct, en injectant les fichiers de thème
+réels — pas une copie. Un rebranding qui tient doit rester lisible dans les
+six combinaisons. Une régression de contraste ne se voit que là.
+
+---
+
+## Utiliser Kirari dans un projet
+
+```css
+@import "tailwindcss";
+@import "@kirari-ds/core";
+@import "./kirari-theme.css";   /* la palette du projet */
+```
+
+L'ordre compte deux fois : Tailwind d'abord pour que les blocs `@theme` s'y
+greffent, le thème du projet en dernier pour qu'il l'emporte sur Sakura.
+
+Les règles complètes, destinées aux agents comme aux humains, sont livrées
+dans le package : `node_modules/@kirari-ds/core/AGENTS.md`.

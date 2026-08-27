@@ -1,0 +1,74 @@
+/**
+ * Kirari — chorégraphie séquencée.
+ *
+ * Aucune orchestration en JS : seulement des `animation-delay` échelonnés,
+ * calculés par `nth-child`.
+ *
+ *   <ul class="k-stagger" style="--k-stagger: .1s">
+ *     <li class="animate-slide-up">…</li>
+ *   </ul>
+ *
+ * ── Pourquoi ce fichier n'est PAS dans un @layer ──────────────────────────
+ *
+ * Les utilitaires Tailwind (`animate-*`) posent la propriété raccourcie
+ * `animation`, qui remet `animation-delay` à zéro. Il faut donc que cette
+ * règle l'emporte. En CSS, les déclarations HORS layer priment sur celles
+ * qui sont dans un layer — et Tailwind met tout dans des layers. Laisser ce
+ * fichier non layé est donc ce qui fait fonctionner le décalage.
+ */
+.k-stagger > * {
+  animation-delay: calc(
+    var(--k-stagger-base, 0s) + var(--k-stagger, 0.08s) * var(--k-i, 0)
+  );
+}
+
+.k-stagger > *:nth-child(1) { --k-i: 0; }
+.k-stagger > *:nth-child(2) { --k-i: 1; }
+.k-stagger > *:nth-child(3) { --k-i: 2; }
+.k-stagger > *:nth-child(4) { --k-i: 3; }
+.k-stagger > *:nth-child(5) { --k-i: 4; }
+.k-stagger > *:nth-child(6) { --k-i: 5; }
+.k-stagger > *:nth-child(7) { --k-i: 6; }
+.k-stagger > *:nth-child(8) { --k-i: 7; }
+.k-stagger > *:nth-child(9) { --k-i: 8; }
+.k-stagger > *:nth-child(10) { --k-i: 9; }
+.k-stagger > *:nth-child(11) { --k-i: 10; }
+.k-stagger > *:nth-child(12) { --k-i: 11; }
+.k-stagger > *:nth-child(13) { --k-i: 12; }
+.k-stagger > *:nth-child(14) { --k-i: 13; }
+.k-stagger > *:nth-child(15) { --k-i: 14; }
+.k-stagger > *:nth-child(16) { --k-i: 15; }
+.k-stagger > *:nth-child(17) { --k-i: 16; }
+.k-stagger > *:nth-child(18) { --k-i: 17; }
+.k-stagger > *:nth-child(19) { --k-i: 18; }
+.k-stagger > *:nth-child(20) { --k-i: 19; }
+.k-stagger > *:nth-child(21) { --k-i: 20; }
+.k-stagger > *:nth-child(22) { --k-i: 21; }
+.k-stagger > *:nth-child(23) { --k-i: 22; }
+.k-stagger > *:nth-child(24) { --k-i: 23; }
+
+/* Séquence inversée — le dernier élément part en premier (utile en sortie). */
+.k-stagger--reverse > *:nth-last-child(1) { --k-i: 0; }
+.k-stagger--reverse > *:nth-last-child(2) { --k-i: 1; }
+.k-stagger--reverse > *:nth-last-child(3) { --k-i: 2; }
+.k-stagger--reverse > *:nth-last-child(4) { --k-i: 3; }
+.k-stagger--reverse > *:nth-last-child(5) { --k-i: 4; }
+.k-stagger--reverse > *:nth-last-child(6) { --k-i: 5; }
+.k-stagger--reverse > *:nth-last-child(7) { --k-i: 6; }
+.k-stagger--reverse > *:nth-last-child(8) { --k-i: 7; }
+.k-stagger--reverse > *:nth-last-child(9) { --k-i: 8; }
+.k-stagger--reverse > *:nth-last-child(10) { --k-i: 9; }
+.k-stagger--reverse > *:nth-last-child(11) { --k-i: 10; }
+.k-stagger--reverse > *:nth-last-child(12) { --k-i: 11; }
+.k-stagger--reverse > *:nth-last-child(13) { --k-i: 12; }
+.k-stagger--reverse > *:nth-last-child(14) { --k-i: 13; }
+.k-stagger--reverse > *:nth-last-child(15) { --k-i: 14; }
+.k-stagger--reverse > *:nth-last-child(16) { --k-i: 15; }
+.k-stagger--reverse > *:nth-last-child(17) { --k-i: 16; }
+.k-stagger--reverse > *:nth-last-child(18) { --k-i: 17; }
+.k-stagger--reverse > *:nth-last-child(19) { --k-i: 18; }
+.k-stagger--reverse > *:nth-last-child(20) { --k-i: 19; }
+.k-stagger--reverse > *:nth-last-child(21) { --k-i: 20; }
+.k-stagger--reverse > *:nth-last-child(22) { --k-i: 21; }
+.k-stagger--reverse > *:nth-last-child(23) { --k-i: 22; }
+.k-stagger--reverse > *:nth-last-child(24) { --k-i: 23; }

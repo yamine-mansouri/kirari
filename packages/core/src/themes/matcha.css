@@ -1,0 +1,23 @@
+/**
+ * Kirari — thème Matcha (抹茶, vert thé). Second exemple de rebranding.
+ *
+ * Volontairement choisi clair et saturé : c'est le cas où `--k-on-accent-light`
+ * ne peut PAS rester blanc. Un texte blanc sur #6fa860 tombe à ~2.4:1, très
+ * en dessous du 4.5:1 exigé par WCAG AA. D'où le texte foncé ci-dessous.
+ */
+:root {
+  --k-brand-100: #e6f2e2;
+  --k-brand-200: #c7e3bf;
+  --k-brand-300: #a3d097;
+  --k-brand-400: #86bd77;
+  --k-brand-500: #6fa860;
+  --k-brand-600: #4f8442;
+  --k-brand-700: #3a6531;
+
+  --k-on-accent-light: #14260f; /* et non #fff : voir l'en-tête */
+  --k-on-accent-dark: #14260f;
+
+  --k-brand-2-100: #fbeed8;
+  --k-brand-2-400: #e0a253;
+  --k-brand-2-500: #d98424;
+}

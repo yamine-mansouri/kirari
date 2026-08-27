@@ -1,0 +1,33 @@
+/**
+ * Kirari — typographie.
+ *
+ * Pas de webfont imposée : le système reste portable et sans requête réseau.
+ * Surcharger `--k-font-sans` dans le projet consommateur suffit à rebrander.
+ */
+:root {
+  --k-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Hiragino Sans", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+  --k-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  --k-text-xs: 0.75rem;
+  --k-text-sm: 0.875rem;
+  --k-text-md: 1rem;
+  --k-text-lg: 1.125rem;
+  --k-text-xl: 1.375rem;
+  --k-text-2xl: 1.75rem;
+  --k-text-3xl: 2.25rem;
+  --k-text-4xl: 3rem;
+
+  --k-leading-tight: 1.2;
+  --k-leading-normal: 1.55;
+  --k-leading-loose: 1.8;
+
+  --k-weight-normal: 400;
+  --k-weight-medium: 500;
+  --k-weight-bold: 700;
+
+  --k-tracking-tight: -0.015em;
+  --k-tracking-normal: 0;
+  --k-tracking-wide: 0.08em;
+}

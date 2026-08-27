@@ -1,0 +1,24 @@
+/**
+ * Kirari — révélation au défilement.
+ *
+ * Le CSS ne fait que masquer l'élément tant qu'il n'est pas entré dans le
+ * viewport ; c'est l'IntersectionObserver côté JS qui pose `--in`, ce qui
+ * déclenche l'animation Kirari normalement.
+ *
+ * Sans JS (ou si l'observer échoue), `.k-reveal` reste caché — d'où le
+ * garde-fou `:where(html:not(.k-js)) .k-reveal` : tant que la classe `k-js`
+ * n'est pas posée sur <html>, le contenu s'affiche tel quel.
+ */
+.k-reveal:not(.k-reveal--in) {
+  opacity: 0;
+}
+
+:where(html:not(.k-js)) .k-reveal:not(.k-reveal--in) {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .k-reveal:not(.k-reveal--in):not(.k-motion-safe) {
+    opacity: 1;
+  }
+}

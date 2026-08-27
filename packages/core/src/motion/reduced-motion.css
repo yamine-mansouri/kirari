@@ -1,0 +1,26 @@
+/**
+ * Kirari — respect de `prefers-reduced-motion`.
+ *
+ * Règle globale plutôt que ciblée sur une classe : les animations viennent
+ * maintenant des utilitaires Tailwind (`animate-*`), dont on ne peut pas
+ * énumérer les noms à l'avance.
+ *
+ * On écrase la DURÉE plutôt que de poser `animation: none`. C'est important :
+ * une entrée démarre à `opacity: 0` et compte sur son fill-mode pour finir
+ * visible. Supprimer l'animation la laisserait dans son état initial —
+ * autrement dit invisible. Une durée de 0.01ms saute directement à l'état
+ * final, ce qui est le comportement voulu.
+ *
+ * `.k-motion-safe` conserve volontairement une animation jugée porteuse de
+ * sens (barre de progression, indicateur de chargement) — jamais décorative.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *:not(.k-motion-safe),
+  *:not(.k-motion-safe)::before,
+  *:not(.k-motion-safe)::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

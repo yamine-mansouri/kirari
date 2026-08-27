@@ -1,0 +1,18 @@
+{
+  "name": "kirari",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Kirari — Design System personnel, motion-first.",
+  "packageManager": "pnpm@11.10.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r --filter './packages/**' build",
+    "dev": "pnpm --filter @kirari-ds/storybook dev",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r exec rm -rf dist",
+    "storybook": "pnpm --filter @kirari-ds/storybook dev",
+    "build:storybook": "pnpm --filter @kirari-ds/storybook build"
+  },
+  "license": "MIT",
+  "author": "Yamine Mansouri <yamine.mansouri@epitech.eu>"
+}

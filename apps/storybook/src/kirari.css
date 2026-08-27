@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "@kirari-ds/core";
+
+/**
+ * En monorepo, les composants Kirari vivent en source et non dans `dist/`.
+ * `@kirari-ds/core` déclare déjà `@source "../../react/dist"` pour les projets
+ * consommateurs ; on ajoute ici la source et les stories, pour que les classes
+ * soient générées pendant le développement.
+ */
+@source "../../../packages/react/src";
+@source "../src";
+
+/* Piste de démonstration d'une courbe. Le déplacement combine `left` et une
+   translation compensatoire pour que la bille s'arrête pile au bord, quelle
+   que soit la largeur de la piste. */
+@keyframes k-docs-travel {
+  from { left: 0; transform: translateX(0); }
+  to   { left: 100%; transform: translateX(-100%); }
+}
+
+@theme {
+  --animate-docs-travel: k-docs-travel var(--k-dur-6) both infinite alternate;
+}
+
+/* Storybook peint son propre fond derrière le canvas : sans cela, le thème
+   sombre de Kirari laisserait apparaître du blanc autour du composant. */
+.sb-show-main {
+  background-color: var(--k-bg);
+}

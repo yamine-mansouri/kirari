@@ -1,0 +1,131 @@
+/**
+ * Kirari — vocabulaire de keyframes.
+ *
+ * Un lexique volontairement restreint et normalisé : chaque entrée a sa
+ * sortie symétrique, et rien n'y est codé en dur — l'amplitude passe par
+ * `--k-anim-distance`, l'échelle par `--k-anim-scale`.
+ *
+ * Les noms sont préfixés `k-` pour ne jamais entrer en collision avec les
+ * keyframes du projet consommateur.
+ */
+
+/* — Opacité ————————————————————————————————————————————————— */
+@keyframes k-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes k-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* — Glissements (entrée) ————————————————————————————————————— */
+@keyframes k-slide-up {
+  from { opacity: 0; transform: translateY(var(--k-anim-distance, 24px)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes k-slide-down {
+  from { opacity: 0; transform: translateY(calc(var(--k-anim-distance, 24px) * -1)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes k-slide-left {
+  from { opacity: 0; transform: translateX(var(--k-anim-distance, 24px)); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes k-slide-right {
+  from { opacity: 0; transform: translateX(calc(var(--k-anim-distance, 24px) * -1)); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* — Glissements (sortie) ————————————————————————————————————— */
+@keyframes k-slide-up-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(calc(var(--k-anim-distance, 24px) * -1)); }
+}
+@keyframes k-slide-down-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(var(--k-anim-distance, 24px)); }
+}
+
+/* — Échelle ————————————————————————————————————————————————— */
+@keyframes k-scale-in {
+  from { opacity: 0; transform: scale(var(--k-anim-scale, 0.86)); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes k-scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(var(--k-anim-scale, 0.86)); }
+}
+/* Part de rien et dépasse légèrement, pour une apparition qui claque. */
+@keyframes k-bloom {
+  from { transform: scale(0); }
+  to   { transform: scale(var(--k-anim-scale, 1.3)); }
+}
+
+/* — Accents ————————————————————————————————————————————————— */
+/* `popup` : surgit du bas avec un dépassement. À coupler à --k-ease-bounce. */
+@keyframes k-popup {
+  0%   { opacity: 0; transform: translateY(var(--k-anim-distance, 16px)) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* `bound` : l'atterrissage rebondi. */
+@keyframes k-bound {
+  0%   { transform: translateY(calc(var(--k-anim-distance, 24px) * -1)); opacity: 0; }
+  55%  { transform: translateY(0); opacity: 1; }
+  72%  { transform: translateY(calc(var(--k-anim-distance, 24px) * -0.22)); }
+  86%  { transform: translateY(0); }
+  93%  { transform: translateY(calc(var(--k-anim-distance, 24px) * -0.08)); }
+  100% { transform: translateY(0); }
+}
+/* `jump` : impulsion sur place, pour attirer l'œil. */
+@keyframes k-jump {
+  0%, 100% { transform: translateY(0); }
+  30%      { transform: translateY(calc(var(--k-anim-distance, 10px) * -1)); }
+  55%      { transform: translateY(0); }
+  70%      { transform: translateY(calc(var(--k-anim-distance, 10px) * -0.3)); }
+}
+/* `fall` : chute avec bascule — pour les éléments décoratifs. */
+@keyframes k-fall {
+  from { opacity: 0; transform: translateY(-120%) rotate(-12deg); }
+  60%  { opacity: 1; }
+  to   { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+/* — Révélations par masque —————————————————————————————————————— */
+/* Balayage vertical : le contenu se dévoile sans bouger. */
+@keyframes k-wipe-up {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes k-wipe-right {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+/* Rideau : le voile se retire vers le haut. */
+@keyframes k-curtain-out {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(0 0 100% 0); }
+}
+
+/* — Boucles d'ambiance ——————————————————————————————————————— */
+@keyframes k-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes k-sway {
+  0%, 100% { transform: rotate(calc(var(--k-anim-angle, 3deg) * -1)); }
+  50%      { transform: rotate(var(--k-anim-angle, 3deg)); }
+}
+@keyframes k-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(calc(var(--k-anim-distance, 8px) * -1)); }
+}
+@keyframes k-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: var(--k-anim-opacity, 0.45); }
+}
+/* Éclat qui traverse — pour les skeletons et les surfaces en attente. */
+@keyframes k-shimmer {
+  from { background-position: -160% 0; }
+  to   { background-position: 260% 0; }
+}

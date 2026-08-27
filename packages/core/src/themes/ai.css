@@ -1,0 +1,24 @@
+/**
+ * Kirari — thème Ai (藍, indigo). Exemple de rebranding complet.
+ *
+ * À importer APRÈS `@kirari-ds/core` : à spécificité égale, le dernier gagne.
+ *
+ *   import "@kirari-ds/core";
+ *   import "@kirari-ds/core/themes/ai.css";
+ */
+:root {
+  --k-brand-100: #e0eaf7;
+  --k-brand-200: #bed3ee;
+  --k-brand-300: #92b4e2;
+  --k-brand-400: #6690d3;
+  --k-brand-500: #4470c0;
+  --k-brand-600: #3557a1;
+  --k-brand-700: #2a4482;
+
+  --k-on-accent-light: #ffffff;
+  --k-on-accent-dark: #172445;
+
+  --k-brand-2-100: #fbe5ee;
+  --k-brand-2-400: #ec7ba3;
+  --k-brand-2-500: #e05586;
+}

@@ -1,0 +1,17 @@
+/**
+ * Kirari — rayons.
+ *
+ * `--k-radius-squircle` est un rayon relatif (20%) : contrairement aux
+ * autres, il suit la taille de la boîte au lieu d'être figé en pixels.
+ * Sur un carré, il donne la courbure douce d'une icône d'application.
+ */
+:root {
+  --k-radius-none: 0;
+  --k-radius-xs: 4px;
+  --k-radius-sm: 6px;
+  --k-radius-md: 10px;
+  --k-radius-lg: 16px;
+  --k-radius-xl: 24px;
+  --k-radius-squircle: 20%;
+  --k-radius-full: 9999px;
+}

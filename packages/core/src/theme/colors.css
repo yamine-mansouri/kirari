@@ -1,0 +1,55 @@
+/**
+ * Kirari — passerelle Tailwind : couleurs.
+ *
+ * `@theme inline` est obligatoire ici. Sans `inline`, l'utilitaire généré
+ * référencerait `var(--color-accent)`, résolu à la racine — là où `--k-accent`
+ * n'a pas encore la valeur du thème actif. Le bug serait silencieux : correct
+ * en clair, figé en sombre. Avec `inline`, l'utilitaire porte directement
+ * `var(--k-accent)`, résolu au point d'usage.
+ */
+/* ═══ Couleurs — sensibles au thème, donc `inline` ═══════════════════════ */
+@theme inline {
+  /* Surfaces */
+  --color-bg: var(--k-bg);
+  --color-surface: var(--k-surface);
+  --color-surface-raised: var(--k-surface-raised);
+  --color-surface-sunken: var(--k-surface-sunken);
+  --color-overlay: var(--k-overlay);
+
+  /* Texte — nommé `ink` et non `text` : `--color-text-*` donnerait
+     des utilitaires illisibles comme `text-text-muted`. */
+  --color-ink: var(--k-text);
+  --color-ink-muted: var(--k-text-muted);
+  --color-ink-subtle: var(--k-text-subtle);
+  --color-on-accent: var(--k-text-on-accent);
+
+  /* Bordures — nommé `line` pour donner `border-line`. */
+  --color-line: var(--k-border);
+  --color-line-strong: var(--k-border-strong);
+
+  /* Accent */
+  --color-accent: var(--k-accent);
+  --color-accent-hover: var(--k-accent-hover);
+  --color-accent-active: var(--k-accent-active);
+  --color-accent-subtle: var(--k-accent-subtle);
+  --color-accent-text: var(--k-accent-text);
+  --color-accent-2: var(--k-accent-2);
+  --color-accent-2-subtle: var(--k-accent-2-subtle);
+
+  /* États */
+  --color-success: var(--k-success);
+  --color-success-subtle: var(--k-success-subtle);
+  --color-warning: var(--k-warning);
+  --color-warning-subtle: var(--k-warning-subtle);
+  --color-danger: var(--k-danger);
+  --color-danger-subtle: var(--k-danger-subtle);
+
+  /* Typographie et ombres — pointent aussi vers des variables Kirari. */
+  --font-sans: var(--k-font-sans);
+  --font-mono: var(--k-font-mono);
+  --shadow-sm: var(--k-shadow-sm);
+  --shadow-md: var(--k-shadow-md);
+  --shadow-lg: var(--k-shadow-lg);
+  --shadow-xl: var(--k-shadow-xl);
+}
+

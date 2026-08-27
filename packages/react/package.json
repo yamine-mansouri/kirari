@@ -1,0 +1,67 @@
+{
+  "name": "@kirari-ds/react",
+  "version": "0.1.0",
+  "description": "Kirari — composants React et primitives de mouvement, au-dessus de @kirari-ds/core.",
+  "license": "MIT",
+  "author": "Yamine Mansouri <yamine.mansouri@epitech.eu>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yamine-mansouri/kirari.git",
+    "directory": "packages/react"
+  },
+  "keywords": [
+    "design-system",
+    "react",
+    "animation",
+    "motion",
+    "theming"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "AGENTS.md",
+    "README.md"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@kirari-ds/core": "workspace:^",
+    "react": ">=18",
+    "react-dom": ">=18",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@kirari-ds/core": "workspace:*",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "tailwindcss": "^4.3.3",
+    "@storybook/react-vite": "^10.5.10",
+    "storybook": "^10.5.10"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "tailwind-variants": "^3.3.1",
+    "tailwind-merge": "^3.6.0",
+    "clsx": "^2.1.1"
+  }
+}

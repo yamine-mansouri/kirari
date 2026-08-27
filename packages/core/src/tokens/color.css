@@ -1,0 +1,132 @@
+/**
+ * Kirari — mapping sémantique des couleurs.
+ *
+ * CE FICHIER N'EST PAS UN THÈME. C'est le contrat : il traduit une échelle de
+ * marque (`--k-brand-*`, fournie par un fichier de thème) en 25 tokens
+ * sémantiques que les composants consomment. La traduction diffère entre clair
+ * et sombre — en clair l'accent est la nuance 500, en sombre la 400, qui tient
+ * mieux sur un fond foncé.
+ *
+ * Conséquence : un thème s'écrit UNE fois, pas deux. Voir `themes/sakura.css`.
+ *
+ * Trois états, dans cet ordre de priorité :
+ *   1. `:root`                       → clair (défaut, toujours défini)
+ *   2. `prefers-color-scheme: dark`  → sombre si l'OS le demande…
+ *      guardé par `:not([data-theme=light])`   …sauf choix explicite clair
+ *   3. `[data-theme="dark"]`         → choix explicite, gagne toujours
+ *
+ * Aucune couleur ne doit avoir sa SEULE définition dans un bloc media ou
+ * `[data-theme]` : le thème clair est la source de vérité.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* — Surfaces (palier 2 : surchargeable, rarement nécessaire) —————— */
+  --k-bg: var(--k-sumi-50);
+  --k-surface: var(--k-sumi-0);
+  --k-surface-raised: var(--k-sumi-0);
+  --k-surface-sunken: var(--k-sumi-100);
+  --k-overlay: rgb(26 26 24 / 0.42);
+
+  /* — Texte (palier 2) ——————————————————————————————————————————— */
+  --k-text: var(--k-sumi-900);
+  --k-text-muted: var(--k-sumi-600);
+  --k-text-subtle: var(--k-sumi-500);
+  --k-text-on-accent: var(--k-on-accent-light, #ffffff);
+
+  /* — Bordures (palier 2) ————————————————————————————————————————— */
+  --k-border: var(--k-sumi-200);
+  --k-border-strong: var(--k-sumi-300);
+
+  /* — Accent (palier 1 : dérivé de l'échelle de marque) ——————————— */
+  --k-accent: var(--k-brand-500);
+  --k-accent-hover: var(--k-brand-600);
+  --k-accent-active: var(--k-brand-700);
+  --k-accent-subtle: var(--k-brand-100);
+  --k-accent-text: var(--k-brand-700);
+
+  /* Accent secondaire — retombe sur la marque si le thème ne le fournit pas. */
+  --k-accent-2: var(--k-brand-2-500, var(--k-brand-500));
+  --k-accent-2-subtle: var(--k-brand-2-100, var(--k-brand-100));
+
+  /* — États (palier 3 : quasiment jamais surchargé) ———————————————— */
+  --k-success: var(--k-matcha-500);
+  --k-success-subtle: var(--k-matcha-100);
+  --k-warning: var(--k-kohaku-500);
+  --k-warning-subtle: var(--k-kohaku-100);
+  --k-danger: var(--k-beni-500);
+  --k-danger-subtle: var(--k-beni-100);
+
+  --k-focus-ring: var(--k-brand-400);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --k-bg: var(--k-sumi-950);
+    --k-surface: var(--k-sumi-900);
+    --k-surface-raised: var(--k-sumi-800);
+    --k-surface-sunken: #0a0a0a;
+    --k-overlay: rgb(0 0 0 / 0.62);
+
+    --k-text: var(--k-sumi-100);
+    --k-text-muted: var(--k-sumi-400);
+    --k-text-subtle: var(--k-sumi-500);
+    --k-text-on-accent: var(--k-on-accent-dark, #101010);
+
+    --k-border: var(--k-sumi-800);
+    --k-border-strong: var(--k-sumi-700);
+
+    /* Un cran plus clair qu'en thème clair : la 500 s'enfonce sur du sombre. */
+    --k-accent: var(--k-brand-400);
+    --k-accent-hover: var(--k-brand-300);
+    --k-accent-active: var(--k-brand-200);
+    --k-accent-text: var(--k-brand-300);
+    /* La nuance 100 serait aveuglante sur du noir : on teinte la surface. */
+    --k-accent-subtle: color-mix(in oklab, var(--k-brand-400) 16%, var(--k-surface));
+
+    --k-accent-2: var(--k-brand-2-400, var(--k-brand-400));
+    --k-accent-2-subtle: color-mix(in oklab, var(--k-brand-2-400, var(--k-brand-400)) 16%, var(--k-surface));
+
+    --k-success-subtle: color-mix(in oklab, var(--k-matcha-500) 18%, var(--k-surface));
+    --k-warning-subtle: color-mix(in oklab, var(--k-kohaku-500) 18%, var(--k-surface));
+    --k-danger-subtle: color-mix(in oklab, var(--k-beni-500) 18%, var(--k-surface));
+
+    --k-focus-ring: var(--k-brand-400);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --k-bg: var(--k-sumi-950);
+  --k-surface: var(--k-sumi-900);
+  --k-surface-raised: var(--k-sumi-800);
+  --k-surface-sunken: #0a0a0a;
+  --k-overlay: rgb(0 0 0 / 0.62);
+
+  --k-text: var(--k-sumi-100);
+  --k-text-muted: var(--k-sumi-400);
+  --k-text-subtle: var(--k-sumi-500);
+  --k-text-on-accent: var(--k-on-accent-dark, #101010);
+
+  --k-border: var(--k-sumi-800);
+  --k-border-strong: var(--k-sumi-700);
+
+  --k-accent: var(--k-brand-400);
+  --k-accent-hover: var(--k-brand-300);
+  --k-accent-active: var(--k-brand-200);
+  --k-accent-text: var(--k-brand-300);
+  --k-accent-subtle: color-mix(in oklab, var(--k-brand-400) 16%, var(--k-surface));
+
+  --k-accent-2: var(--k-brand-2-400, var(--k-brand-400));
+  --k-accent-2-subtle: color-mix(in oklab, var(--k-brand-2-400, var(--k-brand-400)) 16%, var(--k-surface));
+
+  --k-success-subtle: color-mix(in oklab, var(--k-matcha-500) 18%, var(--k-surface));
+  --k-warning-subtle: color-mix(in oklab, var(--k-kohaku-500) 18%, var(--k-surface));
+  --k-danger-subtle: color-mix(in oklab, var(--k-beni-500) 18%, var(--k-surface));
+
+  --k-focus-ring: var(--k-brand-400);
+}

@@ -1,0 +1,33 @@
+/**
+ * Kirari — palette brute (primitives non thématiques).
+ *
+ * Ce qui vit ici ne dépend PAS de la marque : les neutres et les couleurs
+ * d'état. L'échelle de marque, elle, appartient au fichier de thème
+ * (`themes/sakura.css` par défaut) — c'est ce qui rend le rebranding possible.
+ *
+ * Ne jamais consommer ces variables dans un composant : passer par les tokens
+ * sémantiques de `color.css`.
+ */
+:root {
+  /* Sumi (墨) — neutres légèrement chauds. */
+  --k-sumi-0: #ffffff;
+  --k-sumi-50: #fafafa;
+  --k-sumi-100: #f4f4f3;
+  --k-sumi-200: #e8e7e5;
+  --k-sumi-300: #d4d3d0;
+  --k-sumi-400: #a9a8a4;
+  --k-sumi-500: #86857f;
+  --k-sumi-600: #66655f;
+  --k-sumi-700: #4a4945;
+  --k-sumi-800: #2e2d2b;
+  --k-sumi-900: #1a1a18;
+  --k-sumi-950: #101010;
+
+  /* États — sémantiquement figés : un rouge d'erreur reste un rouge d'erreur. */
+  --k-matcha-500: #3f9e6a;
+  --k-matcha-100: #dff3e7;
+  --k-kohaku-500: #d98424;
+  --k-kohaku-100: #fbeed8;
+  --k-beni-500: #d1443f;
+  --k-beni-100: #fadedd;
+}

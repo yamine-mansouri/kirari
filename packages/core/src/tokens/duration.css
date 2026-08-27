@@ -1,0 +1,26 @@
+/**
+ * Kirari — durées.
+ *
+ * Une échelle resserrée, volontairement : 0.4s couvre la grande majorité
+ * des transitions, et les boucles d'ambiance vivent dans un tout autre ordre
+ * de grandeur (2s à 7s). Entre les deux, peu de choses méritent d'exister.
+ *
+ * `--k-dur-3` est la durée par défaut de tout le système.
+ */
+:root {
+  --k-dur-1: 0.2s; /* micro : hover, focus, ripple */
+  --k-dur-2: 0.3s; /* rapide : toggle, tooltip */
+  --k-dur-3: 0.4s; /* BASE : la majorité des transitions */
+  --k-dur-4: 0.6s; /* ample : modale, panneau */
+  --k-dur-5: 0.8s; /* scène : entrée de page, révélation */
+  --k-dur-6: 1s;   /* long : séquence narrative */
+
+  /* Boucles d'ambiance — jamais liées à une interaction. */
+  --k-dur-ambient-1: 2s;
+  --k-dur-ambient-2: 4s;
+  --k-dur-ambient-3: 7s;
+
+  /* Pas de décalage entre deux éléments d'une même séquence. */
+  --k-stagger: 0.08s;
+  --k-stagger-loose: 0.14s;
+}

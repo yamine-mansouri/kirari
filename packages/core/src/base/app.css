@@ -1,0 +1,31 @@
+/**
+ * Kirari — styles de fond applicatif.
+ *
+ * Volontairement minimal : le preflight de Tailwind fait déjà le reset
+ * (box-sizing, marges, médias en bloc, héritage typographique des contrôles).
+ * On n'ajoute que ce qu'il ne couvre pas.
+ */
+body {
+  background-color: var(--k-bg);
+  color: var(--k-text);
+  font-family: var(--k-font-sans);
+  line-height: var(--k-leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Anneau de focus cohérent sur tout le système, au clavier uniquement.
+   Le preflight de Tailwind ne pose rien : sans cette règle, chaque composant
+   devrait gérer son propre focus. */
+:where(:focus-visible) {
+  outline: 2px solid var(--k-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Les transitions de couleur ne s'activent qu'après le premier rendu, pour
+   qu'un changement de thème au chargement ne soit pas animé. */
+.k-theme-ready body {
+  transition:
+    background-color var(--k-dur-2) var(--k-ease-smooth),
+    color var(--k-dur-2) var(--k-ease-smooth);
+}

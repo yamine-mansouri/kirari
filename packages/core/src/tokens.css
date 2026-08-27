@@ -1,0 +1,10 @@
+/* Kirari — tokens et thème par défaut, sans passerelle Tailwind ni styles. */
+@import "./tokens/palette.css";
+@import "./themes/sakura.css";
+@import "./tokens/color.css";
+@import "./tokens/easing.css";
+@import "./tokens/duration.css";
+@import "./tokens/space.css";
+@import "./tokens/radius.css";
+@import "./tokens/typography.css";
+@import "./tokens/elevation.css";

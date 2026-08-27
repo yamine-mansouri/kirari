@@ -1,0 +1,36 @@
+/**
+ * Kirari — élévation et profondeur.
+ *
+ * Ombres douces et peu contrastées : la hiérarchie passe d'abord par le
+ * mouvement, pas par l'ombre portée.
+ */
+:root {
+  --k-shadow-none: none;
+  --k-shadow-sm: 0 1px 2px rgb(26 26 24 / 0.06), 0 1px 1px rgb(26 26 24 / 0.04);
+  --k-shadow-md: 0 4px 12px rgb(26 26 24 / 0.08), 0 1px 3px rgb(26 26 24 / 0.05);
+  --k-shadow-lg: 0 12px 32px rgb(26 26 24 / 0.12), 0 2px 8px rgb(26 26 24 / 0.06);
+  --k-shadow-xl: 0 24px 64px rgb(26 26 24 / 0.16), 0 4px 12px rgb(26 26 24 / 0.08);
+
+  --k-z-base: 0;
+  --k-z-raised: 10;
+  --k-z-sticky: 100;
+  --k-z-overlay: 500;
+  --k-z-modal: 600;
+  --k-z-toast: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --k-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --k-shadow-md: 0 4px 12px rgb(0 0 0 / 0.5);
+    --k-shadow-lg: 0 12px 32px rgb(0 0 0 / 0.55);
+    --k-shadow-xl: 0 24px 64px rgb(0 0 0 / 0.6);
+  }
+}
+
+:root[data-theme="dark"] {
+  --k-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --k-shadow-md: 0 4px 12px rgb(0 0 0 / 0.5);
+  --k-shadow-lg: 0 12px 32px rgb(0 0 0 / 0.55);
+  --k-shadow-xl: 0 24px 64px rgb(0 0 0 / 0.6);
+}

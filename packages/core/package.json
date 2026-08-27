@@ -1,0 +1,60 @@
+{
+  "name": "@kirari-ds/core",
+  "version": "0.1.0",
+  "description": "Kirari — socle CSS : tokens, thèmes, motion et passerelle Tailwind v4.",
+  "license": "MIT",
+  "author": "Yamine Mansouri <yamine.mansouri@epitech.eu>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yamine-mansouri/kirari.git",
+    "directory": "packages/core"
+  },
+  "keywords": [
+    "design-system",
+    "css",
+    "animation",
+    "motion",
+    "tokens",
+    "theming"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "type": "module",
+  "files": [
+    "dist",
+    "src",
+    "AGENTS.md",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./dist/kirari.css",
+    "./kirari.css": "./dist/kirari.css",
+    "./kirari.min.css": "./dist/kirari.min.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./motion.css": "./dist/motion.css",
+    "./theme-template.css": "./dist/theme-template.css",
+    "./themes/sakura.css": "./dist/themes/sakura.css",
+    "./themes/ai.css": "./dist/themes/ai.css",
+    "./themes/matcha.css": "./dist/themes/matcha.css",
+    "./src/*": "./src/*"
+  },
+  "style": "./dist/kirari.css",
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "dev": "node ./scripts/build.mjs --watch",
+    "typecheck": "echo 'core: pas de TS' "
+  },
+  "devDependencies": {
+    "cssnano": "^7.0.6",
+    "postcss": "^8.4.49",
+    "postcss-import": "^16.1.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.0.0"
+  }
+}

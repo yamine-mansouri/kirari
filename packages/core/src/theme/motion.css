@@ -1,0 +1,108 @@
+/**
+ * Kirari — passerelle Tailwind : mouvement, formes et typographie.
+ *
+ * Séparé des couleurs pour que `@kirari-ds/core/motion.css` puisse poser le
+ * mouvement Kirari sur un projet qui garde son propre système de couleurs.
+ *
+ * Il n'existe pas de namespace `--duration-*` en Tailwind v4 : les durées
+ * s'utilisent donc via `duration-(--k-dur-3)`. Les animations, elles,
+ * encapsulent déjà leur durée dans le raccourci `--animate-*`.
+ */
+/* ═══ Courbes, rayons, typographie ═══════════════════════════════════════
+ *
+ * Également en `inline` : ces valeurs pointent vers les tokens Kirari plutôt
+ * que d'être recopiées ici. Une seule source de vérité — modifier
+ * `tokens/easing.css` suffit, la passerelle suit.
+ *
+ * L'échelle d'espacement de Tailwind (base 0.25rem) coïncide déjà avec celle
+ * de Kirari : `p-1` vaut 4px, `p-4` vaut 16px, `p-6` vaut 24px. Rien à mapper.
+ */
+@theme inline {
+  /* Donnent `ease-enter`, `ease-exit`, `ease-bounce`… en plus des
+     `ease-in|out|in-out` de Tailwind. */
+  --ease-enter: var(--k-ease-enter);
+  --ease-exit: var(--k-ease-exit);
+  --ease-hold: var(--k-ease-hold);
+  --ease-brake: var(--k-ease-brake);
+  --ease-snap: var(--k-ease-snap);
+  --ease-smooth: var(--k-ease-smooth);
+  --ease-swift: var(--k-ease-swift);
+  --ease-glide: var(--k-ease-glide);
+  --ease-bounce: var(--k-ease-bounce);
+  --ease-spring: var(--k-ease-spring);
+
+  /* Rayons — `rounded-squircle` est un `border-radius` relatif (20%) : il
+     suit la taille de la boîte au lieu d'être figé en pixels. */
+  --radius-xs: var(--k-radius-xs);
+  --radius-sm: var(--k-radius-sm);
+  --radius-md: var(--k-radius-md);
+  --radius-lg: var(--k-radius-lg);
+  --radius-xl: var(--k-radius-xl);
+  --radius-squircle: var(--k-radius-squircle);
+
+  /* Typographie */
+  --text-xs: var(--k-text-xs);
+  --text-sm: var(--k-text-sm);
+  /* `base` et non `md` : c'est le nom de Tailwind pour la taille par défaut.
+     Le respecter évite que tailwind-merge confonde `text-md` avec une couleur
+     de texte — il ne reconnaît comme tailles que l'échelle standard. */
+  --text-base: var(--k-text-md);
+  --text-lg: var(--k-text-lg);
+  --text-xl: var(--k-text-xl);
+  --text-2xl: var(--k-text-2xl);
+  --text-3xl: var(--k-text-3xl);
+  --text-4xl: var(--k-text-4xl);
+
+  --leading-tight: var(--k-leading-tight);
+  --leading-normal: var(--k-leading-normal);
+  --leading-loose: var(--k-leading-loose);
+
+  --tracking-tight: var(--k-tracking-tight);
+  --tracking-normal: var(--k-tracking-normal);
+  --tracking-wide: var(--k-tracking-wide);
+}
+
+/* ═══ Animations ═════════════════════════════════════════════════════════
+ *
+ * Chaque raccourci embarque sa durée et sa courbe : `animate-slide-up` suffit,
+ * et respecte la règle du système (entrée en `enter`, sortie en `exit`).
+ * Pour ajuster, surcharger `--k-anim-distance` ou `--k-anim-scale` sur
+ * l'élément — les keyframes les lisent.
+ */
+@theme {
+  /* Entrées */
+  --animate-fade-in: k-fade-in var(--k-dur-3) var(--k-ease-enter) both;
+  --animate-slide-up: k-slide-up var(--k-dur-3) var(--k-ease-enter) both;
+  --animate-slide-down: k-slide-down var(--k-dur-3) var(--k-ease-enter) both;
+  --animate-slide-left: k-slide-left var(--k-dur-3) var(--k-ease-enter) both;
+  --animate-slide-right: k-slide-right var(--k-dur-3) var(--k-ease-enter) both;
+  --animate-scale-in: k-scale-in var(--k-dur-3) var(--k-ease-enter) both;
+  --animate-bloom: k-bloom var(--k-dur-3) var(--k-ease-enter) both;
+  --animate-popup: k-popup var(--k-dur-3) var(--k-ease-bounce) both;
+  --animate-bound: k-bound var(--k-dur-5) var(--k-ease-enter) both;
+  --animate-fall: k-fall var(--k-dur-5) var(--k-ease-enter) both;
+  --animate-wipe-up: k-wipe-up var(--k-dur-5) var(--k-ease-enter) both;
+  --animate-wipe-right: k-wipe-right var(--k-dur-5) var(--k-ease-enter) both;
+
+  /* Sorties — jamais la courbe d'entrée. */
+  --animate-fade-out: k-fade-out var(--k-dur-3) var(--k-ease-exit) both;
+  --animate-slide-up-out: k-slide-up-out var(--k-dur-3) var(--k-ease-exit) both;
+  --animate-slide-down-out: k-slide-down-out var(--k-dur-3) var(--k-ease-exit) both;
+  --animate-scale-out: k-scale-out var(--k-dur-3) var(--k-ease-exit) both;
+  --animate-curtain-out: k-curtain-out var(--k-dur-3) var(--k-ease-exit) both;
+
+  /* Accent ponctuel */
+  --animate-jump: k-jump var(--k-dur-3) var(--k-ease-smooth) both;
+
+  /* Indicateur de chargement — animation dédiée plutôt que `animate-spin-slow`
+     assorti d'une durée arbitraire : rien ne garantit l'ordre de cascade
+     entre un utilitaire de thème et un utilitaire de propriété arbitraire. */
+  --animate-spinner: k-spin 0.7s var(--k-ease-linear) infinite;
+
+  /* Boucles d'ambiance — durées longues, jamais liées à une interaction. */
+  --animate-spin-slow: k-spin var(--k-dur-ambient-3) var(--k-ease-linear) infinite;
+  --animate-sway: k-sway var(--k-dur-ambient-2) var(--k-ease-smooth) infinite;
+  --animate-float: k-float var(--k-dur-ambient-1) var(--k-ease-smooth) infinite;
+  --animate-pulse-soft: k-pulse var(--k-dur-ambient-1) var(--k-ease-smooth) infinite;
+  --animate-shimmer: k-shimmer var(--k-dur-ambient-1) var(--k-ease-linear) infinite;
+}
