@@ -50,7 +50,7 @@ export const Playground: Story = {
 export const Galerie: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div className="grid max-w-2xl grid-cols-3 gap-6">
+    <div className="grid max-w-2xl grid-cols-2 gap-6">
       <NumberField label="Entier" defaultValue={12} min={0} />
       <NumberField label="Par pas de 5" defaultValue={25} step={5} />
       <NumberField label="Décimal" defaultValue={1.5} step={0.1} />

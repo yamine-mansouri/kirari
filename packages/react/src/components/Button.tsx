@@ -18,7 +18,12 @@ const button = tv({
       "cursor-pointer overflow-hidden rounded-md border font-medium whitespace-nowrap",
       "transition-[color,border-color,transform] duration-(--k-dur-2) ease-smooth",
       "active:scale-[0.97]",
-      "disabled:pointer-events-none disabled:opacity-50 disabled:active:scale-100",
+      // L'opacité ne s'applique qu'au VRAI désactivé. Un bouton en chargement
+      // est aussi `disabled` pour bloquer les clics, mais il ne doit pas
+      // paraître éteint : son label est déjà masqué, et l'atténuer en plus
+      // donne un rectangle délavé et vide.
+      "disabled:pointer-events-none disabled:active:scale-100",
+      "disabled:not-data-loading:opacity-50",
     ],
     // Le calque de survol, replié au repos.
     layer: [
@@ -103,6 +108,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       // Le label est masqué visuellement pendant le chargement : on l'annonce
       // aux lecteurs d'écran plutôt que de les laisser sur un bouton muet.
       aria-busy={loading || undefined}
+      data-loading={loading || undefined}
       className={cx(styles.root(), className)}
     >
       <span aria-hidden="true" className={styles.layer()} />

@@ -34,7 +34,10 @@ export function ToggleGroup({ items, className, ...rest }: ToggleGroupProps) {
     <BaseGroup
       {...rest}
       className={cx(
-        "inline-flex items-center gap-0.5 rounded-md border border-line bg-surface-sunken p-0.5",
+        // `w-fit` en plus d'`inline-flex` : dans un conteneur flex en colonne,
+        // l'étirement par défaut (`align-items: stretch`) élargit le groupe
+        // sur toute la largeur disponible malgré l'affichage en ligne.
+        "inline-flex w-fit items-center gap-0.5 rounded-md border border-line bg-surface-sunken p-0.5",
         className,
       )}
     >

@@ -55,6 +55,11 @@ export function Progress({ label, showValue = false, className, ...rest }: Progr
             // En indéterminé, la piste est pleine et c'est un dégradé qui la
             // balaie — même mécanique que le Skeleton, donc le même token.
             "data-indeterminate:w-full data-indeterminate:animate-shimmer",
+            // La couleur de fond doit disparaître, sinon le dégradé se
+            // superpose à un aplat et la barre paraît pleine. Propriété
+            // arbitraire et non `bg-transparent` : ce dernier appartiendrait
+            // au même groupe que le dégradé, que tailwind-merge écarterait.
+            "data-indeterminate:[background-color:transparent]",
             "data-indeterminate:bg-[linear-gradient(90deg,transparent,var(--k-accent),transparent)]",
             "data-indeterminate:bg-[length:45%_100%] data-indeterminate:bg-no-repeat",
           )}

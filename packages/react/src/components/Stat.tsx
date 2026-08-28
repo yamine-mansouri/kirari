@@ -104,10 +104,19 @@ export function Stat({
     <div {...rest} className={cx("flex flex-col gap-1", className)}>
       <span className="text-xs font-medium tracking-wide text-ink-subtle uppercase">{label}</span>
 
-      <div className="flex items-baseline gap-2">
-        <span className="text-3xl font-bold tracking-tight text-ink tabular-nums">{display}</span>
+      {/* `flex-wrap: nowrap` explicite : un chiffre long poussait sa devise
+          et sa tendance à la ligne, ce qui casse la lecture d'un indicateur. */}
+      <div className="flex flex-nowrap items-baseline gap-2">
+        <span className="text-3xl font-bold tracking-tight whitespace-nowrap text-ink tabular-nums">
+          {display}
+        </span>
         {trend !== undefined && (
-          <span className={cx("flex items-center gap-0.5 text-sm font-medium", TREND_CLASS[trend])}>
+          <span
+            className={cx(
+              "flex shrink-0 items-center gap-0.5 text-sm font-medium whitespace-nowrap",
+              TREND_CLASS[trend],
+            )}
+          >
             <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
               {TREND_ICON[trend]}
             </svg>
