@@ -32,12 +32,17 @@
   /* — Texte (palier 2) ——————————————————————————————————————————— */
   --k-text: var(--k-sumi-900);
   --k-text-muted: var(--k-sumi-600);
-  --k-text-subtle: var(--k-sumi-500);
+  --k-text-subtle: var(--k-sumi-550);
   --k-text-on-accent: var(--k-on-accent-light, #ffffff);
 
-  /* — Bordures (palier 2) ————————————————————————————————————————— */
+  /* — Bordures (palier 2) —————————————————————————————————————————
+   *
+   * `--k-border` sépare, `--k-border-strong` **identifie** un contrôle :
+   * la case à cocher vide, le bouton en contour, le champ. C'est la seule
+   * indication visuelle de leur présence, donc elle doit atteindre 3:1
+   * (WCAG 1.4.11). `sumi-500` y parvient dans les deux thèmes. */
   --k-border: var(--k-sumi-200);
-  --k-border-strong: var(--k-sumi-300);
+  --k-border-strong: var(--k-sumi-500);
 
   /* — Accent (palier 1 : dérivé de l'échelle de marque) ——————————— */
   --k-accent: var(--k-brand-500);
@@ -53,10 +58,13 @@
   /* — États (palier 3 : quasiment jamais surchargé) ———————————————— */
   --k-success: var(--k-matcha-500);
   --k-success-subtle: var(--k-matcha-100);
+  --k-success-text: var(--k-matcha-700);
   --k-warning: var(--k-kohaku-500);
   --k-warning-subtle: var(--k-kohaku-100);
+  --k-warning-text: var(--k-kohaku-700);
   --k-danger: var(--k-beni-500);
   --k-danger-subtle: var(--k-beni-100);
+  --k-danger-text: var(--k-beni-700);
 
   --k-focus-ring: var(--k-brand-400);
 }
@@ -77,7 +85,9 @@
     --k-text-on-accent: var(--k-on-accent-dark, #101010);
 
     --k-border: var(--k-sumi-800);
-    --k-border-strong: var(--k-sumi-700);
+    /* Voir le bloc clair : une bordure qui identifie un contrôle doit
+       atteindre 3:1. `sumi-700` n'était qu'à 1.93:1 sur la surface sombre. */
+    --k-border-strong: var(--k-sumi-500);
 
     /* Un cran plus clair qu'en thème clair : la 500 s'enfonce sur du sombre. */
     --k-accent: var(--k-brand-400);
@@ -90,7 +100,13 @@
     --k-accent-2: var(--k-brand-2-400, var(--k-brand-400));
     --k-accent-2-subtle: color-mix(in oklab, var(--k-brand-2-400, var(--k-brand-400)) 16%, var(--k-surface));
 
-    --k-success-subtle: color-mix(in oklab, var(--k-matcha-500) 18%, var(--k-surface));
+    --k-success-text: var(--k-matcha-500);
+    --k-warning-text: var(--k-kohaku-500);
+    --k-danger-text: var(--k-beni-500);
+    --k-success-text: var(--k-matcha-500);
+  --k-warning-text: var(--k-kohaku-500);
+  --k-danger-text: var(--k-beni-500);
+  --k-success-subtle: color-mix(in oklab, var(--k-matcha-500) 18%, var(--k-surface));
     --k-warning-subtle: color-mix(in oklab, var(--k-kohaku-500) 18%, var(--k-surface));
     --k-danger-subtle: color-mix(in oklab, var(--k-beni-500) 18%, var(--k-surface));
 
@@ -113,7 +129,7 @@
   --k-text-on-accent: var(--k-on-accent-dark, #101010);
 
   --k-border: var(--k-sumi-800);
-  --k-border-strong: var(--k-sumi-700);
+  --k-border-strong: var(--k-sumi-500);
 
   --k-accent: var(--k-brand-400);
   --k-accent-hover: var(--k-brand-300);

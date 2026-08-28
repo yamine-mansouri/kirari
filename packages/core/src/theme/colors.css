@@ -39,10 +39,13 @@
   /* États */
   --color-success: var(--k-success);
   --color-success-subtle: var(--k-success-subtle);
+  --color-success-text: var(--k-success-text);
   --color-warning: var(--k-warning);
   --color-warning-subtle: var(--k-warning-subtle);
+  --color-warning-text: var(--k-warning-text);
   --color-danger: var(--k-danger);
   --color-danger-subtle: var(--k-danger-subtle);
+  --color-danger-text: var(--k-danger-text);
 
   /* Typographie et ombres — pointent aussi vers des variables Kirari. */
   --font-sans: var(--k-font-sans);

@@ -18,8 +18,12 @@
   --k-brand-700: #a12d57;
 
   /* Texte posé SUR la couleur d'accent. Le CSS ne peut pas le calculer :
-     `color-contrast()` n'est pas utilisable aujourd'hui. À vérifier à l'œil. */
-  --k-on-accent-light: #ffffff; /* sur --k-brand-500, en thème clair */
+     `color-contrast()` n'est pas utilisable aujourd'hui.
+     
+     Foncé et non blanc : le blanc sur ce rose ne donne que 3.61:1, sous le
+     seuil WCAG AA. Le rose est conservé tel quel — c'est le texte qui
+     s'adapte, comme le fait déjà le thème Matcha. */
+  --k-on-accent-light: #370f1d; /* sur --k-brand-500, en thème clair */
   --k-on-accent-dark: #55182e;  /* sur --k-brand-400, en thème sombre */
 
   /* Accent secondaire — optionnel, retombe sur la marque s'il est absent. */

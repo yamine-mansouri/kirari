@@ -17,17 +17,28 @@
   --k-sumi-300: #d4d3d0;
   --k-sumi-400: #a9a8a4;
   --k-sumi-500: #86857f;
+  /* Palier intercalaire, ajouté pour le texte discret : `sumi-500` ne donne
+     que 3.70:1 sur une surface blanche, sous le seuil WCAG AA de 4.5:1.
+     Calé sur le fond le plus clair du système (`#fafafa`) et non sur le blanc
+     pur, sans quoi il échoue sur le fond de page. */
+  --k-sumi-550: #6f6e69;
   --k-sumi-600: #66655f;
   --k-sumi-700: #4a4945;
   --k-sumi-800: #2e2d2b;
   --k-sumi-900: #1a1a18;
   --k-sumi-950: #101010;
 
-  /* États — sémantiquement figés : un rouge d'erreur reste un rouge d'erreur. */
+  /* États — sémantiquement figés : un rouge d'erreur reste un rouge d'erreur.
+     Le palier 500 sert aux aplats et aux icônes, où 3:1 suffit ; le palier 700
+     au texte posé sur le fond discret, où il faut 4.5:1. Le 500 sur le 100
+     plafonne entre 2.5 et 3.6:1 — insuffisant pour du texte. */
   --k-matcha-500: #3f9e6a;
+  --k-matcha-700: #307851;
   --k-matcha-100: #dff3e7;
   --k-kohaku-500: #d98424;
+  --k-kohaku-700: #9a5d19;
   --k-kohaku-100: #fbeed8;
   --k-beni-500: #d1443f;
+  --k-beni-700: #b43a36;
   --k-beni-100: #fadedd;
 }
