@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Table, type Column, type SortDirection } from "./Table";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Badge } from "./Badge";
 import { Avatar } from "./Avatar";
 import { EmptyState } from "./EmptyState";
@@ -186,4 +188,77 @@ export const AvecPagination: Story = {
       </div>
     );
   },
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Un tableau est la surface la plus austère du système. Un peu de matière y change beaucoup — à condition de ne jamais gêner la lecture des données, qui est sa seule raison d'être.</>}>
+      <SpecimenGrid wide>
+        <Specimen
+          title="Lignes en cascade"
+          note="Les lignes s'installent une à une après un chargement. Le tableau se remplit au lieu d'apparaître."
+          code={'<Table className="k-stagger [&_tbody_tr]:animate-slide-up" />'}
+          replayable
+        >
+          {(run) => (
+            <Table
+              key={run}
+              columns={COLUMNS}
+              rows={MEMBRES}
+              rowKey={(r) => r.id}
+              className="k-stagger [&_tbody_tr]:animate-slide-up"
+            />
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Tableau en galet"
+          note="Coins très arrondis et lignes séparées. Le tableau devient une liste de fiches."
+          code={'<Table className="rounded-[1.5rem] border-0\n  [&_tbody_tr]:rounded-xl" />'}
+        >
+          <Table
+            columns={COLUMNS.slice(0, 3)}
+            rows={MEMBRES.slice(0, 3)}
+            rowKey={(r) => r.id}
+            className="rounded-[1.5rem]"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Flèche de tri vivante"
+          note="La flèche de l'en-tête trié hoche à chaque changement de sens. Le tri se ressent."
+          code={'<Table className="[&_th_svg]:animate-tick" />'}
+          replayable
+        >
+          {(run) => (
+            <Table
+              key={run}
+              columns={COLUMNS}
+              rows={MEMBRES}
+              rowKey={(r) => r.id}
+              sort={{ key: "projets", direction: "desc" }}
+              onSortChange={() => {}}
+              className="[&_th_svg]:animate-tick"
+            />
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Ligne mise à l'honneur"
+          note="Des étincelles sur une seule ligne — le premier du classement, la nouveauté du jour."
+          code={'<Table className="[&_tbody_tr:first-child]:bg-accent-subtle" />'}
+        >
+          <Sparkle count={4} className="w-full">
+            <Table
+              columns={COLUMNS.slice(0, 3)}
+              rows={MEMBRES.slice(0, 3)}
+              rowKey={(r) => r.id}
+              className="w-full [&_tbody_tr:first-child]:bg-accent-subtle"
+            />
+          </Sparkle>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

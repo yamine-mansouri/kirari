@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Pagination } from "./Pagination";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Pagination",
@@ -77,5 +78,65 @@ export const Galerie: Story = {
         <Pagination page={1} pageCount={1} onChange={() => {}} />
       </section>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Une pagination est une rangée de petites cibles rondes : c'est déjà presque un jouet. Il suffit d'assumer.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Pastilles"
+          note="Cellules entièrement rondes. La rangée devient un chapelet plutôt qu'une barre d'outils."
+          code={'<Pagination className="[&_button]:rounded-full" />'}
+        >
+          <Pagination page={3} pageCount={12} onChange={() => {}} className="[&_button]:rounded-full" />
+        </Specimen>
+
+        <Specimen
+          title="Cellules qui s'enfoncent"
+          note="Écrasement pivoté sur la base au clic. Chaque changement de page est un appui."
+          code={'<Pagination className="[&_button]:origin-bottom\n  [&_button]:active:animate-squish" />'}
+        >
+          <Pagination
+            page={3}
+            pageCount={12}
+            onChange={() => {}}
+            className="[&_button]:origin-bottom [&_button]:active:animate-squish"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Rangée en cascade"
+          note="Les numéros s'installent un à un. Utile quand la pagination apparaît après un chargement."
+          code={'<Pagination className="k-stagger [&_button]:animate-pop-in" />'}
+          replayable
+        >
+          {(run) => (
+            <Pagination
+              key={run}
+              page={3}
+              pageCount={9}
+              onChange={() => {}}
+              className="k-stagger [&_button]:animate-pop-in"
+            />
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Page active qui hoche"
+          note="La cellule courante acquiesce au survol : elle confirme qu'on y est déjà."
+          code={'<Pagination className="[&_[aria-current]]:hover:animate-tick" />'}
+        >
+          <Pagination
+            page={4}
+            pageCount={12}
+            onChange={() => {}}
+            className="[&_[aria-current]]:hover:animate-tick"
+          />
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

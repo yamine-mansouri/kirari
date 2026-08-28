@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Kbd } from "./Kbd";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Kbd",
@@ -63,5 +65,56 @@ export const Galerie: Story = {
         </p>
       </section>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Une touche est déjà la représentation d'un objet physique. C'est le composant où l'enfoncement n'est pas une métaphore mais une imitation.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Touche qu'on enfonce"
+          note="Écrasement pivoté au bord bas au survol. La touche s'enfonce comme sur un vrai clavier."
+          code={'<Kbd className="origin-bottom\n  hover:animate-squish" />'}
+        >
+          <Kbd keys="Cmd+K" className="[&_kbd]:origin-bottom [&_kbd]:hover:animate-squish" />
+        </Specimen>
+
+        <Specimen
+          title="Frappe séquencée"
+          note="Les touches d'un raccourci apparaissent dans l'ordre où on les presse. Une démonstration, pas une décoration."
+          code={'<span className="k-stagger">\n  <Kbd className="animate-pop-in" />\n</span>'}
+          replayable
+        >
+          {(run) => (
+            <span key={run} className="k-stagger [&_kbd]:animate-pop-in">
+              <Kbd keys="Shift+Cmd+P" />
+            </span>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Touches de travers"
+          note="Chaque touche à un angle légèrement différent, comme posées à la main."
+          code={'<Kbd className="[&_kbd:nth-child(2)]:rotate-3" />'}
+        >
+          <Kbd
+            keys="Ctrl+Alt+Delete"
+            className="[&_kbd:nth-child(1)]:-rotate-3 [&_kbd:nth-child(2)]:rotate-2 [&_kbd:nth-child(3)]:-rotate-1"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Raccourci mis en avant"
+          note="Pour une page d'aide : la combinaison à retenir scintille."
+          code={'<Sparkle count={4}><Kbd /></Sparkle>'}
+        >
+          <Sparkle count={4}>
+            <Kbd keys="Cmd+K" />
+          </Sparkle>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

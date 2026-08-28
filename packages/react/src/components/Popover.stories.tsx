@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Popover } from "./Popover";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Button } from "./Button";
 import { Field } from "./Field";
 
@@ -115,5 +116,67 @@ export const AvecFormulaire: Story = {
         </div>
       </Popover>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Un popover s'ouvre déjà depuis son ancre. La fantaisie consiste à accentuer ce lien physique au déclencheur — le panneau n'apparaît pas, il se déplie depuis quelque chose.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Dépliage en gelée"
+          note="Le panneau déborde à l'ouverture au lieu de se poser. Le lien à l'ancre devient élastique."
+          code={'<Popover className="animate-jelly" />'}
+        >
+          <Popover
+            trigger={<Button variant="outline" size="sm">Ouvrir</Button>}
+            className="data-open:animate-jelly"
+            title="Déplié"
+            description="L'ouverture déborde, puis se stabilise."
+          />
+        </Specimen>
+
+        <Specimen
+          title="Panneau en galet"
+          note="Rayon très large et aucune ombre : le panneau devient un objet posé plutôt qu'une fenêtre flottante."
+          code={'<Popover className="rounded-[1.75rem]\n  shadow-none border-2" />'}
+        >
+          <Popover
+            trigger={<Button variant="soft" size="sm">Tout doux</Button>}
+            className="rounded-[1.75rem] border-2 shadow-none"
+            title="Sans ombre"
+            description="La forme porte la profondeur."
+          />
+        </Specimen>
+
+        <Specimen
+          title="Contenu en cascade"
+          note="Le panneau s'ouvre, puis son contenu arrive ligne par ligne. Deux temps au lieu d'un."
+          code={'<div className="k-stagger" style={{ "--k-stagger-base": ".15s" }}>'}
+        >
+          <Popover trigger={<Button variant="outline" size="sm">Contenu séquencé</Button>} title="Détails">
+            <div className="k-stagger flex flex-col gap-2">
+              {["Auteur", "Modifié il y a 2 h", "3 collaborateurs"].map((t) => (
+                <span key={t} className="animate-slide-up text-sm text-ink-muted">{t}</span>
+              ))}
+            </div>
+          </Popover>
+        </Specimen>
+
+        <Specimen
+          title="Panneau penché"
+          note="Ouvert à −2°, comme une note épinglée. À réserver à un contenu court et informel."
+          code={'<Popover className="-rotate-2" />'}
+        >
+          <Popover
+            trigger={<Button size="sm">Note épinglée</Button>}
+            className="-rotate-2"
+            title="Pense-bête"
+            description="Posé un peu de travers."
+          />
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

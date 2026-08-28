@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { NumberField } from "./NumberField";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/NumberField",
@@ -66,5 +68,51 @@ export const Galerie: Story = {
       />
       <NumberField label="Désactivé" defaultValue={7} disabled />
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Un champ numérique est fait de deux boutons qu'on martèle. C'est exactement le cas où l'écrasement se justifie : la répétition rend la matière perceptible.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Boutons qui s'enfoncent"
+          note="Chaque incrément écrase le bouton sur sa base. En maintenant appuyé, la répétition devient un rythme."
+          code={'<NumberField className="[&_button]:origin-bottom\n  [&_button]:active:animate-squish" />'}
+        >
+          <NumberField
+            defaultValue={3}
+            className="max-w-40 [&_button]:origin-bottom [&_button]:active:animate-squish"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Galet"
+          note="Groupe entièrement arrondi, boutons ronds aux extrémités. Le champ devient un contrôle de jouet."
+          code={'<NumberField className="[&>div]:rounded-full" />'}
+        >
+          <NumberField defaultValue={7} className="max-w-40 [&>div]:rounded-full" />
+        </Specimen>
+
+        <Specimen
+          title="Penché"
+          note="Le champ posé à −3°, dans une carte droite. Suffit à sortir de la grille."
+          code={'<NumberField className="-rotate-3" />'}
+        >
+          <NumberField defaultValue={12} className="max-w-40 -rotate-3" />
+        </Specimen>
+
+        <Specimen
+          title="Quantité fêtée"
+          note="Pour un panier : la quantité choisie mérite une réaction."
+          code={'<Sparkle count={4}><NumberField /></Sparkle>'}
+        >
+          <Sparkle count={4}>
+            <NumberField defaultValue={2} className="max-w-40" />
+          </Sparkle>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

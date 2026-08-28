@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Accordion, Collapsible } from "./Accordion";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const ITEMS = [
   {
@@ -106,4 +107,69 @@ export const Repli: Story = {
 export const Mouvement: Story = {
   parameters: { controls: { disable: true } },
   render: () => <Accordion items={ITEMS} multiple />,
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Le dépliage est déjà une mécanique. Ce qu'on peut ajouter, c'est la sensation que le panneau est articulé sur son en-tête plutôt que d'être une boîte qui grandit.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Chevron qui hoche"
+          note="Le chevron acquiesce au survol, avant même l'ouverture. Il annonce qu'il est actionnable."
+          code={'<Accordion className="[&_svg]:hover:animate-tick" />'}
+        >
+          <Accordion items={ITEMS.slice(0, 2)} className="w-full [&_button:hover_svg]:animate-tick" />
+        </Specimen>
+
+        <Specimen
+          title="Panneaux en galet"
+          note="Chaque élément devient une pastille séparée plutôt qu'une liste soudée."
+          code={'<Accordion className="border-0 gap-2 bg-transparent\n  [&>div]:rounded-2xl [&>div]:border" />'}
+        >
+          <Accordion
+            items={ITEMS.slice(0, 3)}
+            className="w-full gap-2 border-0 bg-transparent [&>div]:rounded-2xl [&>div]:border [&>div]:border-line [&>div]:bg-surface"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Contenu en cascade"
+          note="Le panneau s'ouvre, puis son contenu s'installe. Deux temps, ce qui rend la hauteur plus lisible."
+          code={'<div className="k-stagger">\n  <p className="animate-slide-up" />\n</div>'}
+        >
+          <Accordion
+            className="w-full"
+            defaultValue={["a"]}
+            items={[
+              {
+                value: "a",
+                title: "Trois points à retenir",
+                content: (
+                  <div className="k-stagger flex flex-col gap-2">
+                    {["Le premier point", "Le deuxième", "Et le dernier"].map((t) => (
+                      <span key={t} className="animate-slide-up">{t}</span>
+                    ))}
+                  </div>
+                ),
+              },
+            ]}
+          />
+        </Specimen>
+
+        <Specimen
+          title="Repli suspendu"
+          note="Sur le Collapsible isolé : le déclencheur se balance depuis son bord haut au survol."
+          code={'<Collapsible className="[&>button]:origin-top\n  [&>button]:hover:animate-swing" />'}
+        >
+          <Collapsible
+            trigger="Voir plus"
+            className="w-full [&>button]:origin-top [&>button]:hover:animate-swing"
+          >
+            <p className="text-sm text-ink-muted">Le contenu déplié.</p>
+          </Collapsible>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

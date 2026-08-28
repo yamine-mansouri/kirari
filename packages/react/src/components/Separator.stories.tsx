@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Separator } from "./Separator";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Button } from "./Button";
 
 const meta = {
@@ -70,5 +71,56 @@ export const Galerie: Story = {
         </div>
       </section>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Un trait n'a presque rien à offrir — c'est justement l'intérêt : il montre jusqu'où le vocabulaire peut aller sur l'élément le plus pauvre du système.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Tracé progressif"
+          note="Le trait se dessine de gauche à droite au lieu d'être là. Une révélation par masque, pas une apparition."
+          code={'<Separator className="animate-wipe-right" />'}
+          replayable
+        >
+          {(run) => (
+            <div key={run} className="w-full">
+              <Separator className="animate-wipe-right" />
+            </div>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Trait d'accent épais"
+          note="Court, rond et coloré : la séparation devient un ornement plutôt qu'une frontière."
+          code={'<Separator className="h-1 w-16 rounded-full\n  bg-accent mx-auto" />'}
+        >
+          <Separator className="mx-auto h-1 w-16 rounded-full bg-accent" />
+        </Specimen>
+
+        <Specimen
+          title="Libellé qui pivote"
+          note="Le mot posé de travers sur le trait, comme une étiquette collée."
+          code={'<Separator label={<span className="-rotate-6" />} />'}
+        >
+          <div className="w-full">
+            <Separator label={<span className="inline-block -rotate-6">ou</span>} />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Ligne pointillée qui dérive"
+          note="Un séparateur décoratif qui vit très lentement. À réserver à une page vide ou un pied de page."
+          code={'<span className="animate-drift border-dashed" />'}
+        >
+          <span
+            aria-hidden="true"
+            className="block h-px w-full animate-drift border-t-2 border-dashed border-line-strong"
+          />
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

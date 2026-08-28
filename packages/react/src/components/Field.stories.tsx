@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Field } from "./Field";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Field",
@@ -92,4 +93,70 @@ export const Validation: Story = {
       </div>
     );
   },
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Un champ passe l'essentiel de son temps au repos. La fantaisie s'y joue aux deux moments qui comptent : la prise de focus, et le refus.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Refus"
+          note="Le champ tremble à l'erreur. C'est le seul usage légitime du tremblement — jamais du décor, toujours un refus."
+          code={'<Field className="animate-shake" error="…" />'}
+          replayable
+        >
+          {(run) => (
+            <div key={run} className="w-full max-w-xs">
+              <Field
+                label="Adresse e-mail"
+                defaultValue="pas-un-email"
+                error="Adresse invalide."
+                containerClassName="animate-shake"
+              />
+            </div>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Champ en galet"
+          note="Rayon plein sur le contrôle. Le formulaire perd son air administratif."
+          code={'<Field className="rounded-full px-5" />'}
+        >
+          <div className="w-full max-w-xs">
+            <Field label="Rechercher" placeholder="Un mot…" className="rounded-full px-5" />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Label qui hoche"
+          note="Le libellé acquiesce à la prise de focus. Discret, mais il désigne le champ actif sans couleur supplémentaire."
+          code={'<Field containerClassName="focus-within:[&>label]:animate-tick" />'}
+        >
+          <div className="w-full max-w-xs">
+            <Field
+              label="Cliquer ici"
+              placeholder="Le libellé réagit"
+              containerClassName="focus-within:[&>label]:animate-tick"
+            />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Formulaire en cascade"
+          note="Les champs arrivent l'un après l'autre. Une inscription se compose sous les yeux au lieu d'apparaître d'un bloc."
+          code={'<form className="k-stagger">\n  <Field containerClassName="animate-slide-up" />\n</form>'}
+          replayable
+        >
+          {(run) => (
+            <div key={run} className="k-stagger flex w-full max-w-xs flex-col gap-4">
+              {["Nom", "Adresse e-mail", "Mot de passe"].map((l) => (
+                <Field key={l} label={l} containerClassName="animate-slide-up" />
+              ))}
+            </div>
+          )}
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

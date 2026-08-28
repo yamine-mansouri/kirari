@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "./Button";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Button",
@@ -131,5 +133,104 @@ export const Surcharge: Story = {
       <Button className="rounded-full px-8">rounded-full px-8</Button>
       <Button className="bg-accent-2">bg-accent-2</Button>
     </div>
+  ),
+};
+
+/**
+ * Sept traitements expressifs du même bouton, chacun tiré d'un dispositif
+ * relevé chez yui540 : pivot depuis un bord, déformation, micro-inclinaison,
+ * forme en galet, particules.
+ */
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage
+      intro={
+        <>
+          Le bouton est l'élément le plus répété d'une interface, donc celui où la
+                  fantaisie coûte le plus cher — et rapporte le plus quand elle est bien
+                  placée. Un seul bouton fantaisie par écran, jamais deux.
+        </>
+      }
+    >
+      <SpecimenGrid>
+        <Specimen
+          title="Enfoncement"
+          note="Le pivot passe au bord bas : le bouton s'écrase sur sa base au lieu de rétrécir en flottant. C'est le dispositif le plus caractéristique, et le moins visible dans le code."
+          code={`<Button className="origin-bottom
+  active:animate-squish" />`}
+        >
+          <Button className="origin-bottom active:animate-squish">Appuyer</Button>
+        </Specimen>
+
+        <Specimen
+          title="Gelée"
+          note="Oscillation amortie sur les deux axes. Trop pour une action courante — juste ce qu'il faut pour un « Ajouter au panier »."
+          code={`<Button className="origin-bottom
+  active:animate-jelly" />`}
+        >
+          <Button variant="soft" className="origin-bottom active:animate-jelly">
+            Ajouter au panier
+          </Button>
+        </Specimen>
+
+        <Specimen
+          title="Hochement"
+          note="Une inclinaison brève au survol, puis retour. L'objet acquiesce."
+          code={`<Button className="hover:animate-tick" />`}
+        >
+          <Button variant="outline" className="hover:animate-tick">
+            Survoler
+          </Button>
+        </Specimen>
+
+        <Specimen
+          title="De travers"
+          note="Posé à −3°, il se redresse au survol. Casse la rigidité de la grille sans rien animer en permanence."
+          code={`<Button className="-rotate-3
+  transition-transform ease-bounce
+  hover:rotate-0" />`}
+        >
+          <Button className="-rotate-3 transition-transform duration-(--k-dur-3) ease-bounce hover:rotate-0">
+            Un peu penché
+          </Button>
+        </Specimen>
+
+        <Specimen
+          title="Galet"
+          note="Rayon plein et aucune ombre : sa grammaire de forme. La profondeur vient du mouvement, pas de l'élévation."
+          code={`<Button className="rounded-full
+  px-7 shadow-none" />`}
+        >
+          <Button className="rounded-full px-7 shadow-none">Tout rond</Button>
+        </Specimen>
+
+        <Specimen
+          title="Étincelles"
+          note="À réserver au moment qu'on veut fêter. Ici seulement au survol, pour ne pas scintiller en continu."
+          code={`<Sparkle onHoverOnly count={5}>
+  <Button />
+</Sparkle>`}
+        >
+          <Sparkle onHoverOnly count={5}>
+            <Button variant="soft">Débloquer</Button>
+          </Sparkle>
+        </Specimen>
+
+        <Specimen
+          title="Surgissement"
+          note="Apparaît depuis rien avec dépassement. Pour un bouton qui arrive après coup — une action révélée par une sélection."
+          code={`<Button className="animate-pop-in
+  origin-bottom" />`}
+          replayable
+        >
+          {(run) => (
+            <Button key={run} className="origin-bottom animate-pop-in">
+              Apparu
+            </Button>
+          )}
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

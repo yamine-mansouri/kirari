@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Avatar, AvatarGroup } from "./Avatar";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 /** Une image qui existe, et une qui échoue volontairement. */
 const OK = "https://i.pravatar.cc/160?img=47";
@@ -87,5 +89,63 @@ export const Galerie: Story = {
         </AvatarGroup>
       </section>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Un portrait représente une personne : c'est l'endroit le plus légitime pour un peu de chaleur, et le plus risqué pour un excès.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Groupe en cascade"
+          note="Les membres apparaissent l'un après l'autre. Une équipe se constitue sous les yeux."
+          code={'<AvatarGroup className="k-stagger [&>*]:animate-pop-in" />'}
+          replayable
+        >
+          {(run) => (
+            <AvatarGroup key={run} className="k-stagger [&>*]:animate-pop-in">
+              {["Yamine Mansouri", "Ai Ko", "Ren Sato", "Mei Tanaka"].map((n) => (
+                <Avatar key={n} name={n} />
+              ))}
+            </AvatarGroup>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Portrait suspendu"
+          note="Un pivot au bord haut plus un balancement au survol : le portrait pend comme une médaille."
+          code={'<Avatar className="origin-top hover:animate-swing" />'}
+        >
+          <Avatar size="xl" name="Ai Ko" className="origin-top hover:animate-swing" />
+        </Specimen>
+
+        <Specimen
+          title="Galerie de travers"
+          note="Chaque portrait à un angle différent, comme des photos posées sur une table."
+          code={'<Avatar className="rotate-3" shape="squircle" />'}
+        >
+          <div className="flex gap-3">
+            {[
+              ["Yamine Mansouri", "-rotate-6"],
+              ["Ai Ko", "rotate-3"],
+              ["Ren Sato", "-rotate-2"],
+            ].map(([n, r]) => (
+              <Avatar key={n} size="lg" shape="squircle" name={n} className={r} />
+            ))}
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Membre à l'honneur"
+          note="Des étincelles autour d'un seul portrait — l'auteur du mois, le nouveau venu."
+          code={'<Sparkle count={5}><Avatar /></Sparkle>'}
+        >
+          <Sparkle count={5}>
+            <Avatar size="lg" name="Mei Tanaka" />
+          </Sparkle>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

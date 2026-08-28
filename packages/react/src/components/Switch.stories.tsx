@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Switch } from "./Switch";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Switch",
@@ -105,4 +107,59 @@ export const Controle: Story = {
       </div>
     );
   },
+};
+
+/** Un interrupteur, c'est déjà un objet physique : c'est là que « jouet » se justifie le mieux. */
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage
+      intro={
+        <>
+          Le Switch imite déjà un objet du monde réel. Renforcer sa matière n'est
+                  donc pas un ornement : c'est rendre plus lisible ce qu'il prétend être.
+                  C'est le contrôle où la fantaisie se justifie le plus facilement.
+        </>
+      }
+    >
+      <SpecimenGrid>
+        <Specimen
+          title="Bascule qui s'écrase"
+          note="Le rail s'aplatit brièvement au clic, comme un vrai interrupteur qu'on enfonce."
+          code={`<Switch className="origin-center\n  active:animate-squish" />`}
+        >
+          <Switch size="lg" className="active:animate-squish" defaultChecked />
+        </Specimen>
+
+        <Specimen
+          title="Rail en gelée"
+          note="Plus appuyé : l'objet tremble à l'activation. À réserver à un réglage marquant, pas à une liste de préférences."
+          code={`<Switch className="active:animate-jelly" />`}
+        >
+          <Switch size="lg" className="active:animate-jelly" />
+        </Specimen>
+
+        <Specimen
+          title="Célébration à l'allumage"
+          note="Des étincelles quand le réglage passe à l'actif. Le retour positif que mérite une activation importante."
+          code={`<Sparkle count={4}><Switch /></Sparkle>`}
+        >
+          <Sparkle count={4}>
+            <Switch size="lg" defaultChecked />
+          </Sparkle>
+        </Specimen>
+
+        <Specimen
+          title="Penché"
+          note="Le rail posé à −4°, dans une carte elle-même droite. Un détail minuscule qui suffit à casser la rigidité."
+          code={`<Switch className="-rotate-4" />`}
+        >
+          <label className="flex items-center gap-3 text-sm text-ink-muted">
+            Mode nuit
+            <Switch size="lg" className="-rotate-4" defaultChecked />
+          </label>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

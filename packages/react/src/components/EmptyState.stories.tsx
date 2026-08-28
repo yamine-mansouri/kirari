@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { EmptyState } from "./EmptyState";
 import { Button } from "./Button";
 import { Card } from "./Card";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const ICON = (
   <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -79,5 +81,94 @@ export const Galerie: Story = {
         <EmptyState compact icon={ICON} title="Rien à afficher" />
       </Card>
     </div>
+  ),
+};
+
+/**
+ * L'état vide est la page la plus vide de l'application — donc celle où un
+ * décor a le plus de place, et le moins de risque de gêner.
+ */
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage
+      intro={
+        <>
+          C'est l'endroit le plus légitime pour de la fantaisie : par définition,
+                  rien d'autre n'occupe l'écran. C'est aussi souvent le premier écran
+                  qu'un utilisateur voit — un vide accueillant vaut mieux qu'un vide
+                  administratif.
+        </>
+      }
+    >
+      <SpecimenGrid>
+        <Specimen
+          title="Icône flottante"
+          note="L'icône dérive lentement au lieu d'être posée. Suffit à ce que la page ne paraisse pas figée."
+          code={`<span className="animate-float">…</span>`}
+        >
+          <EmptyState
+            compact
+            icon={<span className="block animate-float text-2xl">🌙</span>}
+            title="Rien pour l'instant"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Personnage qui se balance"
+          note="Un pivot au bord bas transforme une oscillation en balancement — l'objet est posé, il ne flotte pas."
+          code={`<span className="origin-bottom\n  animate-sway">…</span>`}
+        >
+          <EmptyState
+            compact
+            icon={<span className="block origin-bottom animate-sway text-2xl">🐕</span>}
+            title="Personne ici"
+            description="Invitez quelqu'un à vous rejoindre."
+          />
+        </Specimen>
+
+        <Specimen
+          title="Ciel à la dérive"
+          note="Deux halos qui bougent très lentement en fond. Le vide devient une atmosphère plutôt qu'une absence."
+          code={`<span className="animate-drift\n  blur-3xl bg-accent-subtle" />`}
+        >
+          <Card variant="sunken" className="relative w-full overflow-hidden p-0">
+            <span aria-hidden="true" className="absolute -top-10 left-4 size-28 animate-drift rounded-full bg-accent-subtle blur-3xl" />
+            <span aria-hidden="true" className="absolute -bottom-12 right-2 size-24 animate-drift rounded-full bg-accent-2-subtle blur-3xl [animation-delay:3s]" />
+            <EmptyState compact title="Boîte vide" description="Un vide qui respire." />
+          </Card>
+        </Specimen>
+
+        <Specimen
+          title="Arrivée en cascade"
+          note="L'icône, le titre puis l'action arrivent l'un après l'autre. La page se compose sous les yeux au lieu d'apparaître d'un bloc."
+          code={`<div className="k-stagger">\n  <span className="animate-pop-in" />\n</div>`}
+          replayable
+        >
+          {(run) => (
+            <div key={run} className="k-stagger flex flex-col items-center gap-2">
+              <span className="origin-bottom animate-pop-in text-2xl">📮</span>
+              <span className="animate-slide-up text-sm font-medium text-ink">Aucun message</span>
+              <span className="animate-slide-up text-xs text-ink-muted">
+                Votre boîte est à jour.
+              </span>
+              <Button size="sm" className="origin-bottom animate-pop-in">
+                Écrire
+              </Button>
+            </div>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Vide célébré"
+          note="Le contrepied : une boîte vide n'est pas toujours un échec. Zéro tâche en retard mérite des étincelles."
+          code={`<Sparkle count={6}>…</Sparkle>`}
+        >
+          <Sparkle count={6}>
+            <EmptyState compact icon={<span className="text-2xl">✅</span>} title="Rien en retard" />
+          </Sparkle>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

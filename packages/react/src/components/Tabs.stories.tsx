@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Tabs } from "./Tabs";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Card } from "./Card";
 
 const ITEMS = [
@@ -92,5 +93,56 @@ export const Mouvement: Story = {
         ]}
       />
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>L'indicateur glissant est déjà le geste signature du composant. La fantaisie consiste à le rendre plus matériel, ou à animer ce qu'il révèle.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Indicateur en pastille"
+          note="Le trait devient un fond arrondi qui coulisse derrière l'onglet actif. Même mécanique, tout autre registre."
+          code={'<Tabs className="[&_[role=tablist]>span]:h-full\n  [&_[role=tablist]>span]:rounded-full" />'}
+        >
+          <Tabs
+            items={ITEMS.slice(0, 3)}
+            className="[&_[role=tablist]]:border-0 [&_[role=tablist]]:rounded-full [&_[role=tablist]]:bg-surface-sunken [&_[role=tablist]]:p-1 [&_[role=tablist]>span]:bottom-0 [&_[role=tablist]>span]:h-full [&_[role=tablist]>span]:rounded-full [&_[role=tablist]>span]:bg-accent-subtle"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Onglets qui hochent"
+          note="Chaque onglet acquiesce au survol, avant même d'être sélectionné."
+          code={'<Tabs className="[&_[role=tab]]:hover:animate-tick" />'}
+        >
+          <Tabs items={ITEMS.slice(0, 3)} className="[&_[role=tab]]:hover:animate-tick" />
+        </Specimen>
+
+        <Specimen
+          title="Panneau révélé"
+          note="Le contenu se dévoile par un masque au lieu d'apparaître. L'onglet ne change pas de page, il lève un rideau."
+          code={'<Tabs className="[&_[role=tabpanel]]:animate-wipe-up" />'}
+          replayable
+        >
+          {(run) => (
+            <Tabs
+              key={run}
+              items={ITEMS.slice(0, 3)}
+              className="[&_[role=tabpanel]]:animate-wipe-up"
+            />
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Barre penchée"
+          note="La rangée d'onglets à −1,5°. Presque imperceptible, et pourtant l'écran ne ressemble plus à un tableur."
+          code={'<Tabs className="[&_[role=tablist]]:-rotate-[1.5deg]" />'}
+        >
+          <Tabs items={ITEMS.slice(0, 3)} className="[&_[role=tablist]]:-rotate-[1.5deg]" />
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Checkbox, CheckboxGroup } from "./Checkbox";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Checkbox",
@@ -100,4 +102,68 @@ export const Groupe: Story = {
       </CheckboxGroup>
     );
   },
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>La coche se dessine déjà par défaut. La fantaisie consiste ici à appuyer ce tracé, ou à célébrer le moment où la case bascule — un contrôle qu'on manipule cent fois par jour supporte mal davantage.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Case ronde"
+          note="Sa grammaire de forme : le carré arrondi devient un galet. Change complètement le registre sans toucher au comportement."
+          code={'<Checkbox className="rounded-full" />'}
+        >
+          <div className="flex flex-col gap-3">
+            <Checkbox className="rounded-full" label="Toute ronde" defaultChecked />
+            <Checkbox className="rounded-full" label="Décochée" />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Tracé au ralenti"
+          note="Le même dessin de coche, étiré sur une durée plus longue. Sur une case unique et importante, le geste devient lisible."
+          code={'<Checkbox className="[&_path]:[animation-duration:0.9s]" />'}
+          replayable
+        >
+          {(run) => (
+            <Checkbox key={run} className="[&_path]:[animation-duration:0.9s]" label="Je comprends" defaultChecked />
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Case qui s'écrase"
+          note="Un pivot au bord bas plus un écrasement au clic : la case s'enfonce au lieu de simplement changer de couleur."
+          code={'<Checkbox className="origin-bottom\n  active:animate-squish" />'}
+        >
+          <Checkbox className="origin-bottom active:animate-squish" label="Cliquer plusieurs fois" />
+        </Specimen>
+
+        <Specimen
+          title="Validation fêtée"
+          note="Des étincelles sur la case d'acceptation finale — celle qui débloque un parcours."
+          code={'<Sparkle count={4}><Checkbox /></Sparkle>'}
+        >
+          <Sparkle count={4}>
+            <Checkbox label="J'accepte les conditions" defaultChecked />
+          </Sparkle>
+        </Specimen>
+
+        <Specimen
+          title="Liste en cascade"
+          note="Les options d'un groupe arrivent l'une après l'autre. Le séquençage du système, avec une animation expressive."
+          code={'<div className="k-stagger">\n  <Checkbox className="animate-pop-in" />\n</div>'}
+          replayable
+        >
+          {(run) => (
+            <div key={run} className="k-stagger flex flex-col gap-3">
+              {["Lecture", "Écriture", "Suppression"].map((t) => (
+                <Checkbox key={t} className="animate-pop-in" label={t} />
+              ))}
+            </div>
+          )}
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

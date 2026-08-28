@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { OtpField } from "./OtpField";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/OtpField",
@@ -68,5 +70,54 @@ export const Galerie: Story = {
         </div>
       </section>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Six cases qu'on remplit vite : c'est le composant où la micro-réaction doit être la plus courte du système. Tout ce qui dépasse deux dixièmes de seconde s'accumule en bouillie.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Cases rondes"
+          note="Des galets alignés plutôt que des cases. Le code à saisir devient une suite de perles."
+          code={'<OtpField className="[&_input]:rounded-full" />'}
+        >
+          <OtpField length={4} className="[&_input]:rounded-full" />
+        </Specimen>
+
+        <Specimen
+          title="Chaque case s'enfonce"
+          note="Un écrasement pivoté au bord bas à la saisie. Taper devient un geste physique, case après case."
+          code={'<OtpField className="[&_input]:origin-bottom\n  [&_input]:focus:animate-squish" />'}
+        >
+          <OtpField
+            length={4}
+            className="[&_input]:origin-bottom [&_input]:focus:animate-squish"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Arrivée en cascade"
+          note="Les cases apparaissent l'une après l'autre. La saisie commence avant même que l'utilisateur ait tapé."
+          code={'<OtpField className="k-stagger\n  [&_input]:animate-pop-in" />'}
+          replayable
+        >
+          {(run) => (
+            <OtpField key={run} length={6} className="k-stagger [&_input]:animate-pop-in" />
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Code accepté"
+          note="Des étincelles à la validation. Le seul moment d'un parcours d'authentification qui mérite d'être fêté."
+          code={'<Sparkle count={6}><OtpField /></Sparkle>'}
+        >
+          <Sparkle count={6}>
+            <OtpField length={4} defaultValue="1234" />
+          </Sparkle>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

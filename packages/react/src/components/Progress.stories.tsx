@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Progress } from "./Progress";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Progress",
@@ -73,4 +75,61 @@ export const Mouvement: Story = {
       </div>
     );
   },
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>C'est le seul composant dont l'animation porte l'information. Toute fantaisie ajoutée doit rester derrière elle, jamais devant.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Piste en galet"
+          note="Barre épaisse et entièrement ronde. La progression devient une jauge de jeu."
+          code={'<Progress className="[&_[role=progressbar]]:h-3" />'}
+        >
+          <Progress
+            value={62}
+            showValue
+            label="Téléversement"
+            className="w-full [&>span:last-child]:h-3"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Achèvement fêté"
+          note="Des étincelles à 100 %. Le retour positif d'une tâche terminée."
+          code={'<Sparkle count={6}><Progress value={100} /></Sparkle>'}
+        >
+          <Sparkle count={6} className="w-full">
+            <Progress value={100} showValue label="Terminé" className="w-full" />
+          </Sparkle>
+        </Specimen>
+
+        <Specimen
+          title="Barre penchée"
+          note="La jauge à −2°. Elle sort du tableau de bord et entre dans une interface de jeu."
+          code={'<Progress className="-rotate-2" />'}
+        >
+          <Progress value={45} label="Expérience" showValue className="w-full -rotate-2" />
+        </Specimen>
+
+        <Specimen
+          title="Libellé qui hoche"
+          note="Le libellé acquiesce à chaque palier franchi. Discret, et ça attire l'œil au bon moment."
+          code={'<Progress className="[&_span:first-child]:animate-tick" />'}
+          replayable
+        >
+          {(run) => (
+            <Progress
+              key={run}
+              value={80}
+              showValue
+              label="Presque fini"
+              className="w-full [&_span:first-child]:animate-tick"
+            />
+          )}
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Slider } from "./Slider";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Slider",
@@ -90,5 +92,51 @@ export const Mouvement: Story = {
       <Slider label="Survoler, puis attraper" defaultValue={45} showValue />
       <Slider label="Plage à deux poignées" defaultValue={[20, 80]} showValue />
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>La poignée ne doit jamais s'animer pendant le glissement — elle suit le doigt. Toute la fantaisie se joue donc autour : la piste, la prise en main, l'arrivée au bout.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Piste en galet"
+          note="Piste épaisse et poignée surdimensionnée : le curseur devient un objet à manipuler plutôt qu'un trait à ajuster."
+          code={'<Slider className="[&_[role=slider]]:size-7" />'}
+        >
+          <Slider
+            defaultValue={55}
+            className="w-full [&_[role=slider]]:size-7 [&_[role=slider]]:border-4"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Prise en main"
+          note="Une gelée au moment de la saisie, jamais pendant. L'objet réagit à la prise, puis se tait pour suivre le doigt."
+          code={'<Slider className="[&_[role=slider]]:active:animate-jelly" />'}
+        >
+          <Slider defaultValue={40} className="w-full [&_[role=slider]]:active:animate-jelly" />
+        </Specimen>
+
+        <Specimen
+          title="Arrivée au maximum"
+          note="Des étincelles autour du curseur quand la valeur atteint le bout. Le retour positif d'un objectif atteint."
+          code={'<Sparkle count={5}><Slider /></Sparkle>'}
+        >
+          <Sparkle count={5} className="w-full">
+            <Slider defaultValue={100} className="w-full" />
+          </Sparkle>
+        </Specimen>
+
+        <Specimen
+          title="Penché"
+          note="La piste posée à −2°. Le réglage n'est plus un instrument de mesure, c'est un objet posé sur une table."
+          code={'<Slider className="-rotate-2" />'}
+        >
+          <Slider defaultValue={65} className="w-full -rotate-2" />
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

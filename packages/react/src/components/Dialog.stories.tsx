@@ -1,8 +1,40 @@
 import { useState } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Dialog } from "./Dialog";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Button } from "./Button";
 import { Field } from "./Field";
+
+/** Petit hôte réutilisable pour les spécimens : un bouton et sa modale. */
+function DialogDemo({
+  label,
+  body,
+  dialogClassName,
+}: {
+  label: string;
+  body?: ReactNode;
+  dialogClassName?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
+        {label}
+      </Button>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        title={label}
+        className={dialogClassName}
+        footer={<Button size="sm" onClick={() => setOpen(false)}>Fermer</Button>}
+      >
+        {body ?? <p>Le contenu de la boîte.</p>}
+      </Dialog>
+    </>
+  );
+}
 
 const meta = {
   title: "Composants/Dialog",
@@ -126,4 +158,62 @@ export const AvecFormulaire: Story = {
       </>
     );
   },
+};
+
+export const Fantaisie: Story = {
+  args: { open: false, onClose: () => {} },
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Une modale interrompt. C'est le composant où la fantaisie doit être la plus mesurée — sauf quand elle annonce précisément une bonne nouvelle.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Modale en galet"
+          note="Rayon très large, sans ombre. La boîte devient un objet posé plutôt qu'une fenêtre système."
+          code={'<Dialog className="rounded-[2rem] shadow-none" />'}
+        >
+          <DialogDemo label="Tout doux" dialogClassName="rounded-[2rem] shadow-none border-2" />
+        </Specimen>
+
+        <Specimen
+          title="Arrivée qui déborde"
+          note="La boîte dépasse légèrement avant de se poser. Suffisant pour la rendre matérielle."
+          code={'<Dialog className="open:ease-bounce" />'}
+        >
+          <DialogDemo label="Dépassement" dialogClassName="open:ease-bounce" />
+        </Specimen>
+
+        <Specimen
+          title="Contenu en cascade"
+          note="La boîte s'ouvre, puis son contenu s'installe. Le décalage démarre après l'ouverture."
+          code={'<div className="k-stagger" style={{ "--k-stagger-base": ".2s" }}>'}
+        >
+          <DialogDemo
+            label="Cascade"
+            body={
+              <div className="k-stagger flex flex-col gap-2" style={{ "--k-stagger-base": "0.2s" } as CSSProperties}>
+                {["Un premier point", "Un deuxième", "Un troisième"].map((t) => (
+                  <span key={t} className="animate-slide-up">{t}</span>
+                ))}
+              </div>
+            }
+          />
+        </Specimen>
+
+        <Specimen
+          title="Bonne nouvelle"
+          note="Le seul cas où une modale mérite des étincelles : elle annonce une réussite, pas une décision."
+          code={'<Sparkle count={6}>…</Sparkle>'}
+        >
+          <DialogDemo
+            label="Félicitations"
+            body={
+              <Sparkle count={6} className="w-full justify-center py-4">
+                <span className="text-2xl">🎉</span>
+              </Sparkle>
+            }
+          />
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

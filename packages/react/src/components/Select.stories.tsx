@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "./Select";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const PAYS = [
   { value: "fr", label: "France" },
@@ -88,4 +90,56 @@ export const Mouvement: Story = {
       </div>
     );
   },
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Le déclencheur d'un Select est le seul élément visible la plupart du temps. C'est lui qui porte le registre — la liste ne fait que le prolonger.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Déclencheur en galet"
+          note="Champ entièrement rond et liste assortie. Le sélecteur perd son air de formulaire."
+          code={'<Select className="rounded-full px-5"\n  popupClassName="rounded-2xl" />'}
+        >
+          <div className="w-full max-w-xs">
+            <Select items={PAYS} className="rounded-full px-5" popupClassName="rounded-2xl p-2 [&_[role=option]]:rounded-full" />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Options en cascade"
+          note="La liste s'ouvre, puis les options s'installent une à une."
+          code={'<Select popupClassName="k-stagger\n  [&_[role=option]]:animate-slide-up" />'}
+        >
+          <div className="w-full max-w-xs">
+            <Select
+              items={PAYS}
+              popupClassName="k-stagger [&_[role=option]]:animate-slide-up"
+            />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Déclencheur qui s'enfonce"
+          note="Un écrasement au clic, pivoté sur la base. Le champ réagit avant que la liste s'ouvre."
+          code={'<Select className="origin-bottom\n  active:animate-squish" />'}
+        >
+          <div className="w-full max-w-xs">
+            <Select items={PAYS} className="origin-bottom active:animate-squish" />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Choix fêté"
+          note="Sur un sélecteur unique et décisif — un forfait, une destination."
+          code={'<Sparkle count={5}><Select /></Sparkle>'}
+        >
+          <Sparkle count={5} className="w-full max-w-xs">
+            <Select items={PAYS} defaultValue="jp" className="w-full" />
+          </Sparkle>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

@@ -1,8 +1,42 @@
 import { useState } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Drawer, type DrawerSide } from "./Drawer";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Button } from "./Button";
 import { Field } from "./Field";
+
+/** Petit hôte réutilisable pour les spécimens : un bouton et son tiroir. */
+function DrawerDemo({
+  side,
+  label,
+  body,
+  drawerClassName,
+}: {
+  side: DrawerSide;
+  label: string;
+  body?: ReactNode;
+  drawerClassName?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
+        {label}
+      </Button>
+      <Drawer
+        side={side}
+        open={open}
+        onOpenChange={setOpen}
+        title={label}
+        className={drawerClassName}
+        footer={<Button size="sm" onClick={() => setOpen(false)}>Fermer</Button>}
+      >
+        {body ?? <p>Le contenu du tiroir.</p>}
+      </Drawer>
+    </>
+  );
+}
 
 const meta = {
   title: "Composants/Drawer",
@@ -120,4 +154,61 @@ export const Mouvement: Story = {
       </div>
     );
   },
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Un tiroir est déjà un objet qui glisse. La fantaisie s'y joue sur la poignée et sur la façon dont son contenu s'installe une fois ouvert.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Contenu en cascade"
+          note="Le tiroir glisse, puis son contenu s'installe ligne à ligne. Le décalage démarre après l'ouverture."
+          code={'<div className="k-stagger" style={{ "--k-stagger-base": ".25s" }}>'}
+        >
+          <DrawerDemo
+            side="right"
+            label="Cascade"
+            body={
+              <div className="k-stagger flex flex-col gap-3" style={{ "--k-stagger-base": "0.25s" } as CSSProperties}>
+                {["Général", "Apparence", "Notifications", "Avancé"].map((t) => (
+                  <span key={t} className="animate-slide-left rounded-md bg-surface-sunken px-3 py-2 text-sm">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            }
+          />
+        </Specimen>
+
+        <Specimen
+          title="Feuille en galet"
+          note="Un tiroir bas très arrondi, avec sa poignée. Le format mobile poussé jusqu'au bout."
+          code={'<Drawer side="bottom" className="rounded-t-[2.5rem]" />'}
+        >
+          <DrawerDemo side="bottom" label="Feuille douce" drawerClassName="rounded-t-[2.5rem]" />
+        </Specimen>
+
+        <Specimen
+          title="Poignée vivante"
+          note="La poignée du tiroir bas dérive légèrement, signalant qu'elle se saisit."
+          code={'<Drawer className="[&>span:first-child]:animate-float" />'}
+        >
+          <DrawerDemo
+            side="bottom"
+            label="Poignée qui respire"
+            drawerClassName="[&>span:first-child]:animate-float"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Entrée qui déborde"
+          note="Le panneau dépasse légèrement sa position finale avant de se poser."
+          code={'<Drawer className="ease-bounce" />'}
+        >
+          <DrawerDemo side="right" label="Dépassement" drawerClassName="ease-bounce" />
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

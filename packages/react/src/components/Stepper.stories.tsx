@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stepper } from "./Stepper";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Button } from "./Button";
 
 const STEPS = [
@@ -93,4 +95,67 @@ export const Mouvement: Story = {
       </div>
     );
   },
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Le trait qui se remplit porte déjà la progression. La fantaisie sert ici à marquer le franchissement — le moment où une étape bascule.</>}>
+      <SpecimenGrid wide>
+        <Specimen
+          title="Pastille qui déborde"
+          note="L'étape franchie déborde brièvement. Le franchissement se voit, au lieu d'être un simple changement de couleur."
+          code={'<Stepper className="[&_span]:animate-jelly" />'}
+          replayable
+        >
+          {(run) => (
+            <Stepper
+              key={run}
+              steps={STEPS}
+              current={2}
+              className="w-full [&_nav>div>div>span:first-child]:animate-jelly"
+            />
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Parcours en cascade"
+          note="Les étapes s'installent une à une, de gauche à droite. Le chemin se dessine avant d'être parcouru."
+          code={'<Stepper className="k-stagger [&>div]:animate-pop-in" />'}
+          replayable
+        >
+          {(run) => (
+            <Stepper
+              key={run}
+              steps={STEPS}
+              current={1}
+              className="k-stagger w-full [&>div]:origin-bottom [&>div]:animate-pop-in"
+            />
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Étape en cours qui respire"
+          note="La pastille courante flotte doucement. Elle désigne où l'on en est sans clignoter."
+          code={'<Stepper className="[&_[aria-current]]:animate-float" />'}
+        >
+          <Stepper
+            steps={STEPS}
+            current={1}
+            className="w-full [&_span[aria-current]]:inline-block [&_span[aria-current]]:animate-float"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Arrivée fêtée"
+          note="Des étincelles sur la dernière étape une fois atteinte. La fin d'un parcours mérite un retour."
+          code={'<Sparkle count={5}><Stepper current={3} /></Sparkle>'}
+        >
+          <Sparkle count={5} className="w-full">
+            <Stepper steps={STEPS} current={3} className="w-full" />
+          </Sparkle>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Breadcrumb } from "./Breadcrumb";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const LONG = [
   { label: "Accueil", href: "#" },
@@ -73,5 +74,62 @@ export const Galerie: Story = {
         />
       </section>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Un fil d'Ariane est une trace. La fantaisie consiste à lui donner l'air d'un chemin parcouru plutôt que d'une suite de liens.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Chemin qui se trace"
+          note="Les segments apparaissent l'un après l'autre, de la racine à la page courante. Le parcours se rejoue sous les yeux."
+          code={'<Breadcrumb className="k-stagger [&_li]:animate-slide-right" />'}
+          replayable
+        >
+          {(run) => (
+            <Breadcrumb
+              key={run}
+              items={LONG.slice(0, 4)}
+              maxItems={0}
+              className="k-stagger [&_li]:animate-slide-right"
+            />
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Cailloux"
+          note="Chaque segment devient une pastille. Le fil d'Ariane redevient littéralement une suite de cailloux."
+          code={'<Breadcrumb className="[&_a]:rounded-full [&_a]:bg-surface-sunken [&_a]:px-2.5" />'}
+        >
+          <Breadcrumb
+            items={LONG.slice(0, 4)}
+            maxItems={0}
+            className="[&_a]:rounded-full [&_a]:bg-surface-sunken [&_a]:px-2.5 [&_a]:py-1 [&_span[aria-current]]:rounded-full [&_span[aria-current]]:bg-accent-subtle [&_span[aria-current]]:px-2.5 [&_span[aria-current]]:py-1 [&_span[aria-current]]:text-accent-text"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Segments qui hochent"
+          note="Chaque maillon acquiesce au survol. Sur un fil court, ça rend la navigation vivante sans la ralentir."
+          code={'<Breadcrumb className="[&_a]:hover:animate-tick" />'}
+        >
+          <Breadcrumb items={LONG.slice(0, 4)} maxItems={0} className="[&_a]:hover:animate-tick" />
+        </Specimen>
+
+        <Specimen
+          title="Chemin de travers"
+          note="Chaque segment à un angle légèrement différent, comme une trace laissée à la main."
+          code={'<Breadcrumb className="[&_li:nth-child(3)]:-rotate-2" />'}
+        >
+          <Breadcrumb
+            items={LONG.slice(0, 4)}
+            maxItems={0}
+            className="[&_li:nth-child(1)]:-rotate-2 [&_li:nth-child(3)]:rotate-1 [&_li:nth-child(5)]:-rotate-1 [&_li:nth-child(7)]:rotate-2"
+          />
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

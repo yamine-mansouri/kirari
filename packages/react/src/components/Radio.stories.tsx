@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Radio, RadioGroup } from "./Radio";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Radio",
@@ -98,5 +100,66 @@ export const Mouvement: Story = {
         ))}
       </RadioGroup>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Le point central est déjà une petite mécanique. L'accentuer donne la sensation d'un vrai bouton poussoir, ce que le Radio prétend imiter depuis toujours.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Point en gelée"
+          note="Le point ne grandit plus, il déborde puis se rétracte. Sur trois options, la sélection devient physique."
+          code={'<Radio className="[&>span]:animate-jelly" />'}
+        >
+          <RadioGroup defaultValue="a" className="flex gap-6">
+            {["a", "b", "c"].map((v) => (
+              <Radio key={v} value={v} label={v.toUpperCase()} className="[&>span]:animate-jelly" />
+            ))}
+          </RadioGroup>
+        </Specimen>
+
+        <Specimen
+          title="Cible qui s'enfonce"
+          note="Un écrasement au clic, pivoté sur le bord bas. La cible réagit avant même que la sélection change."
+          code={'<Radio className="origin-bottom\n  active:animate-squish" />'}
+        >
+          <RadioGroup defaultValue="1" className="flex gap-6">
+            {["1", "2", "3"].map((v) => (
+              <Radio key={v} value={v} label={v} className="origin-bottom active:animate-squish" />
+            ))}
+          </RadioGroup>
+        </Specimen>
+
+        <Specimen
+          title="Choix fêté"
+          note="Sur une offre mise en avant, l'option recommandée scintille en permanence."
+          code={'<Sparkle count={5}><Radio /></Sparkle>'}
+        >
+          <RadioGroup defaultValue="pro" className="flex flex-col gap-3">
+            <Radio value="base" label="Essentiel" />
+            <Sparkle count={5}>
+              <Radio value="pro" label="Pro — recommandé" />
+            </Sparkle>
+          </RadioGroup>
+        </Specimen>
+
+        <Specimen
+          title="Groupe en cascade"
+          note="Les options apparaissent l'une après l'autre quand le groupe entre à l'écran."
+          code={'<RadioGroup className="k-stagger">\n  <Radio className="animate-pop-in" />\n</RadioGroup>'}
+          replayable
+        >
+          {(run) => (
+            <RadioGroup key={run} defaultValue="m" className="k-stagger flex flex-col gap-3">
+              {["Mensuel", "Annuel", "À vie"].map((t) => (
+                <Radio key={t} value={t.toLowerCase()} label={t} className="animate-pop-in" />
+              ))}
+            </RadioGroup>
+          )}
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ToastProvider, useToast, type ToastTone } from "./Toast";
 import { Button } from "./Button";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const meta = {
   title: "Composants/Toast",
@@ -86,6 +87,42 @@ function Demo({ timeout }: { timeout?: number }) {
   );
 }
 
+/** Ouvre un toast unique — hôte des spécimens Fantaisie. */
+function ToastButton({
+  label,
+  toast,
+}: {
+  label: string;
+  toast: { title: string; description?: string; data?: { tone?: ToastTone } };
+}) {
+  const manager = useToast();
+  return (
+    <Button size="sm" variant="outline" onClick={() => manager.add(toast)}>
+      {label}
+    </Button>
+  );
+}
+
+/** Empile quatre toasts d'affilée, pour observer la pile se former. */
+function ToastBurst() {
+  const manager = useToast();
+  return (
+    <Button
+      size="sm"
+      onClick={() =>
+        TONES.forEach((t, i) =>
+          setTimeout(
+            () => manager.add({ title: t.title, description: t.description, data: { tone: t.tone } }),
+            i * 220,
+          ),
+        )
+      }
+    >
+      En envoyer quatre
+    </Button>
+  );
+}
+
 export const Playground: Story = {
   render: () => (
     <ToastProvider>
@@ -118,5 +155,71 @@ export const Mouvement: Story = {
     <ToastProvider timeout={2200}>
       <Demo timeout={2200} />
     </ToastProvider>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Le toast est déjà le composant le plus animé du système. La fantaisie y consiste donc surtout à changer sa forme et sa tonalité — le mouvement, lui, est déjà chargé.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Toast en galet"
+          note="Rayon plein, sans ombre. Le message devient une pastille posée plutôt qu'une fenêtre système."
+          code={'<Toast className="rounded-full" />'}
+        >
+          <ToastProvider>
+            <ToastButton
+              label="Pastille"
+              toast={{ title: "Enregistré", data: { tone: "success" } }}
+            />
+          </ToastProvider>
+        </Specimen>
+
+        <Specimen
+          title="Réussite fêtée"
+          note="Le cas d'usage le plus évident des étincelles : le toast qui annonce une réussite."
+          code={'<Sparkle count={5}><Toast /></Sparkle>'}
+        >
+          <ToastProvider>
+            <ToastButton
+              label="Célébrer"
+              toast={{
+                title: "Objectif atteint",
+                description: "Toutes vos tâches sont terminées.",
+                data: { tone: "success" },
+              }}
+            />
+          </ToastProvider>
+        </Specimen>
+
+        <Specimen
+          title="Erreur qui tremble"
+          note="Un tremblement à l'arrivée d'un toast d'erreur. Une seule fois, jamais en boucle."
+          code={'<Toast className="animate-shake" />'}
+        >
+          <ToastProvider>
+            <ToastButton
+              label="Échouer"
+              toast={{
+                title: "Échec de l'envoi",
+                description: "Vérifiez votre connexion.",
+                data: { tone: "danger" },
+              }}
+            />
+          </ToastProvider>
+        </Specimen>
+
+        <Specimen
+          title="Pile à observer"
+          note="Quatre toasts d'affilée, puis survoler la pile : elle se déplie. C'est le moment le plus riche du système — à regarder au ralenti."
+          code={'toast.add(…) ×4'}
+        >
+          <ToastProvider timeout={0}>
+            <ToastBurst />
+          </ToastProvider>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

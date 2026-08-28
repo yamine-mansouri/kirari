@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ToggleGroup } from "./ToggleGroup";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const ALIGN = [
   { value: "left", label: "Gauche" },
@@ -71,5 +72,67 @@ export const Galerie: Story = {
         </div>
       </section>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Une barre de bascules est une rangée d'objets côte à côte : c'est le terrain idéal pour un décalage, un pivot, une pastille qui déborde.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Pastille en gelée"
+          note="L'élément qui devient actif déborde brièvement. La sélection se voit sans regarder la couleur."
+          code={'<ToggleGroup className="[&_button]:active:animate-jelly" />'}
+        >
+          <ToggleGroup
+            items={ALIGN}
+            defaultValue={["center"]}
+            className="[&_button]:active:animate-jelly"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Galet"
+          note="Groupe et pastilles entièrement ronds. Le sélecteur devient une rangée de pastilles."
+          code={'<ToggleGroup className="rounded-full\n  [&_button]:rounded-full" />'}
+        >
+          <ToggleGroup
+            items={ALIGN}
+            defaultValue={["left"]}
+            className="rounded-full [&_button]:rounded-full"
+          />
+        </Specimen>
+
+        <Specimen
+          title="De travers"
+          note="La barre posée à 2°, qui se redresse au survol. Un détail qui suffit à casser l'alignement parfait."
+          code={'<ToggleGroup className="rotate-2\n  hover:rotate-0" />'}
+        >
+          <ToggleGroup
+            items={ALIGN}
+            defaultValue={["right"]}
+            className="rotate-2 transition-transform duration-(--k-dur-3) ease-bounce hover:rotate-0"
+          />
+        </Specimen>
+
+        <Specimen
+          title="Apparition séquencée"
+          note="Les bascules arrivent une à une. Utile quand la barre n'apparaît qu'après une sélection."
+          code={'<ToggleGroup className="k-stagger\n  [&_button]:animate-pop-in" />'}
+          replayable
+        >
+          {(run) => (
+            <ToggleGroup
+              key={run}
+              items={FORMAT}
+              multiple
+              defaultValue={["bold"]}
+              className="k-stagger [&_button]:animate-pop-in"
+            />
+          )}
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

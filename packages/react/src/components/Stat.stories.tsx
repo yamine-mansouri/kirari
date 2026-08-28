@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stat } from "./Stat";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Card } from "./Card";
 import { Reveal } from "../motion/Reveal";
 
@@ -102,5 +104,80 @@ export const Mouvement: Story = {
       </div>
       <div className="grid h-[30vh] place-items-center text-sm text-ink-subtle">fin</div>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Le compteur qui défile existe déjà. Ce qu'on peut ajouter, c'est la matière autour : la carte qui se pose, le chiffre qui réagit à ce qu'il annonce.</>}>
+      <SpecimenGrid wide>
+        <Specimen
+          title="Chiffre qui se pose"
+          note="La carte surgit depuis sa base pendant que le compteur défile. Deux mouvements qui se répondent."
+          code={'<Card className="origin-bottom animate-pop-in">\n  <Stat countUp />'}
+          replayable
+        >
+          {(run) => (
+            <Card key={run} className="origin-bottom animate-pop-in">
+              <Stat label="Revenu" value={48250} countUp trend="up" delta="+12 %" />
+            </Card>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Tendance qui hoche"
+          note="La flèche de tendance acquiesce à l'arrivée. Elle désigne le sens sans qu'on ait à lire le signe."
+          code={'<Stat className="[&_svg]:animate-tick" />'}
+          replayable
+        >
+          {(run) => (
+            <Card key={run}>
+              <Stat
+                label="Conversions"
+                value={947}
+                countUp
+                trend="up"
+                delta="+8,3 %"
+                className="[&_svg]:animate-tick"
+              />
+            </Card>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Record battu"
+          note="Des étincelles sur le seul chiffre qui mérite d'être fêté. Jamais sur un tableau de bord entier."
+          code={'<Sparkle count={6}><Stat /></Sparkle>'}
+        >
+          <Sparkle count={6}>
+            <Card>
+              <Stat label="Meilleur mois" value={128400} countUp trend="up" delta="record" />
+            </Card>
+          </Sparkle>
+        </Specimen>
+
+        <Specimen
+          title="Tableau en cascade"
+          note="Trois indicateurs qui arrivent l'un après l'autre, chacun avec son décompte. L'écran se compose."
+          code={'<div className="k-stagger">\n  <Card className="animate-pop-in" />'}
+          replayable
+        >
+          {(run) => (
+            <div key={run} className="k-stagger grid w-full grid-cols-3 gap-2">
+              {[
+                ["Vues", 12840],
+                ["Clics", 3182],
+                ["Ventes", 94],
+              ].map(([l, v]) => (
+                <Card key={l as string} className="origin-bottom animate-pop-in p-3">
+                  <Stat label={l as string} value={v as number} countUp />
+                </Card>
+              ))}
+            </div>
+          )}
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

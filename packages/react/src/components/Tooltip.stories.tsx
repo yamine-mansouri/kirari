@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Tooltip, TooltipProvider } from "./Tooltip";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Button } from "./Button";
 
 const meta = {
@@ -118,5 +119,69 @@ export const Mouvement: Story = {
         </Tooltip>
       ))}
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Une infobulle vit une demi-seconde. Toute fantaisie doit tenir dans ce laps de temps, sinon elle retarde l'information que l'utilisateur est en train de demander.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Surgissement"
+          note="L'infobulle déborde brièvement à l'ouverture. Court, donc sans coût sur la lecture."
+          code={'<Tooltip className="data-open:animate-pop-in" />'}
+        >
+          <Tooltip content="Surgi" className="data-open:animate-pop-in" arrow>
+            <Button variant="outline" size="sm">Survoler</Button>
+          </Tooltip>
+        </Specimen>
+
+        <Specimen
+          title="Bulle en galet"
+          note="Rayon plein et fond d'accent : l'infobulle devient une pastille de bande dessinée."
+          code={'<Tooltip className="rounded-full bg-accent\n  text-on-accent px-3" />'}
+        >
+          <Tooltip
+            content="Comme une bulle"
+            className="rounded-full bg-accent px-3 text-on-accent"
+          >
+            <Button variant="soft" size="sm">Survoler</Button>
+          </Tooltip>
+        </Specimen>
+
+        <Specimen
+          title="Suspendue"
+          note="Un pivot au bord haut plus un balancement : l'infobulle pend sous son ancre au lieu de flotter."
+          code={'<Tooltip className="origin-top\n  data-open:animate-swing" />'}
+        >
+          <Tooltip
+            content="Je pends"
+            side="bottom"
+            className="origin-top data-open:animate-swing"
+          >
+            <Button variant="outline" size="sm">Survoler</Button>
+          </Tooltip>
+        </Specimen>
+
+        <Specimen
+          title="Barre d'outils vivante"
+          note="Un groupe où chaque bouton hoche au survol, avec le délai partagé du Provider."
+          code={'<TooltipProvider delay={250}>\n  <Button className="hover:animate-tick" />'}
+        >
+          <TooltipProvider delay={250}>
+            <div className="inline-flex gap-1 rounded-full border border-line bg-surface p-1">
+              {[["B", "Gras"], ["I", "Italique"], ["U", "Souligné"]].map(([k, label]) => (
+                <Tooltip key={k} content={label}>
+                  <Button variant="ghost" size="sm" className="rounded-full hover:animate-tick">
+                    {k}
+                  </Button>
+                </Tooltip>
+              ))}
+            </div>
+          </TooltipProvider>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

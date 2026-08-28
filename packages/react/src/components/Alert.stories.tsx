@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Alert } from "./Alert";
+import { Sparkle } from "./Sparkle";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 import { Button } from "./Button";
 
 const meta = {
@@ -74,5 +76,62 @@ export const Galerie: Story = {
         L'accès aux projets partagés est suspendu.
       </Alert>
     </div>
+  ),
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Une alerte informe, elle n'amuse pas. Sauf l'alerte positive — c'est la seule du lot qui gagne à être chaleureuse.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Arrivée qui déborde"
+          note="L'alerte dépasse légèrement en apparaissant, pivotée sur son bord haut. Elle se pose au lieu d'apparaître."
+          code={'<Alert className="origin-top animate-pop-in" />'}
+          replayable
+        >
+          {(run) => (
+            <Alert key={run} tone="success" title="Sauvegardé" className="origin-top animate-pop-in">
+              Vos modifications sont enregistrées.
+            </Alert>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Refus"
+          note="Un tremblement à l'apparition d'une erreur. Le refus se ressent avant d'être lu — et une seule fois, jamais en boucle."
+          code={'<Alert tone="danger" className="animate-shake" />'}
+          replayable
+        >
+          {(run) => (
+            <Alert key={run} tone="danger" title="Échec du déploiement" className="animate-shake">
+              La compilation a échoué.
+            </Alert>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Alerte en galet"
+          note="Rayon large et icône ronde. L'avertissement devient un conseil plutôt qu'une sanction."
+          code={'<Alert className="rounded-[1.5rem]" />'}
+        >
+          <Alert tone="info" title="Astuce" className="rounded-[1.5rem]">
+            On peut adoucir le ton sans perdre la clarté.
+          </Alert>
+        </Specimen>
+
+        <Specimen
+          title="Bonne nouvelle"
+          note="Le seul cas où une alerte mérite des étincelles : une réussite, pas une information."
+          code={'<Sparkle count={5}><Alert /></Sparkle>'}
+        >
+          <Sparkle count={5} className="w-full">
+            <Alert tone="success" title="Objectif atteint" className="w-full">
+              Vous avez terminé toutes vos tâches.
+            </Alert>
+          </Sparkle>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
   ),
 };

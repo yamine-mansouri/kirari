@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Combobox } from "./Combobox";
+import { FantaisiePage, Specimen, SpecimenGrid } from "./fantaisie-specimen";
 
 const VILLES = [
   "Tokyo", "Kyoto", "Osaka", "Sapporo", "Fukuoka", "Nagoya", "Kobe",
@@ -81,4 +82,59 @@ export const Insensibilite: Story = {
       </div>
     );
   },
+};
+
+export const Fantaisie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FantaisiePage intro={<>Une recherche est une attente. Tout ce qui la fait paraître vivante compte — mais rien ne doit ralentir l'apparition des résultats, qui sont l'information demandée.</>}>
+      <SpecimenGrid>
+        <Specimen
+          title="Champ en galet"
+          note="Barre de recherche entièrement ronde, liste assortie. Le registre passe d'outil à objet."
+          code={'<Combobox className="rounded-full" />'}
+        >
+          <div className="w-full max-w-xs">
+            <Combobox items={VILLES} className="rounded-full [&_input]:px-5" />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Résultats en cascade"
+          note="Les résultats s'installent l'un après l'autre. Le décalage doit rester très court — c'est de l'information attendue, pas un spectacle."
+          code={'<Combobox popupClassName="k-stagger" style={{ "--k-stagger": ".03s" }} />'}
+        >
+          <div className="w-full max-w-xs">
+            <Combobox items={VILLES.slice(0, 5)} />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="Champ qui refuse"
+          note="Un tremblement quand la recherche ne donne rien. Le refus se ressent avant d'être lu."
+          code={'<div className="animate-shake"><Combobox /></div>'}
+          replayable
+        >
+          {(run) => (
+            <div key={run} className="w-full max-w-xs animate-shake">
+              <Combobox items={[]} emptyMessage="Aucun résultat." />
+            </div>
+          )}
+        </Specimen>
+
+        <Specimen
+          title="Penché"
+          note="La barre posée à −2°, qui se redresse au focus. Elle s'aligne quand on s'en sert."
+          code={'<Combobox className="-rotate-2\n  focus-within:rotate-0" />'}
+        >
+          <div className="w-full max-w-xs">
+            <Combobox
+              items={VILLES}
+              className="-rotate-2 transition-transform duration-(--k-dur-3) ease-bounce focus-within:rotate-0"
+            />
+          </div>
+        </Specimen>
+      </SpecimenGrid>
+    </FantaisiePage>
+  ),
 };
