@@ -178,3 +178,90 @@
   from { stroke-dashoffset: 24; }
   to   { stroke-dashoffset: 0; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+ * COUCHE EXPRESSIVE
+ *
+ * Jamais utilisée par défaut dans un composant. C'est un vocabulaire à
+ * convoquer sciemment, sur le seul élément d'un écran qui mérite d'être
+ * remarqué. Appliquée partout, la fantaisie devient du bruit.
+ *
+ * Deux principes portent tout le reste :
+ *
+ * Le PIVOT. Ces keyframes ne présument pas de leur origine — poser
+ * `origin-bottom`, `origin-top-left`… La différence est plus grande qu'elle
+ * n'en a l'air : un élément qui grandit depuis son bord bas se lit comme une
+ * chose articulée, posée sur une surface ; depuis son centre, il flotte.
+ *
+ * La DÉFORMATION. Un objet qui garde ses proportions est un rectangle. Un
+ * objet qui s'aplatit à l'impact et s'étire à l'élan a du poids et de la
+ * matière. C'est le vieux principe de l'animation dessinée, et c'est ce qui
+ * sépare « jouet » de « bloc ».
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+/* Écrasement-étirement. À coupler à `origin-bottom` pour un atterrissage. */
+@keyframes k-squish {
+  0%   { transform: scale(1, 1); }
+  30%  { transform: scale(1.14, 0.84); }
+  55%  { transform: scale(0.94, 1.09); }
+  75%  { transform: scale(1.03, 0.97); }
+  100% { transform: scale(1, 1); }
+}
+
+/* Surgissement depuis rien, avec dépassement puis retour au calme. */
+@keyframes k-pop-in {
+  0%   { transform: scale(0); opacity: 0; }
+  55%  { transform: scale(1.18); opacity: 1; }
+  78%  { transform: scale(0.94); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Gelée : oscillation amortie sur les deux axes. Le plus « jouet » du lot. */
+@keyframes k-jelly {
+  0%, 100% { transform: scale(1, 1); }
+  20%      { transform: scale(1.16, 0.82); }
+  40%      { transform: scale(0.88, 1.12); }
+  60%      { transform: scale(1.07, 0.94); }
+  80%      { transform: scale(0.97, 1.03); }
+}
+
+/* Hochement : une inclinaison brève, puis retour. Le « oui » d'un objet. */
+@keyframes k-tick {
+  0%, 100% { rotate: 0deg; }
+  30%      { rotate: var(--k-anim-angle, 7deg); }
+  65%      { rotate: calc(var(--k-anim-angle, 7deg) * -0.45); }
+}
+
+/* Scintillement, pour les particules décoratives. */
+@keyframes k-twinkle {
+  0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+  35%      { transform: scale(1) rotate(45deg); opacity: 1; }
+  65%      { transform: scale(0.85) rotate(80deg); opacity: 0.9; }
+}
+
+/* Dérive lente, pour un décor de fond qui vit sans attirer l'œil. */
+@keyframes k-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33%      { transform: translate(var(--k-anim-distance, 6px), calc(var(--k-anim-distance, 6px) * -1)) rotate(3deg); }
+  66%      { transform: translate(calc(var(--k-anim-distance, 6px) * -0.6), var(--k-anim-distance, 6px)) rotate(-2deg); }
+}
+
+/* Tremblement. Le refus d'un objet — à réserver à l'erreur, jamais au décor. */
+@keyframes k-shake {
+  0%, 100% { transform: translateX(0); }
+  15%      { transform: translateX(calc(var(--k-anim-distance, 5px) * -1)); }
+  30%      { transform: translateX(var(--k-anim-distance, 5px)); }
+  45%      { transform: translateX(calc(var(--k-anim-distance, 5px) * -0.7)); }
+  60%      { transform: translateX(calc(var(--k-anim-distance, 5px) * 0.5)); }
+  80%      { transform: translateX(calc(var(--k-anim-distance, 5px) * -0.2)); }
+}
+
+/* Balancement pendulaire. À coupler à `origin-top` : l'objet est suspendu. */
+@keyframes k-swing {
+  0%   { rotate: 0deg; }
+  20%  { rotate: var(--k-anim-angle, 12deg); }
+  45%  { rotate: calc(var(--k-anim-angle, 12deg) * -0.62); }
+  68%  { rotate: calc(var(--k-anim-angle, 12deg) * 0.33); }
+  85%  { rotate: calc(var(--k-anim-angle, 12deg) * -0.15); }
+  100% { rotate: 0deg; }
+}

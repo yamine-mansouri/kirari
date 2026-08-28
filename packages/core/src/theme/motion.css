@@ -120,3 +120,23 @@
   --animate-pulse-soft: k-pulse var(--k-dur-ambient-1) var(--k-ease-smooth) infinite;
   --animate-shimmer: k-shimmer var(--k-dur-ambient-1) var(--k-ease-linear) infinite;
 }
+
+/* ═══ Couche expressive — opt-in, jamais un défaut ═══════════════════════
+ *
+ * Ces raccourcis ne sont posés par aucun composant. Ils existent pour être
+ * convoqués sur l'élément d'un écran qui mérite d'être remarqué.
+ *
+ * Presque tous gagnent à recevoir une origine de transformation explicite :
+ * `origin-bottom`, `origin-top-left`… c'est le pivot qui fait la sensation
+ * d'objet articulé, bien plus que la déformation elle-même.
+ */
+@theme {
+  --animate-squish: k-squish var(--k-dur-4) var(--k-ease-smooth) both;
+  --animate-pop-in: k-pop-in var(--k-dur-4) var(--k-ease-smooth) both;
+  --animate-jelly: k-jelly var(--k-dur-5) var(--k-ease-smooth) both;
+  --animate-tick: k-tick var(--k-dur-3) var(--k-ease-bounce) both;
+  --animate-twinkle: k-twinkle var(--k-dur-ambient-1) var(--k-ease-smooth) infinite;
+  --animate-drift: k-drift var(--k-dur-ambient-3) var(--k-ease-smooth) infinite;
+  --animate-shake: k-shake var(--k-dur-4) var(--k-ease-smooth) both;
+  --animate-swing: k-swing var(--k-dur-6) var(--k-ease-smooth) both;
+}
