@@ -144,6 +144,24 @@ Tout nouveau composant arrive avec ses stories, colocalisées à côté de lui :
 une story `Mouvement` dès que le composant en porte un — une grille figée ne
 montre pas une animation.
 
+Tout nouveau composant reçoit aussi une story **Fantaisie** : quatre à sept
+traitements expressifs, chacun avec le code qui le produit. C'est un catalogue
+d'idées de webdesign, pas une démonstration — sans le code affiché, l'idée
+n'est pas reprenable.
+
+Les spécimens dont l'effet se joue à l'apparition prennent `replayable` et la
+forme fonction (`{(run) => <X key={run} />}`) : remonter l'élément est ce qui
+redéclenche une animation CSS. Ceux déclenchés au survol ou au clic n'en ont
+pas besoin — l'interaction est le rejeu.
+
+`<FantaisiePage>` fournit aussi un ralenti 1× / ¼× / ⅒×, qui redéfinit
+simplement les tokens `--k-dur-*` sur son conteneur. Rien à câbler : tout ce
+qui lit ces tokens ralentit avec lui.
+
+Une story Fantaisie ne doit contenir **aucun CSS jetable** : chaque traitement
+se compose avec les utilitaires du système et la couche expressive. Sinon on
+montre une idée que le lecteur ne peut pas reprendre.
+
 Vérifier aussi que les classes des composants sont bien **générées** — une
 classe absente du CSS produit est le symptôme d'un nom construit
 dynamiquement, pas d'une erreur de style.

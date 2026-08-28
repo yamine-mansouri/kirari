@@ -44,6 +44,11 @@ L'ordre compte deux fois : Tailwind d'abord pour que les blocs `@theme` s'y
 greffent, le thème du projet en dernier pour qu'il l'emporte sur Sakura.
 Le scan des composants est déjà déclaré par Kirari, rien à configurer.
 
+Tous les composants sont **clients** : le paquet porte `"use client"`, et Base
+UI est embarqué comme dépendance — rien de plus à installer. En Next.js app
+router, importer Kirari depuis un Server Component fonctionne, la frontière
+client est franchie par le paquet lui-même.
+
 ```tsx
 import { ThemeProvider, Button, Animate, Stagger } from "@kirari-ds/react";
 
@@ -125,10 +130,41 @@ Amplitudes ajustables par custom property sur l'élément :
 **Affichage** — `Button` `Card` `Badge` `Alert` `Toast` `Avatar` `Progress`
 `Skeleton` `EmptyState` `Stat` `Stepper` `Table` `Kbd`
 
+**Primitives de mouvement** — `Animate` (applique une animation),
+`Stagger` (échelonne ses enfants), `Reveal` (déclenche à l'entrée dans le
+viewport), `useReducedMotion`.
+
+**Hooks et providers** — `ThemeProvider` / `useTheme` / `themeScript`,
+`ToastProvider` / `useToast`. Plusieurs composants ont un compagnon :
+`AvatarGroup`, `CheckboxGroup`, `RadioGroup`, `MenuItem` / `MenuSeparator` /
+`MenuLabel` / `Submenu`, `TooltipProvider`.
+
 Le comportement et l'accessibilité des composants complexes viennent de
 [Base UI](https://base-ui.com) — positionnement anti-collision, piégeage du
 focus, navigation clavier, typeahead. Kirari apporte le style et le mouvement,
 branchés sur leurs attributs `data-open` / `data-closed`.
+
+## Couche expressive
+
+Huit animations opt-in — `animate-squish` `animate-jelly` `animate-pop-in`
+`animate-tick` `animate-swing` `animate-shake` `animate-twinkle`
+`animate-drift` — et un composant décoratif `<Sparkle>`. **Aucune n'est posée
+par défaut** : c'est un vocabulaire à convoquer sur le seul élément d'un écran
+qui mérite d'être remarqué.
+
+Le motif canonique combine un pivot et une déformation :
+
+```tsx
+<Button className="origin-bottom active:animate-squish">Ajouter</Button>
+```
+
+Le pivot compte autant que la déformation. Un élément qui grandit depuis son
+bord bas se lit comme une chose articulée, posée sur une surface ; depuis son
+centre, il flotte.
+
+Chaque composant a une page **Fantaisie** dans Storybook : plusieurs
+traitements expressifs, avec le code de chacun, et un ralenti pour étudier la
+mécanique.
 
 ## Palette : une par projet
 
@@ -221,10 +257,17 @@ Kirari embarque ses règles d'usage, livrées dans le package :
 node_modules/@kirari-ds/core/AGENTS.md
 ```
 
-Elles couvrent les interdits (couleur en dur, couleur Tailwind par défaut,
+C'est un manuel complet, pas une liste de règles : démarrage et premier écran,
+**référence d'API des 33 composants** avec leurs props et leurs variantes,
+quatre recettes de composition (formulaire validé, tableau trié et paginé,
+panneau de réglages, retour utilisateur), le vocabulaire de couleurs et de
+mouvement, et les pièges connus.
+
+Les interdits y sont explicites : couleur en dur, couleur Tailwind par défaut,
 **nom de classe construit dynamiquement**, librairie d'animation JS ajoutée à
-côté, courbe identique en entrée et en sortie), le vocabulaire complet et les
-pièges. Les référencer depuis le `AGENTS.md` ou `CLAUDE.md` du projet :
+côté, courbe identique en entrée et en sortie.
+
+Le référencer depuis le `AGENTS.md` ou `CLAUDE.md` du projet :
 
 ```markdown
 @node_modules/@kirari-ds/core/AGENTS.md
