@@ -1,6 +1,12 @@
-/* Kirari — tokens et thème par défaut, sans passerelle Tailwind ni styles. */
+/**
+ * Kirari — tokens et thème par défaut.
+ *
+ * L'ordre compte : le thème vient EN DERNIER. Les fichiers de `tokens/`
+ * posent les valeurs par défaut du système ; le thème les remplace pour tout
+ * ce qui relève de l'identité — couleurs de marque, police. Un fichier de
+ * thème de projet, chargé après `@kirari-ds/core`, remplace les deux.
+ */
 @import "./tokens/palette.css";
-@import "./themes/sakura.css";
 @import "./tokens/color.css";
 @import "./tokens/easing.css";
 @import "./tokens/duration.css";
@@ -8,3 +14,5 @@
 @import "./tokens/radius.css";
 @import "./tokens/typography.css";
 @import "./tokens/elevation.css";
+
+@import "./themes/sakura.css";
