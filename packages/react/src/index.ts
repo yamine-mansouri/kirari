@@ -129,6 +129,9 @@ export { Kbd, type KbdProps } from "./components/Kbd";
 export { Table, type TableProps, type Column, type SortDirection } from "./components/Table";
 export { Pagination, type PaginationProps } from "./components/Pagination";
 
+// Couche expressive — décorative, jamais posée par défaut par un composant.
+export { Sparkle, type SparkleProps } from "./components/Sparkle";
+
 // Styles partagés — pour construire un composant ancré hors de Kirari.
 export { POPUP_SURFACE, POPUP_BOUNDS, POPUP_ITEM, POPUP_ARROW } from "./styles/popup";
 
