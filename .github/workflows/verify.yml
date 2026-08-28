@@ -1,0 +1,50 @@
+# Exécute les vérifications du design system à chaque poussée et sur les PR.
+#
+# Sans ça, les sept paires de contraste corrigées peuvent revenir sans que
+# personne le voie : ce sont des défauts de tokens, donc invisibles à la
+# relecture d'un composant.
+name: Vérifications
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Types
+        run: pnpm typecheck
+
+      - name: Construction des paquets
+        run: pnpm build
+
+      # Sans navigateur : contrôle les contrastes des tokens dans les deux
+      # thèmes, pour chacune des marques livrées.
+      - name: Contrastes
+        run: |
+          for marque in sakura ai matcha; do
+            node packages/core/scripts/contrast.mjs --theme=$marque
+          done
+
+      - name: Navigateur pour la vérification des stories
+        run: pnpm --filter @kirari-ds/storybook exec playwright install --with-deps chromium
+
+      - name: Construction du Storybook
+        run: pnpm --filter @kirari-ds/storybook build
+
+      # Monte les 171 stories : erreurs d'exécution, violations axe,
+      # débordements et défauts de mise en page.
+      - name: Stories
+        run: pnpm --filter @kirari-ds/storybook verify

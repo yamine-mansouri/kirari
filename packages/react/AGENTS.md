@@ -136,6 +136,51 @@ Toute adaptation passe par une surcharge de token dans le fichier de thème.
 
 ---
 
+## Typographie
+
+**Toujours un rôle, jamais une taille brute.** `text-xl` dit une taille, pas
+un usage : chaque écran réinvente alors son titre. Un rôle regroupe taille,
+interlignage, graisse et interlettrage sous un seul nom, et rend le thème
+utile — redéfinir une taille déplace tous les rôles qui s'en servent.
+
+| Rôle | Pour quoi |
+|---|---|
+| `text-display-lg\|md\|sm` | Un chiffre ou une affirmation qui porte l'écran. Un par page. |
+| `text-title-lg\|md\|sm` | Titre de section, de carte, de boîte de dialogue. |
+| `text-body-lg\|md\|sm\|xs` | Texte courant, descriptions. Graisse normale. |
+| `text-label-lg\|md\|sm` | Ce qui nomme un contrôle. Court, dense, demi-gras. |
+| `text-overline` | L'étiquette au-dessus d'un chiffre clé. Capitales interlettrées. |
+
+Les tailles brutes (`text-sm`, `text-xl`…) restent exposées comme
+échappatoire, et pour dimensionner un contrôle — le texte d'un avatar suit sa
+taille, ce n'est pas un rôle.
+
+**Un piège, si vous ajoutez un rôle :** `tailwind-merge` ne peut pas deviner
+que `text-title-lg` est une taille et non une couleur. Tout nouveau rôle doit
+être déclaré dans `styles/roles.ts`, sinon la fusion le range avec les
+couleurs et **écarte silencieusement la couleur réelle du texte**.
+
+## Personnaliser au-delà de la couleur
+
+Le fichier de thème couvre cinq axes d'identité, pas seulement la marque :
+
+| Palier | Ce qu'il change |
+|---|---|
+| 1 | L'échelle de marque. Le seul obligatoire. |
+| 2 | La police. Meilleur rapport effort / identité après la couleur. |
+| 3 | L'échelle typographique — huit tailles dont tous les rôles dérivent. |
+| 4 | La forme. Tous les rayons à `9999px` donne l'univers « galet ». |
+| 5 | La densité. Un seul pas dont Tailwind dérive tout son espacement. |
+
+```css
+/* kirari-theme.css — un projet qui change de police et resserre tout */
+:root {
+  --k-brand-500: #4470c0;
+  --k-font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --k-space-unit: 0.2rem;   /* interface plus dense */
+}
+```
+
 ## Référence
 
 Les props listées sont les propres à Kirari. Chaque composant accepte en plus
