@@ -62,7 +62,11 @@ export function Tabs({
             value={item.value}
             disabled={item.disabled}
             className={cx(
-              "cursor-pointer px-3.5 py-2 text-sm font-medium whitespace-nowrap outline-none",
+              // `relative z-10` : l'indicateur est un frère positionné en
+              // absolu, rendu APRÈS les onglets. Sans ordre d'empilement
+              // explicite, il passerait par-dessus les libellés dès qu'on lui
+              // donne un fond plein — cas du traitement « pastille ».
+              "relative z-10 cursor-pointer px-3.5 py-2 text-sm font-medium whitespace-nowrap outline-none",
               "text-ink-muted transition-colors duration-(--k-dur-2) ease-smooth",
               "hover:text-ink data-selected:text-ink",
               "data-disabled:pointer-events-none data-disabled:opacity-50",
@@ -75,7 +79,7 @@ export function Tabs({
 
         <Base.Indicator
           className={cx(
-            "absolute bg-accent transition-all duration-(--k-dur-3) ease-glide",
+            "absolute z-0 bg-accent transition-all duration-(--k-dur-3) ease-glide",
             vertical
               ? "left-[-1px] w-0.5 top-(--active-tab-top) h-(--active-tab-height)"
               : "bottom-[-1px] h-0.5 left-(--active-tab-left) w-(--active-tab-width)",
