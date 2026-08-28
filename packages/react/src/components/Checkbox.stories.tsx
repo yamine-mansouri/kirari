@@ -1,0 +1,103 @@
+import { useState } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Checkbox, CheckboxGroup } from "./Checkbox";
+
+const meta = {
+  title: "Composants/Checkbox",
+  component: Checkbox,
+  tags: ["autodocs"],
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        component: [
+          "Case à cocher, avec état indéterminé.",
+          "",
+          "**Checkbox ou Switch ?** Une Checkbox dit « ce sera fait à l'envoi »,",
+          "un Switch dit « c'est fait ». Dans un formulaire qui se valide, c'est",
+          "toujours une Checkbox.",
+          "",
+          "La coche se **dessine** plutôt qu'elle n'apparaît : le tracé est animé",
+          "en `stroke-dashoffset` sur 0.3 s. Sur un contrôle manipulé cent fois",
+          "par jour, c'est le genre de détail qui distingue un système fini d'un",
+          "système fonctionnel.",
+        ].join("\n"),
+      },
+    },
+  },
+  argTypes: {
+    label: { control: "text" },
+    description: { control: "text" },
+    disabled: { control: "boolean" },
+    indeterminate: { control: "boolean" },
+  },
+  args: { label: "Accepter les conditions" },
+} satisfies Meta<typeof Checkbox>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Playground: Story = {};
+
+export const Galerie: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex flex-col gap-8">
+      <section className="flex flex-col gap-3">
+        <h3 className="text-sm font-bold tracking-tight">États</h3>
+        <div className="flex flex-col gap-3">
+          <Checkbox label="Décochée" />
+          <Checkbox label="Cochée" defaultChecked />
+          <Checkbox label="Indéterminée" indeterminate />
+          <Checkbox label="Désactivée" disabled />
+          <Checkbox label="Désactivée et cochée" disabled defaultChecked />
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h3 className="text-sm font-bold tracking-tight">Avec description</h3>
+        <Checkbox
+          label="Recevoir la lettre d'information"
+          description="Un résumé mensuel, sans publicité. Désinscription en un clic."
+          defaultChecked
+        />
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h3 className="text-sm font-bold tracking-tight">Sans libellé</h3>
+        <p className="text-xs text-ink-subtle">
+          Pour une cellule de tableau. Un <code>aria-label</code> reste obligatoire.
+        </p>
+        <Checkbox aria-label="Sélectionner la ligne" />
+      </section>
+    </div>
+  ),
+};
+
+/**
+ * La case parente calcule seule son état indéterminé à partir d'`allValues` —
+ * sans quoi il faut le dériver à la main, ce que tout le monde rate une fois.
+ */
+export const Groupe: Story = {
+  parameters: { controls: { disable: true } },
+  render: function Groupe() {
+    const all = ["lecture", "ecriture", "suppression"];
+    const [value, setValue] = useState<string[]>(["lecture"]);
+
+    return (
+      <CheckboxGroup
+        allValues={all}
+        value={value}
+        onValueChange={setValue}
+        className="flex flex-col gap-3"
+      >
+        <Checkbox parent label="Toutes les permissions" />
+        <div className="flex flex-col gap-3 pl-7">
+          <Checkbox name="lecture" label="Lecture" />
+          <Checkbox name="ecriture" label="Écriture" />
+          <Checkbox name="suppression" label="Suppression" />
+        </div>
+      </CheckboxGroup>
+    );
+  },
+};
