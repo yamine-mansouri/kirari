@@ -112,6 +112,24 @@ Ambiance — `animate-spin-slow` `animate-sway` `animate-float`
 Amplitudes ajustables par custom property sur l'élément :
 `--k-anim-distance`, `--k-anim-scale`, `--k-anim-angle`.
 
+## Composants
+
+**Ancrés** — `Popover` `Tooltip` `Menu` `ContextMenu` `Select` `Combobox`
+
+**Formulaire** — `Field` `Switch` `Checkbox` `Radio` `Slider` `NumberField`
+`OtpField` `ToggleGroup`
+
+**Navigation** — `Tabs` `Accordion` `Collapsible` `Drawer` `Dialog`
+`Separator` `Breadcrumb` `Pagination`
+
+**Affichage** — `Button` `Card` `Badge` `Alert` `Toast` `Avatar` `Progress`
+`Skeleton` `EmptyState` `Stat` `Stepper` `Table` `Kbd`
+
+Le comportement et l'accessibilité des composants complexes viennent de
+[Base UI](https://base-ui.com) — positionnement anti-collision, piégeage du
+focus, navigation clavier, typeahead. Kirari apporte le style et le mouvement,
+branchés sur leurs attributs `data-open` / `data-closed`.
+
 ## Palette : une par projet
 
 Les composants ne consomment que des tokens **sémantiques**, jamais une

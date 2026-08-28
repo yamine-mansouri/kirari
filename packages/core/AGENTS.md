@@ -124,6 +124,31 @@ nuance foncée. Vérifier, ne pas supposer.
 | `ease-spring` | Moment fort uniquement. Une par écran au maximum. |
 | `ease-snap` | Effet dramatique, transition de scène. |
 
+### Survol : ce qu'on traverse ne s'anime pas
+
+La règle la plus souvent ratée du système, et celle qui se ressent le plus.
+
+**Un survol sur lequel on s'attarde peut être animé.** Un bouton, une carte,
+un onglet : on l'approche délibérément, on s'y arrête. Une transition de
+`--k-dur-1` y donne de la douceur.
+
+**Un survol qu'on traverse doit être instantané.** Un item de liste, une ligne
+de tableau, une option de menu : le pointeur passe de l'un à l'autre en bien
+moins de 200 ms, et une flèche maintenue au clavier va plus vite encore. Toute
+transition fait alors traîner le repère derrière l'intention — ce qui se lit
+comme de la **latence**, jamais comme de la fluidité.
+
+C'est le même principe que la poignée du `<Slider>`, qui ne transitionne pas :
+un élément qui doit *suivre* un geste ne s'anime jamais.
+
+```tsx
+/* NON — le surlignage traîne derrière le curseur */
+"transition-colors duration-(--k-dur-1) data-highlighted:bg-accent-subtle"
+
+/* OUI — instantané */
+"data-highlighted:bg-accent-subtle"
+```
+
 ### Durées
 
 Il n'existe pas de namespace `--duration-*` en Tailwind v4 : les durées
@@ -181,7 +206,46 @@ Révéler au défilement (observer déconnecté après déclenchement) :
 
 ## Composants
 
-`<Button>` · `<Card>` · `<Field>` · `<Badge>` · `<Skeleton>` · `<Dialog>`
+**Ancrés** — tous bâtis sur le même socle de positionnement anti-collision.
+`<Popover>` `<Tooltip>` `<Menu>` `<ContextMenu>` `<Select>` `<Combobox>`
+
+**Contrôles de formulaire**
+`<Field>` `<Switch>` `<Checkbox>` `<Radio>` `<Slider>` `<NumberField>`
+`<OtpField>` `<ToggleGroup>`
+
+**Navigation et divulgation**
+`<Tabs>` `<Accordion>` `<Collapsible>` `<Drawer>` `<Dialog>` `<Separator>`
+`<Breadcrumb>` `<Pagination>`
+
+**Retour et affichage**
+`<Button>` `<Card>` `<Badge>` `<Alert>` `<ToastProvider>` + `useToast()`
+`<Avatar>` `<Progress>` `<Skeleton>` `<EmptyState>` `<Stat>` `<Stepper>`
+`<Table>` `<Kbd>`
+
+### Choisir le bon composant
+
+Ces confusions reviennent constamment. Les trancher correctement compte plus
+que le style.
+
+| Situation | Le bon choix |
+|---|---|
+| Effet immédiat au clic | `<Switch>` |
+| Effet appliqué à l'envoi du formulaire | `<Checkbox>` |
+| Choix unique, ≤ 10 options | `<Select>` |
+| Choix unique, > 10 options | `<Combobox>` |
+| Des **actions** dans un menu déroulant | `<Menu>` |
+| Une **valeur** à choisir dans un déroulant | `<Select>` |
+| État persistant, dans le flux | `<Alert>` |
+| Confirmation transitoire, flottante | `<ToastProvider>` |
+| Change ce qui est affiché en dessous | `<Tabs>` |
+| Change un réglage | `<ToggleGroup>` |
+| Panneau modal sur mobile | `<Drawer>` |
+| Panneau modal sur bureau | `<Dialog>` |
+
+Un `<Radio>` seul n'existe pas : toujours dans un `<RadioGroup>`, sans quoi il
+ne peut plus être décoché.
+
+### Surcharge
 
 Tous acceptent `className`, fusionné avec `tailwind-merge` : une surcharge
 remplace réellement l'utilitaire d'origine au lieu de dépendre de l'ordre
@@ -191,9 +255,19 @@ dans la feuille de style.
 <Button className="rounded-full px-8">…</Button>   // rounded-md remplacé
 ```
 
-Pour un composant absent : le construire avec les utilitaires Kirari
-ci-dessus, et `tailwind-variants` pour les variantes. Ne pas réinventer un
-jeu de couleurs ou d'espacements en parallèle.
+### Échapper à l'API composée
+
+Les composants ancrés exposent leurs parties brutes — `PopoverParts`,
+`MenuParts`, `SelectParts`, `ComboboxParts`, `TooltipParts`, `DrawerParts`… —
+pour les cas que l'API par défaut ne couvre pas : groupes dans un Select,
+items à cocher dans un Menu, contenu hors du padding par défaut.
+
+Les recomposer avec `POPUP_SURFACE`, `POPUP_ITEM` et `POPUP_BOUNDS`, exportés
+par `@kirari-ds/react`, pour rester cohérent avec le reste du système.
+
+Pour un composant absent : le construire avec les utilitaires Kirari, et
+`tailwind-variants` pour les variantes. Ne pas réinventer un jeu de couleurs
+ou d'espacements en parallèle.
 
 ---
 

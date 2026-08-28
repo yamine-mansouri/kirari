@@ -91,6 +91,29 @@ les utilitaires Tailwind posent la propriété raccourcie `animation`, qui
 remet `animation-delay` à zéro, et en CSS les déclarations hors layer priment
 sur celles qui sont dans un layer. Ne pas les envelopper dans un `@layer`.
 
+**Base UI** — le comportement et l'accessibilité des composants complexes
+viennent de `@base-ui/react`. Ses conventions ne sont **pas** celles de Radix,
+et s'en souvenir évite des styles silencieusement morts :
+
+| | Base UI |
+|---|---|
+| États d'ouverture | `data-open` / `data-closed` (pas `data-state="open"`) |
+| Transitions | `data-starting-style` / `data-ending-style` |
+| Item survolé | `data-highlighted` |
+| Origine d'un popup | `--transform-origin` |
+| Hauteur mesurée | `--accordion-panel-height`, `--collapsible-panel-height` |
+| Onglet actif | `--active-tab-left`, `--active-tab-width`… |
+| Pile de toasts | `--toast-index`, `--toast-offset-y` |
+
+`data-starting-style` n'est présent qu'une frame : y accrocher une **animation**
+ne fonctionne pas, il faut une **transition**. C'est la règle générale sur tout
+ce qui bouge en permanence — une pile de toasts, un tiroir qu'on peut refermer
+en cours d'ouverture : une transition s'interrompt et repart de la position
+courante, une animation se rejoue depuis le début.
+
+Vérifier l'API dans le package plutôt que la supposer :
+`packages/react/node_modules/@base-ui/react/<composant>/**/*.d.ts`.
+
 **Composants** — variantes via `tailwind-variants` (slots pour les composants
 à plusieurs parties). Le `className` du consommateur passe toujours par `cx()`
 en dernier, pour que `tailwind-merge` résolve les conflits.
