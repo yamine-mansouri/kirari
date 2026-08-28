@@ -1,5 +1,6 @@
 import { Avatar as Base } from "@base-ui/react/avatar";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "../styles/tv";
 import type { ReactNode } from "react";
 import { cx } from "../utils/cx";
 

@@ -70,7 +70,7 @@ export function Tooltip({
         <Base.Positioner side={side} align={align} sideOffset={sideOffset}>
           <Base.Popup
             className={cx(
-              "max-w-64 rounded-md bg-ink px-2.5 py-1.5 text-xs text-bg shadow-md",
+              "max-w-64 rounded-md bg-ink px-2.5 py-1.5 text-body-xs text-bg shadow-md",
               "origin-(--transform-origin)",
               "data-open:animate-popup-in data-closed:animate-popup-out",
               className,

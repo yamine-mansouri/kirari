@@ -1,6 +1,6 @@
 import { forwardRef, useId } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
-import { tv } from "tailwind-variants";
+import { tv } from "../styles/tv";
 import { cx } from "../utils/cx";
 
 /**
@@ -13,7 +13,7 @@ import { cx } from "../utils/cx";
 const field = tv({
   slots: {
     root: "flex flex-col gap-2",
-    label: "text-sm font-medium text-ink",
+    label: "text-label-md text-ink",
     control: "relative",
     input: [
       "w-full rounded-md border border-line bg-surface px-3 py-3 text-sm text-ink",
@@ -26,8 +26,8 @@ const field = tv({
       "pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-center scale-x-0 rounded-full bg-accent",
       "transition-transform duration-(--k-dur-2) ease-exit",
     ],
-    hint: "text-xs text-ink-muted",
-    error: "text-xs text-danger-text",
+    hint: "text-label-sm text-ink-muted",
+    error: "text-label-sm text-danger-text",
   },
   variants: {
     invalid: {

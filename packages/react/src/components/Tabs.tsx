@@ -66,7 +66,7 @@ export function Tabs({
               // absolu, rendu APRÈS les onglets. Sans ordre d'empilement
               // explicite, il passerait par-dessus les libellés dès qu'on lui
               // donne un fond plein — cas du traitement « pastille ».
-              "relative z-10 cursor-pointer px-3.5 py-2 text-sm font-medium whitespace-nowrap outline-none",
+              "relative z-10 cursor-pointer px-3.5 py-2 text-label-md whitespace-nowrap outline-none",
               "text-ink-muted transition-colors duration-(--k-dur-2) ease-smooth",
               "hover:text-ink data-selected:text-ink",
               "data-disabled:pointer-events-none data-disabled:opacity-50",

@@ -69,12 +69,12 @@ export function Popover({
               <Base.Title className="text-sm font-bold tracking-tight">{title}</Base.Title>
             )}
             {description !== undefined && (
-              <Base.Description className="mt-1 text-sm text-ink-muted">
+              <Base.Description className="mt-1 text-body-sm text-ink-muted">
                 {description}
               </Base.Description>
             )}
             {children !== undefined && (
-              <div className={cx("text-sm", (title ?? description) !== undefined && "mt-3")}>
+              <div className={cx("text-body-sm", (title ?? description) !== undefined && "mt-3")}>
                 {children}
               </div>
             )}

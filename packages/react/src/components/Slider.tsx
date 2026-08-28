@@ -31,10 +31,10 @@ export function Slider({ label, showValue = false, className, ...rest }: SliderP
       {(label !== undefined || showValue) && (
         <div className="flex items-baseline justify-between gap-4">
           {label !== undefined && (
-            <Base.Label className="text-sm font-medium text-ink">{label}</Base.Label>
+            <Base.Label className="text-label-md text-ink">{label}</Base.Label>
           )}
           {showValue && (
-            <Base.Value className="font-mono text-xs text-ink-muted tabular-nums" />
+            <Base.Value className="font-mono text-body-xs text-ink-muted tabular-nums" />
           )}
         </div>
       )}

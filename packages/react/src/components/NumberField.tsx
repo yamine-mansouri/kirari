@@ -40,7 +40,7 @@ export function NumberField({ label, placeholder, className, id, ...rest }: Numb
     <Base.Root {...rest} id={inputId} className={cx("flex w-full flex-col gap-2", className)}>
       {label !== undefined && (
         <Base.ScrubArea className="cursor-ew-resize">
-          <label className="text-sm font-medium text-ink select-none" htmlFor={inputId}>
+          <label className="text-label-md text-ink select-none" htmlFor={inputId}>
             {label}
           </label>
           <Base.ScrubAreaCursor />

@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "../styles/tv";
 import { cx } from "../utils/cx";
 
 /**
@@ -11,8 +12,8 @@ import { cx } from "../utils/cx";
 const card = tv({
   slots: {
     root: "relative flex flex-col gap-3 overflow-hidden rounded-lg border border-line bg-surface p-6 text-ink",
-    title: "text-lg font-bold tracking-tight leading-tight",
-    body: "text-sm text-ink-muted",
+    title: "text-title-md",
+    body: "text-body-sm text-ink-muted",
     footer: "mt-auto flex items-center gap-2 pt-2",
     accent: [
       "absolute inset-x-0 bottom-0 h-[3px] origin-right scale-x-0 bg-accent",

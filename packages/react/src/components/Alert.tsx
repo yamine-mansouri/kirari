@@ -1,12 +1,13 @@
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "../styles/tv";
 import type { HTMLAttributes, ReactNode } from "react";
 import { cx } from "../utils/cx";
 
 const alert = tv({
   slots: {
-    root: "flex gap-3 rounded-lg border p-4 text-sm",
+    root: "flex gap-3 rounded-lg border p-4 text-body-sm",
     icon: "mt-px size-4 shrink-0",
-    title: "font-medium",
+    title: "text-label-md",
     body: "text-ink-muted",
   },
   variants: {

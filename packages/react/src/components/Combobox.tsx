@@ -105,7 +105,7 @@ export function Combobox({
           <Base.Popup
             className={cx(POPUP_SURFACE, POPUP_BOUNDS, "w-(--anchor-width) p-1 outline-none")}
           >
-            <Base.Empty className="px-2.5 py-3 text-center text-sm text-ink-subtle">
+            <Base.Empty className="px-2.5 py-3 text-center text-body-sm text-ink-subtle">
               {emptyMessage}
             </Base.Empty>
             <Base.List>

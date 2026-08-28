@@ -92,7 +92,7 @@ export function Table<Row>({
         className,
       )}
     >
-      <table {...rest} className="w-full border-collapse text-sm">
+      <table {...rest} className="w-full border-collapse text-body-sm">
         <thead>
           <tr className="border-b border-line">
             {columns.map((column) => {
@@ -107,7 +107,7 @@ export function Table<Row>({
                   aria-sort={sorted ? (sort.direction === "asc" ? "ascending" : "descending") : undefined}
                   className={cx(
                     pad,
-                    "text-xs font-medium tracking-wide text-ink-subtle uppercase",
+                    "text-overline text-ink-subtle uppercase",
                     ALIGN[column.align ?? (column.numeric ? "right" : "left")],
                     stickyHeader && "sticky top-0 z-10 bg-surface",
                   )}

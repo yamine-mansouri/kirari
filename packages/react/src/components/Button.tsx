@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "../styles/tv";
 import { cx } from "../utils/cx";
 
 /**
@@ -15,7 +16,7 @@ const button = tv({
   slots: {
     root: [
       "group relative isolate inline-flex items-center justify-center gap-2",
-      "cursor-pointer overflow-hidden rounded-md border font-medium whitespace-nowrap",
+      "cursor-pointer overflow-hidden rounded-md border whitespace-nowrap",
       "transition-[color,border-color,transform] duration-(--k-dur-2) ease-smooth",
       "active:scale-[0.97]",
       // L'opacité ne s'applique qu'au VRAI désactivé. Un bouton en chargement
@@ -57,9 +58,9 @@ const button = tv({
       },
     },
     size: {
-      sm: { root: "gap-1 px-3 py-1 text-xs" },
-      md: { root: "px-4 py-2 text-sm" },
-      lg: { root: "px-6 py-3 text-base" },
+      sm: { root: "gap-1 px-3 py-1 text-label-sm" },
+      md: { root: "px-4 py-2 text-label-md" },
+      lg: { root: "px-6 py-3 text-label-lg" },
     },
     block: { true: { root: "flex w-full" } },
     loading: { true: { root: "pointer-events-none text-transparent" } },

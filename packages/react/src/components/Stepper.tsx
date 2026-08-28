@@ -97,14 +97,14 @@ export function Stepper({
               <span
                 aria-current={active ? "step" : undefined}
                 className={cx(
-                  "block text-sm font-medium transition-colors duration-(--k-dur-3) ease-smooth",
+                  "block text-label-md transition-colors duration-(--k-dur-3) ease-smooth",
                   active || done ? "text-ink" : "text-ink-muted",
                 )}
               >
                 {step.label}
               </span>
               {step.description !== undefined && (
-                <span className="block text-xs text-ink-muted">{step.description}</span>
+                <span className="block text-body-xs text-ink-muted">{step.description}</span>
               )}
             </div>
           </div>

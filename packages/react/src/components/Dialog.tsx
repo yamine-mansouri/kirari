@@ -81,10 +81,10 @@ export function Dialog({
     >
       {title !== undefined && (
         <div className="flex items-start justify-between gap-4 px-6 pt-6 pb-3">
-          <h2 className="text-xl font-bold tracking-tight">{title}</h2>
+          <h2 className="text-title-lg">{title}</h2>
         </div>
       )}
-      {children !== undefined && <div className="px-6 text-sm text-ink-muted">{children}</div>}
+      {children !== undefined && <div className="px-6 text-body-sm text-ink-muted">{children}</div>}
       {footer !== undefined && <div className="flex justify-end gap-2 p-6">{footer}</div>}
     </dialog>
   );

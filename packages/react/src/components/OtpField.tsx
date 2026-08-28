@@ -39,7 +39,7 @@ export function OtpField({ length = 6, grouped = false, label, className, ...res
   return (
     <div className="flex flex-col gap-2">
       {label !== undefined && (
-        <span id={labelId} className="text-sm font-medium text-ink">
+        <span id={labelId} className="text-label-md text-ink">
           {label}
         </span>
       )}

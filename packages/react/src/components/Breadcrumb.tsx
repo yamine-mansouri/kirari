@@ -57,7 +57,7 @@ export function Breadcrumb({
 
   return (
     <nav {...rest} aria-label={ariaLabel} className={cx("min-w-0", className)}>
-      <ol className="flex flex-wrap items-center gap-1.5 text-sm">
+      <ol className="flex flex-wrap items-center gap-1.5 text-body-sm">
         {shown.map((item, index) => {
           const last = index === shown.length - 1;
 

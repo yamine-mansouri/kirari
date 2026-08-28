@@ -48,7 +48,7 @@ export function ToggleGroup({ items, className, ...rest }: ToggleGroupProps) {
           disabled={item.disabled}
           aria-label={item.ariaLabel}
           className={cx(
-            "flex cursor-pointer items-center gap-1.5 rounded-sm px-3 py-1.5 text-sm font-medium",
+            "flex cursor-pointer items-center gap-1.5 rounded-sm px-3 py-1.5 text-label-md",
             "text-ink-muted outline-none",
             "transition-[background-color,color,box-shadow] duration-(--k-dur-1) ease-swift",
             "hover:text-ink",

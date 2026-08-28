@@ -76,7 +76,7 @@ export function MenuItem({ inset, danger, shortcut, className, children, ...rest
     >
       <span className="flex-1">{children}</span>
       {shortcut !== undefined && (
-        <kbd className="font-mono text-xs text-ink-subtle">{shortcut}</kbd>
+        <kbd className="font-mono text-body-xs text-ink-subtle">{shortcut}</kbd>
       )}
     </Base.Item>
   );
