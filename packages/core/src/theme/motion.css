@@ -94,6 +94,20 @@
   /* Accent ponctuel */
   --animate-jump: k-jump var(--k-dur-3) var(--k-ease-smooth) both;
 
+  /* Popups ancrés — Base UI (`data-open` / `data-closed`). */
+  --animate-popup-in: k-popup-in var(--k-dur-2) var(--k-ease-enter) both;
+  --animate-popup-out: k-popup-out var(--k-dur-1) var(--k-ease-exit) both;
+
+  /* Panneaux dépliables. La fermeture est plus rapide que l'ouverture :
+     on attend un dépliage, on ne veut pas attendre un repliage. */
+  --animate-accordion-open: k-accordion-open var(--k-dur-3) var(--k-ease-enter) both;
+  --animate-accordion-close: k-accordion-close var(--k-dur-2) var(--k-ease-exit) both;
+  --animate-collapsible-open: k-collapsible-open var(--k-dur-3) var(--k-ease-enter) both;
+  --animate-collapsible-close: k-collapsible-close var(--k-dur-2) var(--k-ease-exit) both;
+
+  /* Tracé de la coche d'un Checkbox. */
+  --animate-check-draw: k-check-draw var(--k-dur-2) var(--k-ease-enter) both;
+
   /* Indicateur de chargement — animation dédiée plutôt que `animate-spin-slow`
      assorti d'une durée arbitraire : rien ne garantit l'ordre de cascade
      entre un utilitaire de thème et un utilitaire de propriété arbitraire. */
