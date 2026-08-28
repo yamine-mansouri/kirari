@@ -32,6 +32,8 @@ export interface TableProps<Row> extends Omit<TableHTMLAttributes<HTMLTableEleme
   /** Rendu quand `rows` est vide — typiquement un `<EmptyState compact />`. */
   empty?: ReactNode;
   onRowClick?: (row: Row, index: number) => void;
+  /** Nom du conteneur défilant, annoncé au clavier. */
+  "aria-label"?: string;
   className?: string;
 }
 
@@ -62,6 +64,7 @@ export function Table<Row>({
   density = "comfortable",
   empty,
   onRowClick,
+  "aria-label": ariaLabel,
   className,
   ...rest
 }: TableProps<Row>) {
@@ -72,7 +75,23 @@ export function Table<Row>({
   }
 
   return (
-    <div className={cx("overflow-x-auto rounded-lg border border-line bg-surface", className)}>
+    // `tabIndex={0}` : un conteneur qui défile doit être atteignable au
+    // clavier, sans quoi les colonnes hors écran sont inaccessibles à qui
+    // n'utilise pas de souris (WCAG 2.1.1).
+    //
+    // Le rôle `region` n'est posé QUE si un libellé est fourni : plusieurs
+    // régions anonymes sur une même page sont indiscernables pour un lecteur
+    // d'écran, et le focus seul suffit à régler le défilement.
+    <div
+      tabIndex={0}
+      role={ariaLabel ? "region" : undefined}
+      aria-label={ariaLabel}
+      className={cx(
+        "overflow-x-auto rounded-lg border border-line bg-surface",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--k-focus-ring)",
+        className,
+      )}
+    >
       <table {...rest} className="w-full border-collapse text-sm">
         <thead>
           <tr className="border-b border-line">

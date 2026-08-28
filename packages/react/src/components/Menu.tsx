@@ -1,6 +1,6 @@
 import { Menu as Base } from "@base-ui/react/menu";
 import { ContextMenu as BaseContext } from "@base-ui/react/context-menu";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode, ReactElement } from "react";
 import { cx } from "../utils/cx";
 import { POPUP_BOUNDS, POPUP_ITEM, POPUP_SURFACE } from "../styles/popup";
 
@@ -9,8 +9,9 @@ const POPUP = cx(POPUP_SURFACE, POPUP_BOUNDS, "min-w-44 p-1 outline-none");
 const SUBMENU_TRIGGER = cx(POPUP_ITEM, "data-popup-open:bg-accent-subtle");
 
 export interface MenuProps {
-  /** L'élément qui ouvre le menu. Rendu tel quel. */
-  trigger: ReactNode;
+  /** L'élément qui ouvre le menu. Doit être un élément unique — Base UI y
+   *  fusionne ses attributs ARIA. */
+  trigger: ReactElement;
   children: ReactNode;
   side?: "top" | "right" | "bottom" | "left";
   align?: "start" | "center" | "end";
@@ -43,7 +44,7 @@ export function Menu({
 }: MenuProps) {
   return (
     <Base.Root open={open} onOpenChange={onOpenChange}>
-      <Base.Trigger render={<span className="inline-flex" />}>{trigger}</Base.Trigger>
+      <Base.Trigger render={trigger} />
       <Base.Portal>
         <Base.Positioner side={side} align={align} sideOffset={sideOffset}>
           <Base.Popup className={cx(POPUP, className)}>{children}</Base.Popup>
@@ -69,7 +70,7 @@ export function MenuItem({ inset, danger, shortcut, className, children, ...rest
       className={cx(
         POPUP_ITEM,
         inset && "pl-8",
-        danger && "text-danger data-highlighted:bg-danger-subtle data-highlighted:text-danger",
+        danger && "text-danger-text data-highlighted:bg-danger-subtle data-highlighted:text-danger-text",
         className,
       )}
     >

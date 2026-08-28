@@ -1,5 +1,5 @@
 import { Drawer as Base } from "@base-ui/react/drawer";
-import type { ReactNode } from "react";
+import type { ReactNode, ReactElement } from "react";
 import { cx } from "../utils/cx";
 
 export type DrawerSide = "left" | "right" | "top" | "bottom";
@@ -55,7 +55,8 @@ const SIDE: Record<DrawerSide, { popup: string; swipe: "left" | "right" | "up" |
 export interface DrawerProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  trigger?: ReactNode;
+  /** Élément unique — Base UI y fusionne ses attributs ARIA. */
+  trigger?: ReactElement;
   title?: ReactNode;
   description?: ReactNode;
   children?: ReactNode;
@@ -91,9 +92,7 @@ export function Drawer({
 
   return (
     <Base.Root open={open} onOpenChange={onOpenChange} swipeDirection={config.swipe}>
-      {trigger !== undefined && (
-        <Base.Trigger render={<span className="inline-flex" />}>{trigger}</Base.Trigger>
-      )}
+      {trigger !== undefined && <Base.Trigger render={trigger} />}
       <Base.Portal>
         <Base.Backdrop
           className={cx(

@@ -1,11 +1,12 @@
 import { Tooltip as Base } from "@base-ui/react/tooltip";
-import type { ReactNode } from "react";
+import type { ReactNode, ReactElement } from "react";
 import { cx } from "../utils/cx";
 import { POPUP_ARROW } from "../styles/popup";
 
 export interface TooltipProps {
-  /** L'élément survolé. Rendu tel quel. */
-  children: ReactNode;
+  /** L'élément survolé. Doit être un élément unique — Base UI y fusionne ses
+   *  attributs ARIA. */
+  children: ReactElement;
   content: ReactNode;
   side?: "top" | "right" | "bottom" | "left";
   align?: "start" | "center" | "end";
@@ -64,9 +65,7 @@ export function Tooltip({
 }: TooltipProps) {
   return (
     <Base.Root>
-      <Base.Trigger delay={delay} closeDelay={closeDelay} render={<span className="inline-flex" />}>
-        {children}
-      </Base.Trigger>
+      <Base.Trigger delay={delay} closeDelay={closeDelay} render={children} />
       <Base.Portal>
         <Base.Positioner side={side} align={align} sideOffset={sideOffset}>
           <Base.Popup

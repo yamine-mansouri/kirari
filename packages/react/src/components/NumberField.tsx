@@ -1,4 +1,5 @@
 import { NumberField as Base } from "@base-ui/react/number-field";
+import { useId } from "react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { cx } from "../utils/cx";
 
@@ -28,11 +29,18 @@ const BTN = cx(
  * unités, séparateurs locaux.
  */
 export function NumberField({ label, placeholder, className, id, ...rest }: NumberFieldProps) {
+  // `id` sur `Base.Root` désigne l'INPUT — Base UI le transmet, et s'en sert
+  // aussi pour son câblage ARIA interne. Le défaut n'était pas l'endroit mais
+  // l'absence : sans identifiant généré, le `htmlFor` du libellé pointait
+  // dans le vide dès que l'appelant n'en fournissait pas.
+  const generatedId = useId();
+  const inputId = id ?? `k-number-${generatedId}`;
+
   return (
-    <Base.Root {...rest} id={id} className={cx("flex w-full flex-col gap-2", className)}>
+    <Base.Root {...rest} id={inputId} className={cx("flex w-full flex-col gap-2", className)}>
       {label !== undefined && (
         <Base.ScrubArea className="cursor-ew-resize">
-          <label className="text-sm font-medium text-ink select-none" htmlFor={id}>
+          <label className="text-sm font-medium text-ink select-none" htmlFor={inputId}>
             {label}
           </label>
           <Base.ScrubAreaCursor />

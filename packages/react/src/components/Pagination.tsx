@@ -8,6 +8,12 @@ export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, "onCh
   /** Nombre de pages affichées de part et d'autre de la page courante. */
   siblings?: number;
   disabled?: boolean;
+  /**
+   * Nom de la navigation. À personnaliser dès qu'une page en contient
+   * plusieurs : deux repères de même nom sont indiscernables pour un lecteur
+   * d'écran.
+   */
+  "aria-label"?: string;
 }
 
 /**
@@ -57,6 +63,7 @@ export function Pagination({
   onChange,
   siblings = 1,
   disabled = false,
+  "aria-label": ariaLabel = "Pagination",
   className,
   ...rest
 }: PaginationProps) {
@@ -65,7 +72,7 @@ export function Pagination({
   const range = buildRange(page, pageCount, siblings);
 
   return (
-    <nav {...rest} aria-label="Pagination" className={cx("flex items-center gap-1", className)}>
+    <nav {...rest} aria-label={ariaLabel} className={cx("flex items-center gap-1", className)}>
       <button
         type="button"
         aria-label="Page précédente"

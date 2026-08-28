@@ -16,6 +16,8 @@ export interface BreadcrumbProps extends Omit<HTMLAttributes<HTMLElement>, "chil
    */
   maxItems?: number;
   separator?: ReactNode;
+  /** Nom de la navigation. À personnaliser si la page en contient plusieurs. */
+  "aria-label"?: string;
 }
 
 const CHEVRON = (
@@ -44,6 +46,7 @@ export function Breadcrumb({
   items,
   maxItems = 4,
   separator = CHEVRON,
+  "aria-label": ariaLabel = "Fil d'Ariane",
   className,
   ...rest
 }: BreadcrumbProps) {
@@ -53,7 +56,7 @@ export function Breadcrumb({
     : items;
 
   return (
-    <nav {...rest} aria-label="Fil d'Ariane" className={cx("min-w-0", className)}>
+    <nav {...rest} aria-label={ariaLabel} className={cx("min-w-0", className)}>
       <ol className="flex flex-wrap items-center gap-1.5 text-sm">
         {shown.map((item, index) => {
           const last = index === shown.length - 1;

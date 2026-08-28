@@ -11,6 +11,8 @@ export interface StepperProps extends Omit<HTMLAttributes<HTMLElement>, "childre
   /** Index de l'étape en cours, à partir de 0. */
   current: number;
   orientation?: "horizontal" | "vertical";
+  /** Nom de la navigation. À personnaliser si la page en contient plusieurs. */
+  "aria-label"?: string;
 }
 
 /**
@@ -29,6 +31,7 @@ export function Stepper({
   steps,
   current,
   orientation = "horizontal",
+  "aria-label": ariaLabel,
   className,
   ...rest
 }: StepperProps) {
@@ -37,7 +40,7 @@ export function Stepper({
   return (
     <nav
       {...rest}
-      aria-label={`Étape ${Math.min(current + 1, steps.length)} sur ${steps.length}`}
+      aria-label={ariaLabel ?? `Étape ${Math.min(current + 1, steps.length)} sur ${steps.length}`}
       className={cx("flex", vertical ? "flex-col" : "w-full items-start", className)}
     >
       {steps.map((step, index) => {

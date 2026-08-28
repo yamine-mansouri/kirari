@@ -1,4 +1,5 @@
 import { Select as Base } from "@base-ui/react/select";
+import { useId } from "react";
 import type { ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { POPUP_BOUNDS, POPUP_ITEM, POPUP_SURFACE } from "../styles/popup";
@@ -21,6 +22,14 @@ export interface SelectOption<T extends string = string> {
 
 export interface SelectProps<T extends string = string> {
   items: Array<SelectOption<T>>;
+  /**
+   * Libellé du champ.
+   *
+   * Le déclencheur porte `role="combobox"`, dont le nom accessible ne vient
+   * **pas** de son contenu : le texte affiché ne suffit pas. Sans `label`,
+   * fournir un `aria-label` — il n'y a pas de troisième option.
+   */
+  label?: ReactNode;
   value?: T | null;
   defaultValue?: T | null;
   onValueChange?: (value: T) => void;
@@ -53,6 +62,7 @@ const CHEVRON = (
  */
 export function Select<T extends string = string>({
   items,
+  label,
   value,
   defaultValue,
   onValueChange,
@@ -62,8 +72,13 @@ export function Select<T extends string = string>({
   name,
   className,
   popupClassName,
+
 }: SelectProps<T>) {
-  return (
+  const generatedId = useId();
+  const triggerId = id ?? `k-select-${generatedId}`;
+  const labelId = `${triggerId}-label`;
+
+  const field = (
     <Base.Root
       value={value}
       defaultValue={defaultValue}
@@ -72,7 +87,8 @@ export function Select<T extends string = string>({
       name={name}
     >
       <Base.Trigger
-        id={id}
+        id={triggerId}
+        aria-labelledby={label !== undefined ? `${labelId} ${triggerId}` : undefined}
         className={cx(
           "flex w-full cursor-pointer items-center justify-between gap-2",
           "rounded-md border border-line bg-surface px-3 py-2.5 text-sm text-ink",
@@ -83,13 +99,19 @@ export function Select<T extends string = string>({
           className,
         )}
       >
-        <Base.Value className="truncate text-left">
+        {/* `placeholder` attend une CHAÎNE, pas un nœud React : lui passer un
+            élément laissait le déclencheur vide — un Select sans sélection
+            n'affichait rien, et son bouton n'avait aucun nom accessible.
+            La couleur du texte de substitution passe donc par l'attribut
+            `data-placeholder` que Base UI expose. */}
+        <Base.Value
+          className="truncate text-left data-[placeholder]:text-ink-subtle"
+          placeholder={placeholder}
+        >
           {(v: unknown) =>
-            v === null || v === undefined || v === "" ? (
-              <span className="text-ink-subtle">{placeholder}</span>
-            ) : (
-              (items.find((i) => i.value === v)?.label ?? String(v))
-            )
+            v === null || v === undefined || v === ""
+              ? placeholder
+              : (items.find((i) => i.value === v)?.label ?? String(v))
           }
         </Base.Value>
         {/* La chevron pivote à l'ouverture : un état, pas une décoration. */}
@@ -127,6 +149,17 @@ export function Select<T extends string = string>({
         </Base.Positioner>
       </Base.Portal>
     </Base.Root>
+  );
+
+  if (label === undefined) return field;
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label id={labelId} htmlFor={triggerId} className="text-sm font-medium text-ink">
+        {label}
+      </label>
+      {field}
+    </div>
   );
 }
 

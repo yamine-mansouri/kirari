@@ -22,8 +22,20 @@ export interface ProgressProps
  * l'information.
  */
 export function Progress({ label, showValue = false, className, ...rest }: ProgressProps) {
+  // Une barre de progression sans nom est muette. Quand aucun libellé visible
+  // n'est fourni, on retombe sur un nom générique plutôt que sur rien — le
+  // consommateur reste libre de passer son propre `aria-label`.
+  const fallbackLabel =
+    label === undefined && rest["aria-label"] === undefined && rest["aria-labelledby"] === undefined
+      ? "Progression"
+      : undefined;
+
   return (
-    <Base.Root {...rest} className={cx("flex w-full flex-col gap-2", className)}>
+    <Base.Root
+      {...rest}
+      aria-label={rest["aria-label"] ?? fallbackLabel}
+      className={cx("flex w-full flex-col gap-2", className)}
+    >
       {(label !== undefined || showValue) && (
         <div className="flex items-baseline justify-between gap-4">
           {label !== undefined && (

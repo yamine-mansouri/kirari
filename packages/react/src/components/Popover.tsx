@@ -1,5 +1,5 @@
 import { Popover as Base } from "@base-ui/react/popover";
-import type { ReactNode } from "react";
+import type { ReactNode, ReactElement } from "react";
 import { cx } from "../utils/cx";
 import { POPUP_ARROW, POPUP_BOUNDS, POPUP_SURFACE } from "../styles/popup";
 
@@ -7,8 +7,13 @@ export type PopoverSide = "top" | "right" | "bottom" | "left";
 export type PopoverAlign = "start" | "center" | "end";
 
 export interface PopoverProps {
-  /** L'élément qui ouvre le popover. Rendu tel quel, sans surcouche. */
-  trigger: ReactNode;
+  /**
+   * L'élément qui ouvre le popover — un `<Button>`, un `<button>`.
+   *
+   * Doit être un élément unique : Base UI y fusionne directement ses attributs
+   * ARIA. Une chaîne ou un fragment ne pourrait pas les recevoir.
+   */
+  trigger: ReactElement;
   children?: ReactNode;
   title?: ReactNode;
   description?: ReactNode;
@@ -51,7 +56,7 @@ export function Popover({
 }: PopoverProps) {
   return (
     <Base.Root open={open} onOpenChange={onOpenChange} defaultOpen={defaultOpen}>
-      <Base.Trigger render={<span className="inline-flex" />}>{trigger}</Base.Trigger>
+      <Base.Trigger render={trigger} />
       <Base.Portal>
         <Base.Positioner side={side} align={align} sideOffset={sideOffset}>
           <Base.Popup
