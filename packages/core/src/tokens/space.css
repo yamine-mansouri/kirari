@@ -1,13 +1,16 @@
-/** Kirari — espacements. Échelle de base 4px, en rem pour respecter le zoom. */
+/**
+ * Kirari — espacement.
+ *
+ * Une seule valeur, et non une échelle de dix.
+ *
+ * Tailwind v4 génère tout son échelonnage à partir d'un pas unique : `p-1`
+ * vaut une fois ce pas, `p-6` six fois. Redéfinir ce pas suffit donc à
+ * resserrer ou aérer tout le système d'un coup — c'est ce qui rendra un axe de
+ * densité possible sans toucher à un seul composant.
+ *
+ * L'ancienne échelle `--k-space-0` à `--k-space-9` a été retirée : elle
+ * dupliquait celle de Tailwind sans que rien ne la consomme.
+ */
 :root {
-  --k-space-0: 0;
-  --k-space-1: 0.25rem; /*  4px */
-  --k-space-2: 0.5rem;  /*  8px */
-  --k-space-3: 0.75rem; /* 12px */
-  --k-space-4: 1rem;    /* 16px */
-  --k-space-5: 1.5rem;  /* 24px */
-  --k-space-6: 2rem;    /* 32px */
-  --k-space-7: 3rem;    /* 48px */
-  --k-space-8: 4rem;    /* 64px */
-  --k-space-9: 6rem;    /* 96px */
+  --k-space-unit: 0.25rem;
 }

@@ -40,26 +40,7 @@
   --radius-xl: var(--k-radius-xl);
   --radius-squircle: var(--k-radius-squircle);
 
-  /* Typographie */
-  --text-xs: var(--k-text-xs);
-  --text-sm: var(--k-text-sm);
-  /* `base` et non `md` : c'est le nom de Tailwind pour la taille par défaut.
-     Le respecter évite que tailwind-merge confonde `text-md` avec une couleur
-     de texte — il ne reconnaît comme tailles que l'échelle standard. */
-  --text-base: var(--k-text-md);
-  --text-lg: var(--k-text-lg);
-  --text-xl: var(--k-text-xl);
-  --text-2xl: var(--k-text-2xl);
-  --text-3xl: var(--k-text-3xl);
-  --text-4xl: var(--k-text-4xl);
-
-  --leading-tight: var(--k-leading-tight);
-  --leading-normal: var(--k-leading-normal);
-  --leading-loose: var(--k-leading-loose);
-
-  --tracking-tight: var(--k-tracking-tight);
-  --tracking-normal: var(--k-tracking-normal);
-  --tracking-wide: var(--k-tracking-wide);
+  --spacing: var(--k-space-unit);
 }
 
 /* ═══ Animations ═════════════════════════════════════════════════════════

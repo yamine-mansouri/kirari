@@ -96,14 +96,14 @@ export function Drawer({
       <Base.Portal>
         <Base.Backdrop
           className={cx(
-            "fixed inset-0 z-500 bg-overlay",
+            "fixed inset-0 z-(--k-z-overlay) bg-overlay",
             "transition-opacity duration-(--k-dur-3) ease-enter",
             "data-starting-style:opacity-0 data-ending-style:opacity-0",
           )}
         />
         <Base.Popup
           className={cx(
-            "fixed z-600 flex flex-col border-line bg-surface text-ink shadow-xl outline-none",
+            "fixed z-(--k-z-modal) flex flex-col border-line bg-surface text-ink shadow-xl outline-none",
             "transition-transform duration-(--k-dur-4) ease-enter",
             "data-ending-style:duration-(--k-dur-2) data-ending-style:ease-exit",
             // Pendant le glissement, le panneau suit le doigt sans latence.
@@ -126,10 +126,10 @@ export function Drawer({
           {(title ?? description) !== undefined && (
             <div className="flex flex-col gap-1 px-6 pt-6 pb-3">
               {title !== undefined && (
-                <Base.Title className="text-lg font-bold tracking-tight">{title}</Base.Title>
+                <Base.Title className="text-title-md">{title}</Base.Title>
               )}
               {description !== undefined && (
-                <Base.Description className="text-sm text-ink-muted">
+                <Base.Description className="text-body-sm text-ink-muted">
                   {description}
                 </Base.Description>
               )}
@@ -137,7 +137,7 @@ export function Drawer({
           )}
 
           {children !== undefined && (
-            <div className="min-h-0 flex-1 overflow-y-auto px-6 py-2 text-sm">{children}</div>
+            <div className="min-h-0 flex-1 overflow-y-auto px-6 py-2 text-body-sm">{children}</div>
           )}
 
           {footer !== undefined && (
