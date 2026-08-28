@@ -99,6 +99,70 @@ for (const story of stories) {
       return Math.max(0, d.scrollWidth - d.clientWidth);
     });
 
+    /**
+     * Assertions géométriques — des approximations calculables de « ça a
+     * l'air faux », que ni le typecheck ni axe ne peuvent voir.
+     */
+    const layout = await page.evaluate(() => {
+      const problems = [];
+      const visible = (el) => {
+        const cs = getComputedStyle(el);
+        return cs.display !== "none" && cs.visibility !== "hidden" && cs.opacity !== "0";
+      };
+
+      // 1. Texte recouvert. Pour chaque élément qui porte du texte propre, on
+      //    demande au navigateur ce qui se trouve à son centre. Si ce n'est ni
+      //    lui, ni un de ses descendants, ni un de ses ancêtres, quelque chose
+      //    est passé par-dessus. `elementFromPoint` ignore les calques en
+      //    `pointer-events: none`, donc les décors n'y déclenchent rien.
+      for (const el of document.body.querySelectorAll("*")) {
+        const own = [...el.childNodes]
+          .filter((n) => n.nodeType === 3)
+          .map((n) => n.textContent.trim())
+          .join("");
+        if (own.length < 2 || !visible(el)) continue;
+
+        const r = el.getBoundingClientRect();
+        if (r.width < 4 || r.height < 4) continue;
+        const x = r.left + r.width / 2;
+        const y = r.top + r.height / 2;
+        if (x < 0 || y < 0 || x > innerWidth || y > innerHeight) continue;
+
+        const top = document.elementFromPoint(x, y);
+        if (!top) continue;
+        if (top === el || el.contains(top) || top.contains(el)) continue;
+        problems.push(`texte recouvert : « ${own.slice(0, 32)} » masqué par <${top.tagName.toLowerCase()} class="${(top.className || "").toString().slice(0, 48)}">`);
+      }
+
+      // Le texte PROPRE d'un élément, hors descendants : un conteneur dont
+      // les enfants sont positionnés en absolu a légitimement une hauteur
+      // nulle, et le compter produirait un bruit qui noie tout le reste.
+      const ownText = (el) =>
+        [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).join("");
+
+      // 2. Élément visible de taille nulle alors qu'il porte du texte.
+      for (const el of document.body.querySelectorAll("*")) {
+        if (ownText(el).length < 2 || !visible(el)) continue;
+        const r = el.getBoundingClientRect();
+        if ((r.width === 0) !== (r.height === 0)) {
+          problems.push(`taille nulle sur un axe : <${el.tagName.toLowerCase()}> ${r.width}×${r.height}`);
+        }
+      }
+
+      // 3. Contenu tronqué sans que ce soit voulu : un conteneur qui coupe
+      //    son texte sans ellipse ni défilement possible.
+      for (const el of document.body.querySelectorAll("*")) {
+        const cs = getComputedStyle(el);
+        if (cs.overflow !== "hidden" || cs.textOverflow === "ellipsis") continue;
+        if (ownText(el).length < 2 || !visible(el)) continue;
+        if (el.scrollWidth > el.clientWidth + 2 && el.clientWidth > 0) {
+          problems.push(`texte coupé sans ellipse : <${el.tagName.toLowerCase()}> ${el.scrollWidth}px dans ${el.clientWidth}px`);
+        }
+      }
+
+      return [...new Set(problems)].slice(0, 6);
+    });
+
     await page.addScriptTag({ content: axeSource });
     const axe = await page.evaluate(async () => {
       const r = await window.axe.run(document.body, {
@@ -111,8 +175,8 @@ for (const story of stories) {
     });
 
     const noise = logs.filter((l) => !IGNORE.some((re) => re.test(l)));
-    if (noise.length || axe.length || overflow > 2) {
-      findings.push({ story: `${story.title} · ${story.name}`, logs: noise, axe, overflow });
+    if (noise.length || axe.length || overflow > 2 || layout.length) {
+      findings.push({ story: `${story.title} · ${story.name}`, logs: noise, axe, overflow, layout });
     }
   } catch (error) {
     findings.push({ story: `${story.title} · ${story.name}`, fatal: error.message.split("\n")[0] });
@@ -138,6 +202,7 @@ if (!findings.length) {
     if (f.overflow > 2) console.log(`    DÉBORDEMENT  ${f.overflow}px horizontalement`);
     for (const l of f.logs ?? []) console.log(`    CONSOLE  ${l.slice(0, 160)}`);
     for (const v of f.axe ?? []) console.log(`    A11Y     [${v.impact}] ${v.id} — ${v.help} (${v.nodes})`);
+    for (const l of f.layout ?? []) console.log(`    MISE EN PAGE  ${l}`);
   }
   console.log(`\n${findings.length} stories avec au moins un signalement.`);
 }
