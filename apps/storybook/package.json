@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "storybook build -o dist",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify": "node ./scripts/verify.mjs"
   },
   "dependencies": {
     "@kirari-ds/core": "workspace:*",
@@ -22,9 +23,11 @@
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
+    "playwright": "^1.62.1",
     "storybook": "^10.5.10",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.7.2",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "axe-core": "^4.10.3"
   }
 }

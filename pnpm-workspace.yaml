@@ -7,3 +7,4 @@ packages:
 # autorisation explicite, aucun build ne fonctionne.
 allowBuilds:
   esbuild: true
+  playwright: true
