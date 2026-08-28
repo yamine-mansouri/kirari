@@ -54,7 +54,7 @@ export const Galerie: Story = {
       <section className="flex flex-col gap-4">
         <h3 className="text-sm font-bold tracking-tight">Horizontal</h3>
         {[0, 1, 3].map((current) => (
-          <Stepper key={current} steps={STEPS} current={current} />
+          <Stepper key={current} steps={STEPS} current={current} aria-label={`Exemple ${current}`} />
         ))}
       </section>
 

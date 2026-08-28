@@ -79,7 +79,7 @@ export const Fantaisie: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <FantaisiePage intro={<>Une barre de bascules est une rangée d'objets côte à côte : c'est le terrain idéal pour un décalage, un pivot, une pastille qui déborde.</>}>
-      <SpecimenGrid>
+      <SpecimenGrid wide>
         <Specimen
           title="Pastille en gelée"
           note="L'élément qui devient actif déborde brièvement. La sélection se voit sans regarder la couleur."

@@ -131,7 +131,7 @@ export const Surcharge: Story = {
     <div className="flex flex-wrap items-center gap-3">
       <Button>Par défaut</Button>
       <Button className="rounded-full px-8">rounded-full px-8</Button>
-      <Button className="bg-accent-2">bg-accent-2</Button>
+      <Button className="bg-accent-2 text-white">bg-accent-2 text-white</Button>
     </div>
   ),
 };

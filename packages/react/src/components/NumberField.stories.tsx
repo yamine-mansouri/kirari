@@ -82,6 +82,7 @@ export const Fantaisie: Story = {
           code={'<NumberField className="[&_button]:origin-bottom\n  [&_button]:active:animate-squish" />'}
         >
           <NumberField
+            label="Quantité"
             defaultValue={3}
             className="max-w-40 [&_button]:origin-bottom [&_button]:active:animate-squish"
           />
@@ -92,7 +93,7 @@ export const Fantaisie: Story = {
           note="Groupe entièrement arrondi, boutons ronds aux extrémités. Le champ devient un contrôle de jouet."
           code={'<NumberField className="[&>div]:rounded-full" />'}
         >
-          <NumberField defaultValue={7} className="max-w-40 [&>div]:rounded-full" />
+          <NumberField label="Quantité" defaultValue={7} className="max-w-40 [&>div]:rounded-full" />
         </Specimen>
 
         <Specimen
@@ -100,7 +101,7 @@ export const Fantaisie: Story = {
           note="Le champ posé à −3°, dans une carte droite. Suffit à sortir de la grille."
           code={'<NumberField className="-rotate-3" />'}
         >
-          <NumberField defaultValue={12} className="max-w-40 -rotate-3" />
+          <NumberField label="Quantité" defaultValue={12} className="max-w-40 -rotate-3" />
         </Specimen>
 
         <Specimen
@@ -109,7 +110,7 @@ export const Fantaisie: Story = {
           code={'<Sparkle count={4}><NumberField /></Sparkle>'}
         >
           <Sparkle count={4}>
-            <NumberField defaultValue={2} className="max-w-40" />
+            <NumberField label="Quantité" defaultValue={2} className="max-w-40" />
           </Sparkle>
         </Specimen>
       </SpecimenGrid>

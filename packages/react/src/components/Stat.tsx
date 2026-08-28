@@ -6,8 +6,8 @@ import { useReducedMotion } from "../motion/useReducedMotion";
 export type StatTrend = "up" | "down" | "flat";
 
 const TREND_CLASS: Record<StatTrend, string> = {
-  up: "text-success",
-  down: "text-danger",
+  up: "text-success-text",
+  down: "text-danger-text",
   flat: "text-ink-subtle",
 };
 

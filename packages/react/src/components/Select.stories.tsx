@@ -37,7 +37,7 @@ const meta = {
     },
   },
   argTypes: { disabled: { control: "boolean" }, placeholder: { control: "text" } },
-  args: { items: PAYS, placeholder: "Choisir un pays…" },
+  args: { items: PAYS, placeholder: "Choisir un pays…", label: "Pays" },
 } satisfies Meta<typeof Select>;
 
 export default meta;
@@ -85,7 +85,7 @@ export const Mouvement: Story = {
     const [value, setValue] = useState<string | null>("fr");
     return (
       <div className="flex max-w-xs flex-col gap-3">
-        <Select items={PAYS} value={value} onValueChange={setValue} />
+        <Select label="Pays" items={PAYS} value={value} onValueChange={setValue} />
         <span className="font-mono text-xs text-ink-muted">value = {String(value)}</span>
       </div>
     );
@@ -100,20 +100,21 @@ export const Fantaisie: Story = {
         <Specimen
           title="Déclencheur en galet"
           note="Champ entièrement rond et liste assortie. Le sélecteur perd son air de formulaire."
-          code={'<Select className="rounded-full px-5"\n  popupClassName="rounded-2xl" />'}
+          code={'<Select label="Pays" className="rounded-full px-5"\n  popupClassName="rounded-2xl" />'}
         >
           <div className="w-full max-w-xs">
-            <Select items={PAYS} className="rounded-full px-5" popupClassName="rounded-2xl p-2 [&_[role=option]]:rounded-full" />
+            <Select label="Pays" items={PAYS} className="rounded-full px-5" popupClassName="rounded-2xl p-2 [&_[role=option]]:rounded-full" />
           </div>
         </Specimen>
 
         <Specimen
           title="Options en cascade"
           note="La liste s'ouvre, puis les options s'installent une à une."
-          code={'<Select popupClassName="k-stagger\n  [&_[role=option]]:animate-slide-up" />'}
+          code={'<Select label="Pays" popupClassName="k-stagger\n  [&_[role=option]]:animate-slide-up" />'}
         >
           <div className="w-full max-w-xs">
             <Select
+              label="Pays"
               items={PAYS}
               popupClassName="k-stagger [&_[role=option]]:animate-slide-up"
             />
@@ -123,20 +124,20 @@ export const Fantaisie: Story = {
         <Specimen
           title="Déclencheur qui s'enfonce"
           note="Un écrasement au clic, pivoté sur la base. Le champ réagit avant que la liste s'ouvre."
-          code={'<Select className="origin-bottom\n  active:animate-squish" />'}
+          code={'<Select label="Pays" className="origin-bottom\n  active:animate-squish" />'}
         >
           <div className="w-full max-w-xs">
-            <Select items={PAYS} className="origin-bottom active:animate-squish" />
+            <Select label="Pays" items={PAYS} className="origin-bottom active:animate-squish" />
           </div>
         </Specimen>
 
         <Specimen
           title="Choix fêté"
           note="Sur un sélecteur unique et décisif — un forfait, une destination."
-          code={'<Sparkle count={5}><Select /></Sparkle>'}
+          code={'<Sparkle count={5}><Select label="Pays" /></Sparkle>'}
         >
           <Sparkle count={5} className="w-full max-w-xs">
-            <Select items={PAYS} defaultValue="jp" className="w-full" />
+            <Select label="Pays" items={PAYS} defaultValue="jp" className="w-full" />
           </Sparkle>
         </Specimen>
       </SpecimenGrid>

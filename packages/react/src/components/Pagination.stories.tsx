@@ -64,6 +64,7 @@ export const Galerie: Story = {
           <h3 className="text-sm font-bold tracking-tight">{c.title}</h3>
           <Pagination
             page={c.page}
+            aria-label={c.title}
             pageCount={c.pageCount}
             siblings={c.siblings}
             disabled={c.disabled}
@@ -89,17 +90,17 @@ export const Fantaisie: Story = {
         <Specimen
           title="Pastilles"
           note="Cellules entièrement rondes. La rangée devient un chapelet plutôt qu'une barre d'outils."
-          code={'<Pagination className="[&_button]:rounded-full" />'}
+          code={'<Pagination aria-label="Exemple 1" className="[&_button]:rounded-full" />'}
         >
-          <Pagination page={3} pageCount={12} onChange={() => {}} className="[&_button]:rounded-full" />
+          <Pagination aria-label="Exemple 2" page={3} pageCount={12} onChange={() => {}} className="[&_button]:rounded-full" />
         </Specimen>
 
         <Specimen
           title="Cellules qui s'enfoncent"
           note="Écrasement pivoté sur la base au clic. Chaque changement de page est un appui."
-          code={'<Pagination className="[&_button]:origin-bottom\n  [&_button]:active:animate-squish" />'}
+          code={'<Pagination aria-label="Exemple 3" className="[&_button]:origin-bottom\n  [&_button]:active:animate-squish" />'}
         >
-          <Pagination
+          <Pagination aria-label="Exemple 4"
             page={3}
             pageCount={12}
             onChange={() => {}}
@@ -110,11 +111,11 @@ export const Fantaisie: Story = {
         <Specimen
           title="Rangée en cascade"
           note="Les numéros s'installent un à un. Utile quand la pagination apparaît après un chargement."
-          code={'<Pagination className="k-stagger [&_button]:animate-pop-in" />'}
+          code={'<Pagination aria-label="Exemple 5" className="k-stagger [&_button]:animate-pop-in" />'}
           replayable
         >
           {(run) => (
-            <Pagination
+            <Pagination aria-label="Exemple 6"
               key={run}
               page={3}
               pageCount={9}
@@ -127,9 +128,9 @@ export const Fantaisie: Story = {
         <Specimen
           title="Page active qui hoche"
           note="La cellule courante acquiesce au survol : elle confirme qu'on y est déjà."
-          code={'<Pagination className="[&_[aria-current]]:hover:animate-tick" />'}
+          code={'<Pagination aria-label="Exemple 7" className="[&_[aria-current]]:hover:animate-tick" />'}
         >
-          <Pagination
+          <Pagination aria-label="Exemple 8"
             page={4}
             pageCount={12}
             onChange={() => {}}

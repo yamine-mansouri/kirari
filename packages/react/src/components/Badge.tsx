@@ -12,9 +12,9 @@ const badge = tv({
     tone: {
       accent: { root: "bg-accent-subtle text-accent-text" },
       neutral: { root: "bg-surface-sunken text-ink-muted" },
-      success: { root: "bg-success-subtle text-success" },
-      warning: { root: "bg-warning-subtle text-warning" },
-      danger: { root: "bg-danger-subtle text-danger" },
+      success: { root: "bg-success-subtle text-success-text" },
+      warning: { root: "bg-warning-subtle text-warning-text" },
+      danger: { root: "bg-danger-subtle text-danger-text" },
     },
     live: { true: { dot: "animate-pulse-soft" } },
   },

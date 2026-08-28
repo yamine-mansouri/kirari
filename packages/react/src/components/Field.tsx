@@ -27,7 +27,7 @@ const field = tv({
       "transition-transform duration-(--k-dur-2) ease-exit",
     ],
     hint: "text-xs text-ink-muted",
-    error: "text-xs text-danger",
+    error: "text-xs text-danger-text",
   },
   variants: {
     invalid: {

@@ -112,7 +112,10 @@ export function Specimen({ title, note, code, children, replayable = false }: Sp
         {typeof children === "function" ? children(run) : children}
       </div>
 
-      <pre className="overflow-x-auto rounded-sm bg-surface-sunken px-3 py-2 font-mono text-[0.68rem] leading-relaxed text-ink-muted">
+      {/* `tabIndex={0}` : un bloc qui défile horizontalement doit être
+          atteignable au clavier, sinon la fin d'une ligne longue est
+          inaccessible sans souris. */}
+      <pre tabIndex={0} className="overflow-x-auto rounded-sm bg-surface-sunken px-3 py-2 font-mono text-[0.68rem] leading-relaxed text-ink-muted">
         {code}
       </pre>
     </div>

@@ -12,9 +12,9 @@ const alert = tv({
   variants: {
     tone: {
       info: { root: "border-accent/25 bg-accent-subtle", icon: "text-accent", title: "text-accent-text" },
-      success: { root: "border-success/25 bg-success-subtle", icon: "text-success", title: "text-success" },
-      warning: { root: "border-warning/25 bg-warning-subtle", icon: "text-warning", title: "text-warning" },
-      danger: { root: "border-danger/25 bg-danger-subtle", icon: "text-danger", title: "text-danger" },
+      success: { root: "border-success/25 bg-success-subtle", icon: "text-success-text", title: "text-success-text" },
+      warning: { root: "border-warning/25 bg-warning-subtle", icon: "text-warning-text", title: "text-warning-text" },
+      danger: { root: "border-danger/25 bg-danger-subtle", icon: "text-danger-text", title: "text-danger-text" },
     },
   },
   defaultVariants: { tone: "info" },

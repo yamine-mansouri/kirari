@@ -106,6 +106,7 @@ export const Fantaisie: Story = {
           code={'<Slider className="[&_[role=slider]]:size-7" />'}
         >
           <Slider
+            label="Exemple"
             defaultValue={55}
             className="w-full [&_[role=slider]]:size-7 [&_[role=slider]]:border-4"
           />
@@ -116,7 +117,7 @@ export const Fantaisie: Story = {
           note="Une gelée au moment de la saisie, jamais pendant. L'objet réagit à la prise, puis se tait pour suivre le doigt."
           code={'<Slider className="[&_[role=slider]]:active:animate-jelly" />'}
         >
-          <Slider defaultValue={40} className="w-full [&_[role=slider]]:active:animate-jelly" />
+          <Slider label="Exemple" defaultValue={40} className="w-full [&_[role=slider]]:active:animate-jelly" />
         </Specimen>
 
         <Specimen
@@ -125,7 +126,7 @@ export const Fantaisie: Story = {
           code={'<Sparkle count={5}><Slider /></Sparkle>'}
         >
           <Sparkle count={5} className="w-full">
-            <Slider defaultValue={100} className="w-full" />
+            <Slider label="Exemple" defaultValue={100} className="w-full" />
           </Sparkle>
         </Specimen>
 
@@ -134,7 +135,7 @@ export const Fantaisie: Story = {
           note="La piste posée à −2°. Le réglage n'est plus un instrument de mesure, c'est un objet posé sur une table."
           code={'<Slider className="-rotate-2" />'}
         >
-          <Slider defaultValue={65} className="w-full -rotate-2" />
+          <Slider label="Exemple" defaultValue={65} className="w-full -rotate-2" />
         </Specimen>
       </SpecimenGrid>
     </FantaisiePage>

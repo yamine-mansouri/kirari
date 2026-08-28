@@ -49,7 +49,7 @@ export const Galerie: Story = {
     <div className="flex flex-col gap-8">
       <section className="flex flex-col gap-2">
         <h3 className="text-sm font-bold tracking-tight">Court</h3>
-        <Breadcrumb items={LONG.slice(0, 3)} />
+        <Breadcrumb aria-label="Court" items={LONG.slice(0, 3)} />
       </section>
 
       <section className="flex flex-col gap-2">
@@ -57,17 +57,18 @@ export const Galerie: Story = {
         <p className="text-xs text-ink-subtle">
           Six éléments, <code>maxItems=4</code> : la racine et la fin restent.
         </p>
-        <Breadcrumb items={LONG} maxItems={4} />
+        <Breadcrumb aria-label="Tronqué" items={LONG} maxItems={4} />
       </section>
 
       <section className="flex flex-col gap-2">
         <h3 className="text-sm font-bold tracking-tight">Sans troncature</h3>
-        <Breadcrumb items={LONG} maxItems={0} />
+        <Breadcrumb aria-label="Complet" items={LONG} maxItems={0} />
       </section>
 
       <section className="flex flex-col gap-2">
         <h3 className="text-sm font-bold tracking-tight">Séparateur personnalisé</h3>
         <Breadcrumb
+          aria-label="Séparateur personnalisé"
           items={LONG.slice(0, 4)}
           maxItems={0}
           separator={<span className="text-ink-subtle">/</span>}
@@ -85,11 +86,11 @@ export const Fantaisie: Story = {
         <Specimen
           title="Chemin qui se trace"
           note="Les segments apparaissent l'un après l'autre, de la racine à la page courante. Le parcours se rejoue sous les yeux."
-          code={'<Breadcrumb className="k-stagger [&_li]:animate-slide-right" />'}
+          code={'<Breadcrumb aria-label="Exemple 1" className="k-stagger [&_li]:animate-slide-right" />'}
           replayable
         >
           {(run) => (
-            <Breadcrumb
+            <Breadcrumb aria-label="Exemple 2"
               key={run}
               items={LONG.slice(0, 4)}
               maxItems={0}
@@ -101,9 +102,9 @@ export const Fantaisie: Story = {
         <Specimen
           title="Cailloux"
           note="Chaque segment devient une pastille. Le fil d'Ariane redevient littéralement une suite de cailloux."
-          code={'<Breadcrumb className="[&_a]:rounded-full [&_a]:bg-surface-sunken [&_a]:px-2.5" />'}
+          code={'<Breadcrumb aria-label="Exemple 3" className="[&_a]:rounded-full [&_a]:bg-surface-sunken [&_a]:px-2.5" />'}
         >
-          <Breadcrumb
+          <Breadcrumb aria-label="Exemple 4"
             items={LONG.slice(0, 4)}
             maxItems={0}
             className="[&_a]:rounded-full [&_a]:bg-surface-sunken [&_a]:px-2.5 [&_a]:py-1 [&_span[aria-current]]:rounded-full [&_span[aria-current]]:bg-accent-subtle [&_span[aria-current]]:px-2.5 [&_span[aria-current]]:py-1 [&_span[aria-current]]:text-accent-text"
@@ -113,17 +114,17 @@ export const Fantaisie: Story = {
         <Specimen
           title="Segments qui hochent"
           note="Chaque maillon acquiesce au survol. Sur un fil court, ça rend la navigation vivante sans la ralentir."
-          code={'<Breadcrumb className="[&_a]:hover:animate-tick" />'}
+          code={'<Breadcrumb aria-label="Exemple 5" className="[&_a]:hover:animate-tick" />'}
         >
-          <Breadcrumb items={LONG.slice(0, 4)} maxItems={0} className="[&_a]:hover:animate-tick" />
+          <Breadcrumb aria-label="Exemple 6" items={LONG.slice(0, 4)} maxItems={0} className="[&_a]:hover:animate-tick" />
         </Specimen>
 
         <Specimen
           title="Chemin de travers"
           note="Chaque segment à un angle légèrement différent, comme une trace laissée à la main."
-          code={'<Breadcrumb className="[&_li:nth-child(3)]:-rotate-2" />'}
+          code={'<Breadcrumb aria-label="Exemple 7" className="[&_li:nth-child(3)]:-rotate-2" />'}
         >
-          <Breadcrumb
+          <Breadcrumb aria-label="Exemple 8"
             items={LONG.slice(0, 4)}
             maxItems={0}
             className="[&_li:nth-child(1)]:-rotate-2 [&_li:nth-child(3)]:rotate-1 [&_li:nth-child(5)]:-rotate-1 [&_li:nth-child(7)]:rotate-2"

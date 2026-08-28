@@ -100,7 +100,7 @@ export const Fantaisie: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <FantaisiePage intro={<>L'indicateur glissant est déjà le geste signature du composant. La fantaisie consiste à le rendre plus matériel, ou à animer ce qu'il révèle.</>}>
-      <SpecimenGrid>
+      <SpecimenGrid wide>
         <Specimen
           title="Indicateur en pastille"
           note="Le trait devient un fond arrondi qui coulisse derrière l'onglet actif. Même mécanique, tout autre registre."

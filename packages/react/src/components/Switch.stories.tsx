@@ -33,7 +33,7 @@ const meta = {
     checked: { control: "boolean" },
     disabled: { control: "boolean" },
   },
-  args: { size: "md" },
+  args: { size: "md", label: "Notifications par e-mail" },
 } satisfies Meta<typeof Switch>;
 
 export default meta;
@@ -100,7 +100,7 @@ export const Controle: Story = {
     const [on, setOn] = useState(false);
     return (
       <div className="flex items-center gap-4">
-        <Switch checked={on} onCheckedChange={setOn} size="lg" />
+        <Switch checked={on} onCheckedChange={setOn} size="lg" label="Mode nuit" />
         <span className="font-mono text-sm text-ink-muted">
           checked = {String(on)}
         </span>
@@ -128,7 +128,7 @@ export const Fantaisie: Story = {
           note="Le rail s'aplatit brièvement au clic, comme un vrai interrupteur qu'on enfonce."
           code={`<Switch className="origin-center\n  active:animate-squish" />`}
         >
-          <Switch size="lg" className="active:animate-squish" defaultChecked />
+          <Switch size="lg" aria-label="Exemple" className="active:animate-squish" defaultChecked />
         </Specimen>
 
         <Specimen
@@ -136,7 +136,7 @@ export const Fantaisie: Story = {
           note="Plus appuyé : l'objet tremble à l'activation. À réserver à un réglage marquant, pas à une liste de préférences."
           code={`<Switch className="active:animate-jelly" />`}
         >
-          <Switch size="lg" className="active:animate-jelly" />
+          <Switch size="lg" aria-label="Exemple" className="active:animate-jelly" />
         </Specimen>
 
         <Specimen
@@ -145,7 +145,7 @@ export const Fantaisie: Story = {
           code={`<Sparkle count={4}><Switch /></Sparkle>`}
         >
           <Sparkle count={4}>
-            <Switch size="lg" defaultChecked />
+            <Switch size="lg" aria-label="Exemple" defaultChecked />
           </Sparkle>
         </Specimen>
 
@@ -156,7 +156,7 @@ export const Fantaisie: Story = {
         >
           <label className="flex items-center gap-3 text-sm text-ink-muted">
             Mode nuit
-            <Switch size="lg" className="-rotate-4" defaultChecked />
+            <Switch size="lg" aria-label="Exemple" className="-rotate-4" defaultChecked />
           </label>
         </Specimen>
       </SpecimenGrid>
