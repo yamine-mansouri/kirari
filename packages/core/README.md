@@ -5,6 +5,9 @@ Bibliothèque de composants React **motion-first**, bâtie sur Tailwind v4.
 Ma patte graphique et mes animations, réutilisables d'un projet à l'autre, avec
 une palette qui change en un fichier.
 
+**[Voir le Storybook →](https://yamine-mansouri.github.io/kirari/)** — 33 composants, leurs galeries d'états, les
+fondations et une page « Fantaisie » par composant.
+
 ## Le parti pris
 
 La plupart des bibliothèques traitent l'animation comme une finition. Ici c'est
@@ -289,6 +292,7 @@ pnpm typecheck
 packages/core      @kirari-ds/core   tokens, thèmes, keyframes, passerelle Tailwind
 packages/react     @kirari-ds/react  composants React + stories colocalisées
 apps/storybook     Storybook : fondations et vitrine
+.github/workflows  publication du Storybook sur GitHub Pages à chaque push
 ```
 
 Storybook est la **source de vérité** du système. Chaque composant y a sa

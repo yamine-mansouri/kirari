@@ -525,7 +525,9 @@ Révéler au défilement (observer déconnecté après déclenchement) :
 
 ## Où trouver des idées
 
-Chaque composant a une page **Fantaisie** dans le Storybook du design system :
+Le Storybook est en ligne : **https://yamine-mansouri.github.io/kirari/**
+
+Chaque composant y a une page **Fantaisie** :
 plusieurs traitements expressifs du même composant, avec le code de chacun et
 un ralenti pour étudier la mécanique. C'est le catalogue à consulter avant
 d'inventer un effet — et tout y est composé avec les utilitaires du système,
