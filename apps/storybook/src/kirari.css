@@ -2,10 +2,10 @@
 @import "@kirari-ds/core";
 
 /**
- * En monorepo, les composants Kirari vivent en source et non dans `dist/`.
- * `@kirari-ds/core` déclare déjà `@source "../../react/dist"` pour les projets
- * consommateurs ; on ajoute ici la source et les stories, pour que les classes
- * soient générées pendant le développement.
+ * Le scan des composants incombe toujours au projet qui consomme Kirari — ici,
+ * cette vitrine. En monorepo les composants vivent en source et non dans
+ * `dist/`, d'où ces chemins ; un vrai projet pointe sur
+ * `../node_modules/@kirari-ds/react/dist`.
  */
 @source "../../../packages/react/src";
 @source "../src";

@@ -58,10 +58,15 @@ six combinaisons. Une régression de contraste ne se voit que là.
 @import "tailwindcss";
 @import "@kirari-ds/core";
 @import "./kirari-theme.css";   /* la palette du projet */
+
+@source "../node_modules/@kirari-ds/react/dist";
 ```
 
 L'ordre compte deux fois : Tailwind d'abord pour que les blocs `@theme` s'y
 greffent, le thème du projet en dernier pour qu'il l'emporte sur Sakura.
+
+La ligne `@source` n'est pas optionnelle : Tailwind ignore `node_modules`, et
+sans elle aucune classe de composant n'est générée.
 
 Les règles complètes, destinées aux agents comme aux humains, sont livrées
 dans le package : `node_modules/@kirari-ds/core/AGENTS.md`.
