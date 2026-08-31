@@ -43,7 +43,8 @@
   "scripts": {
     "build": "node ./scripts/build.mjs",
     "dev": "node ./scripts/build.mjs --watch",
-    "typecheck": "echo 'core: pas de TS' "
+    "typecheck": "echo 'core: pas de TS' ",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "cssnano": "^7.0.6",
