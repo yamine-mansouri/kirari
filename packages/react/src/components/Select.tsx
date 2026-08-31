@@ -91,7 +91,7 @@ export function Select<T extends string = string>({
         aria-labelledby={label !== undefined ? `${labelId} ${triggerId}` : undefined}
         className={cx(
           "flex w-full cursor-pointer items-center justify-between gap-2",
-          "rounded-md border border-line bg-surface px-3 py-2.5 text-sm text-ink",
+          "rounded-md border border-line bg-surface px-3 py-2.5 text-body-sm text-ink",
           "transition-colors duration-(--k-dur-2) ease-smooth",
           "hover:border-line-strong",
           "data-popup-open:border-line-strong",
@@ -155,7 +155,7 @@ export function Select<T extends string = string>({
 
   return (
     <div className="flex flex-col gap-2">
-      <label id={labelId} htmlFor={triggerId} className="text-sm font-medium text-ink">
+      <label id={labelId} htmlFor={triggerId} className="text-label-md text-ink">
         {label}
       </label>
       {field}

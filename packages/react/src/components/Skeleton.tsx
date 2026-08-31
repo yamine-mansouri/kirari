@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import type { CSSProperties, HTMLAttributes } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "../styles/tv";
 import { cx } from "../utils/cx";
 
 /**

@@ -51,9 +51,9 @@ export function Radio({ label, description, className, id, ...rest }: RadioProps
     <label className="flex cursor-pointer items-start gap-2.5" htmlFor={id}>
       <span className="mt-px">{dot}</span>
       <span className="min-w-0">
-        <span className="block text-sm text-ink">{label}</span>
+        <span className="block text-body-sm text-ink">{label}</span>
         {description !== undefined && (
-          <span className="block text-xs text-ink-muted">{description}</span>
+          <span className="block text-body-xs text-ink-muted">{description}</span>
         )}
       </span>
     </label>

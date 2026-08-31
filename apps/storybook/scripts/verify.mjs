@@ -206,3 +206,33 @@ if (!findings.length) {
   }
   console.log(`\n${findings.length} stories avec au moins un signalement.`);
 }
+
+// Code de sortie non nul dès qu'un signalement CRITIQUE subsiste : le reste
+// (contrastes de démonstration, repères dupliqués) ne doit pas bloquer une
+// intégration continue, mais un contrôle sans nom accessible, si.
+/**
+ * Défauts critiques connus et non corrigeables ici.
+ *
+ * Une intégration continue rouge en permanence ne sert à rien : on ne la
+ * regarde plus. Chaque exception doit donc nommer sa cause et rester
+ * vérifiable — celle-ci disparaîtra le jour où Base UI étiquettera son
+ * champ caché.
+ */
+const KNOWN = [
+  {
+    story: /OtpField/,
+    rule: "label",
+    why: "Base UI rend un input de validation caché et non étiqueté (interne à la bibliothèque)",
+  },
+];
+
+const isKnown = (story, id) =>
+  KNOWN.some((k) => k.story.test(story) && k.rule === id);
+
+const critical = findings.filter(
+  (f) => f.fatal || f.axe?.some((v) => v.impact === "critical" && !isKnown(f.story, v.id)),
+);
+if (critical.length) {
+  console.log(`\n${critical.length} story(s) avec un défaut critique.`);
+  process.exit(1);
+}

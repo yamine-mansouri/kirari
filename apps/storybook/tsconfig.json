@@ -1,7 +1,16 @@
 {
+  // `paths` pointe sur les SOURCES des paquets, comme les alias de Vite.
+  //
+  // Sans cela, la vérification de types se résout vers `dist/`, qui n'existe
+  // pas sur une machine vierge tant que `build` n'a pas tourné. En local le
+  // défaut restait invisible : un `dist/` traînait toujours.
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
@@ -10,7 +19,19 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
-    "types": ["vite/client"]
+    "types": [
+      "vite/client"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@kirari-ds/react": [
+        "../../packages/react/src/index.ts"
+      ]
+    }
   },
-  "include": ["src", ".storybook", "../../packages/react/src/**/*.stories.tsx"]
+  "include": [
+    "src",
+    ".storybook",
+    "../../packages/react/src/**/*.stories.tsx"
+  ]
 }

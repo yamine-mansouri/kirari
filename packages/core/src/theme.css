@@ -24,4 +24,5 @@
  */
 
 @import "./theme/colors.css";
+@import "./theme/typography.css";
 @import "./theme/motion.css";

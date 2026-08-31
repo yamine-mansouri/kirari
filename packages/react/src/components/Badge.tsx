@@ -1,11 +1,12 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "../styles/tv";
 import { cx } from "../utils/cx";
 
 const badge = tv({
   slots: {
-    root: "inline-flex items-center gap-1 rounded-full px-2 py-[0.15em] text-xs font-medium whitespace-nowrap",
+    root: "inline-flex items-center gap-1 rounded-full px-2 py-[0.15em] text-label-sm whitespace-nowrap",
     dot: "size-[0.5em] rounded-full bg-current",
   },
   variants: {

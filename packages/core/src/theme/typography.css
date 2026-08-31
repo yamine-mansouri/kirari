@@ -1,0 +1,114 @@
+/**
+ * Kirari — passerelle Tailwind : typographie.
+ *
+ * ── Pourquoi des rôles et pas seulement des tailles ───────────────────────
+ *
+ * `text-xl` dit une taille, pas un usage. Chaque écran réinvente donc son
+ * titre, et changer « les titres » du système oblige à traquer huit tailles
+ * à la main.
+ *
+ * Un rôle regroupe taille, interlignage, graisse et interlettrage sous un
+ * seul nom — Tailwind v4 le permet nativement via les suffixes `--*`. C'est
+ * le modèle de Material 3, et c'est ce qui rend le thème réellement utile :
+ * redéfinir `--text-title-lg` ailleurs suffit à changer tous les titres.
+ *
+ * Les tailles brutes restent exposées comme échappatoire, mais un composant
+ * du système doit passer par un rôle.
+ */
+@theme inline {
+  /* — Tailles brutes (échappatoire) ————————————————————————————— */
+  --text-xs: var(--k-text-xs);
+  --text-sm: var(--k-text-sm);
+  --text-base: var(--k-text-md);
+  --text-lg: var(--k-text-lg);
+  --text-xl: var(--k-text-xl);
+  --text-2xl: var(--k-text-2xl);
+  --text-3xl: var(--k-text-3xl);
+  --text-4xl: var(--k-text-4xl);
+
+  --leading-tight: var(--k-leading-tight);
+  --leading-normal: var(--k-leading-normal);
+  --leading-loose: var(--k-leading-loose);
+
+  --tracking-tight: var(--k-tracking-tight);
+  --tracking-normal: var(--k-tracking-normal);
+  --tracking-wide: var(--k-tracking-wide);
+
+  --font-weight-normal: var(--k-weight-normal);
+  --font-weight-medium: var(--k-weight-medium);
+  --font-weight-bold: var(--k-weight-bold);
+
+  /* — Display : un chiffre ou une affirmation qui porte tout l'écran ————
+   *   Un par page au maximum. Interlettrage resserré : à cette taille,
+   *   l'espacement par défaut fait flotter les lettres. */
+  --text-display-lg: var(--k-text-4xl);
+  --text-display-lg--line-height: var(--k-leading-tight);
+  --text-display-lg--font-weight: var(--k-weight-bold);
+  --text-display-lg--letter-spacing: var(--k-tracking-tight);
+
+  --text-display-md: var(--k-text-3xl);
+  --text-display-md--line-height: var(--k-leading-tight);
+  --text-display-md--font-weight: var(--k-weight-bold);
+  --text-display-md--letter-spacing: var(--k-tracking-tight);
+
+  --text-display-sm: var(--k-text-2xl);
+  --text-display-sm--line-height: var(--k-leading-tight);
+  --text-display-sm--font-weight: var(--k-weight-bold);
+  --text-display-sm--letter-spacing: var(--k-tracking-tight);
+
+  /* — Title : le titre d'une section, d'une carte, d'une boîte ————————— */
+  --text-title-lg: var(--k-text-xl);
+  --text-title-lg--line-height: var(--k-leading-tight);
+  --text-title-lg--font-weight: var(--k-weight-bold);
+  --text-title-lg--letter-spacing: var(--k-tracking-tight);
+
+  --text-title-md: var(--k-text-lg);
+  --text-title-md--line-height: var(--k-leading-tight);
+  --text-title-md--font-weight: var(--k-weight-bold);
+  --text-title-md--letter-spacing: var(--k-tracking-tight);
+
+  --text-title-sm: var(--k-text-md);
+  --text-title-sm--line-height: var(--k-leading-tight);
+  --text-title-sm--font-weight: var(--k-weight-bold);
+  --text-title-sm--letter-spacing: var(--k-tracking-normal);
+
+  /* — Body : le texte courant. Interlignage généreux, graisse normale. —— */
+  --text-body-lg: var(--k-text-lg);
+  --text-body-lg--line-height: var(--k-leading-normal);
+  --text-body-lg--font-weight: var(--k-weight-normal);
+
+  --text-body-md: var(--k-text-md);
+  --text-body-md--line-height: var(--k-leading-normal);
+  --text-body-md--font-weight: var(--k-weight-normal);
+
+  --text-body-sm: var(--k-text-sm);
+  --text-body-sm--line-height: var(--k-leading-normal);
+  --text-body-sm--font-weight: var(--k-weight-normal);
+
+  /* Les descriptions secondaires — sous un libellé, sous un chiffre. À
+     graisse normale : `label-sm` les mettrait en demi-gras, ce qui les
+     ferait concurrencer ce qu'elles expliquent. */
+  --text-body-xs: var(--k-text-xs);
+  --text-body-xs--line-height: var(--k-leading-normal);
+  --text-body-xs--font-weight: var(--k-weight-normal);
+
+  /* — Label : ce qui nomme un contrôle. Court, dense, jamais un paragraphe. */
+  --text-label-lg: var(--k-text-md);
+  --text-label-lg--line-height: var(--k-leading-tight);
+  --text-label-lg--font-weight: var(--k-weight-medium);
+
+  --text-label-md: var(--k-text-sm);
+  --text-label-md--line-height: var(--k-leading-tight);
+  --text-label-md--font-weight: var(--k-weight-medium);
+
+  --text-label-sm: var(--k-text-xs);
+  --text-label-sm--line-height: var(--k-leading-tight);
+  --text-label-sm--font-weight: var(--k-weight-medium);
+
+  /* — Overline : l'étiquette au-dessus d'un chiffre clé. En capitales, donc
+   *   interlettré — sans quoi les capitales se collent. */
+  --text-overline: var(--k-text-xs);
+  --text-overline--line-height: var(--k-leading-tight);
+  --text-overline--font-weight: var(--k-weight-medium);
+  --text-overline--letter-spacing: var(--k-tracking-wide);
+}

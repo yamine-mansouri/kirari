@@ -83,8 +83,8 @@ function ToastList() {
           />
 
           <div className="min-w-0 flex-1">
-            <Base.Title className="text-sm font-medium text-ink" />
-            <Base.Description className="mt-0.5 text-sm text-ink-muted" />
+            <Base.Title className="text-label-md text-ink" />
+            <Base.Description className="mt-0.5 text-body-sm text-ink-muted" />
           </div>
 
           <Base.Close
@@ -125,7 +125,7 @@ export function ToastProvider({ children, limit = 3, timeout = 5000 }: ToastProv
       <Base.Portal>
         <Base.Viewport
           className={cx(
-            "fixed right-4 bottom-4 z-700 flex w-[min(22rem,calc(100vw-2rem))] items-end",
+            "fixed right-4 bottom-4 z-(--k-z-toast) flex w-[min(22rem,calc(100vw-2rem))] items-end",
             // La zone garde la hauteur du toast de devant : la pile ne fait
             // pas sauter la mise en page quand elle grandit.
             "h-(--toast-frontmost-height)",

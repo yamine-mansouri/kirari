@@ -53,9 +53,9 @@ export function EmptyState({
       )}
 
       <div className="flex flex-col gap-1">
-        <p className={cx("font-medium text-ink", compact ? "text-sm" : "text-base")}>{title}</p>
+        <p className={cx("font-medium text-ink", compact ? "text-title-sm" : "text-title-md")}>{title}</p>
         {description !== undefined && (
-          <p className="max-w-[42ch] text-sm text-ink-muted">{description}</p>
+          <p className="max-w-[42ch] text-body-sm text-ink-muted">{description}</p>
         )}
       </div>
 

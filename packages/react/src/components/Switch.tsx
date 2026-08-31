@@ -1,7 +1,8 @@
 import { useId } from "react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Switch as Base } from "@base-ui/react/switch";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "../styles/tv";
 import { cx } from "../utils/cx";
 
 /**
@@ -76,9 +77,9 @@ export function Switch({ size = "md", label, description, className, id, ...rest
     <label className="flex cursor-pointer items-start gap-3" htmlFor={switchId}>
       {control}
       <span className="min-w-0">
-        <span className="block text-sm text-ink">{label}</span>
+        <span className="block text-body-sm text-ink">{label}</span>
         {description !== undefined && (
-          <span className="block text-xs text-ink-muted">{description}</span>
+          <span className="block text-body-xs text-ink-muted">{description}</span>
         )}
       </span>
     </label>

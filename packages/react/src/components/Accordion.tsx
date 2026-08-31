@@ -66,7 +66,7 @@ export function Accordion({
             <Base.Trigger
               className={cx(
                 "flex w-full cursor-pointer items-center justify-between gap-4 px-4 py-3.5 text-left outline-none",
-                "text-sm font-medium text-ink",
+                "text-label-md text-ink",
                 "transition-colors duration-(--k-dur-2) ease-smooth hover:bg-surface-sunken",
                 "data-disabled:pointer-events-none data-disabled:opacity-50",
                 "[&[data-panel-open]>svg]:rotate-180",
@@ -79,7 +79,7 @@ export function Accordion({
           </Base.Header>
           <Base.Panel
             className={cx(
-              "overflow-hidden text-sm text-ink-muted",
+              "overflow-hidden text-body-sm text-ink-muted",
               "data-open:animate-accordion-open data-closed:animate-accordion-close",
             )}
           >
@@ -121,7 +121,7 @@ export function Collapsible({
     >
       <BaseCollapsible.Trigger
         className={cx(
-          "flex cursor-pointer items-center gap-1.5 self-start text-sm font-medium text-accent-text outline-none",
+          "flex cursor-pointer items-center gap-1.5 self-start text-label-md text-accent-text outline-none",
           "[&[data-panel-open]>svg]:rotate-180",
           "[&>svg]:transition-transform [&>svg]:duration-(--k-dur-2) [&>svg]:ease-swift",
         )}

@@ -169,6 +169,33 @@ Chaque composant a une page **Fantaisie** dans Storybook : plusieurs
 traitements expressifs, avec le code de chacun, et un ralenti pour étudier la
 mécanique.
 
+## Typographie
+
+Le système expose des **rôles**, pas seulement des tailles :
+`text-display-*`, `text-title-*`, `text-body-*`, `text-label-*`,
+`text-overline`. Chacun regroupe taille, interlignage, graisse et
+interlettrage — `text-xl` dit une taille, `text-title-lg` dit un usage.
+
+## Identité : cinq axes, pas un
+
+Le fichier de thème d'un projet ne change pas que la couleur.
+
+| Palier | Ce qu'il change |
+|---|---|
+| 1 | L'échelle de marque — le seul obligatoire |
+| 2 | La police |
+| 3 | L'échelle typographique |
+| 4 | La forme (les rayons) |
+| 5 | La densité |
+
+```css
+:root {
+  --k-brand-500: #4470c0;
+  --k-font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --k-space-unit: 0.2rem;
+}
+```
+
 ## Palette : une par projet
 
 Les composants ne consomment que des tokens **sémantiques**, jamais une
