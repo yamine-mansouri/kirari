@@ -1,0 +1,106 @@
+# Publie les deux paquets sur npm quand un tag `vX.Y.Z` est poussé.
+#
+# Le tag est le déclencheur, pas la poussée sur `main` : npm refuse de
+# republier un numéro déjà pris, donc « publier à chaque merge » demanderait
+# au robot d'incrémenter la version et de la repousser sur `main` — une boucle
+# de commits à garder, et un correctif de coquille qui part en version.
+# Un tag, c'est une décision explicite.
+name: Publication
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # provenance : atteste que le paquet vient bien de ce dépôt
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+
+      # Un tag `v0.3.0` posé sur un arbre resté en 0.2.0 publierait 0.2.0 —
+      # refusé, la version existant déjà — ou pire, publierait autre chose que
+      # ce que le tag annonce. Les deux paquets avancent ensemble.
+      - name: Le tag correspond-il aux versions ?
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          for p in core react; do
+            v=$(node -p "require('./packages/$p/package.json').version")
+            [ "$v" = "$tag" ] || { echo "::error::@kirari-ds/$p est en $v, le tag annonce $tag"; exit 1; }
+          done
+          echo "✓ tag $GITHUB_REF_NAME ↔ version $tag"
+
+      # Une publication ne se retire pas. Le tag pointe sur un commit déjà
+      # vérifié par le workflow « Vérifications », mais on rejoue tout : le
+      # coût est de quelques minutes, celui d'une mauvaise version est définitif.
+      - name: Documentation synchronisée
+        run: pnpm check:docs
+
+      - name: Types
+        run: pnpm typecheck
+
+      - name: Construction des paquets
+        run: pnpm build
+
+      - name: Contrastes
+        run: |
+          for marque in sakura ai matcha; do
+            node packages/core/scripts/contrast.mjs --theme=$marque
+          done
+
+      - name: Navigateur pour la vérification des stories
+        run: pnpm --filter @kirari-ds/storybook exec playwright install --with-deps chromium
+
+      - name: Construction du Storybook
+        run: pnpm --filter @kirari-ds/storybook build
+
+      - name: Stories
+        run: pnpm --filter @kirari-ds/storybook verify
+
+      # Deux outils, et chacun pour ce que l'autre ne sait pas faire.
+      #
+      # `pnpm pack` réécrit le protocole `workspace:` — `@kirari-ds/react`
+      # déclare `@kirari-ds/core@workspace:^` en peer, qui doit devenir `^X.Y.Z`
+      # dans l'archive. Parti tel quel, il casse l'installation chez tout le
+      # monde. `npm publish` ne fait pas cette réécriture.
+      #
+      # `npm publish` sait poser la provenance, que `pnpm publish` n'expose pas.
+      #
+      # D'où : empaqueter avec pnpm, envoyer l'archive avec npm.
+      #
+      # L'envoi est idempotent — une version déjà sur le registre est ignorée
+      # plutôt que de faire échouer le job. Ça rend une réexécution sans danger,
+      # et ça laisse passer le tag d'une version publiée à la main.
+      - name: Publication
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          mkdir -p /tmp/paquets
+          for p in core react; do
+            nom="@kirari-ds/$p"
+            v=$(node -p "require('./packages/$p/package.json').version")
+
+            if npm view "$nom@$v" version >/dev/null 2>&1; then
+              echo "→ $nom@$v est déjà publié, ignoré"
+              continue
+            fi
+
+            pnpm --filter "$nom" pack --pack-destination /tmp/paquets
+            archive=$(ls /tmp/paquets/kirari-ds-$p-$v.tgz)
+            npm publish "$archive" --provenance --access public
+            echo "✓ $nom@$v publié"
+          done
