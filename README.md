@@ -34,7 +34,13 @@ Tailwind v4 est **obligatoire** — c'est le prix de l'intégration.
 
 ```bash
 npm i @kirari-ds/core @kirari-ds/react tailwindcss
+npm i -D @tailwindcss/postcss   # ou @tailwindcss/vite selon l'outil de build
 ```
+
+Le greffon de build est un paquet distinct : Tailwind v4 ne compile rien sans
+lui. Base UI, lui, est embarqué dans `@kirari-ds/react`. Le câblage complet —
+`postcss.config.mjs`, greffon Vite, `themeScript` en SSR — est dans
+[`AGENTS.md`](./packages/core/AGENTS.md), livré avec le paquet.
 
 ```css
 /* app.css */

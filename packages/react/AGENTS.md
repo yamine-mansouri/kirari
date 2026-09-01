@@ -14,6 +14,41 @@ d'animation** : le mouvement est du CSS.
 
 Tailwind v4 est une dépendance **obligatoire** — Kirari ne fonctionne pas sans.
 
+### 1. Les paquets
+
+```bash
+npm i @kirari-ds/core @kirari-ds/react tailwindcss
+```
+
+Base UI est embarqué dans `@kirari-ds/react` : ne pas l'installer séparément.
+
+Tailwind v4 ne compile rien seul. Le greffon de build est un **paquet
+distinct**, et lequel dépend de l'outil :
+
+```bash
+npm i -D @tailwindcss/postcss   # Next.js, ou tout projet sur PostCSS
+npm i -D @tailwindcss/vite      # Vite
+```
+
+PostCSS — `postcss.config.mjs` à la racine :
+
+```js
+export default { plugins: { "@tailwindcss/postcss": {} } };
+```
+
+Vite — dans `vite.config.ts` :
+
+```ts
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({ plugins: [tailwindcss()] });
+```
+
+Il n'y a **pas** de `tailwind.config.js` en v4 : toute la configuration passe
+par le CSS. Ne pas en créer, il serait ignoré.
+
+### 2. Le CSS
+
 ```css
 /* app.css */
 @import "tailwindcss";
@@ -35,19 +70,43 @@ que le gestionnaire de paquets choisit.
 Le chemin est relatif au fichier CSS. Depuis `src/app.css`, la racine du
 projet est un cran au-dessus ; à ajuster si le CSS est ailleurs.
 
-Poser les deux providers une fois, à la racine :
+### 3. Les providers
+
+Une fois, à la racine. En SSR, `themeScript()` doit partir dans le `<head>`
+**avant** tout rendu : il lit la préférence enregistrée et pose l'attribut
+avant la première peinture, ce qui supprime le flash de thème clair sur un
+rechargement en sombre.
 
 ```tsx
-import { ThemeProvider, ToastProvider } from "@kirari-ds/react";
+// app/layout.tsx
+import { ThemeProvider, ToastProvider, themeScript } from "@kirari-ds/react";
 
-<ThemeProvider>
-  <ToastProvider>{children}</ToastProvider>
-</ThemeProvider>;
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="fr" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript() }} />
+      </head>
+      <body>
+        <ThemeProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
 ```
 
-En SSR (Next.js app router), injecter `themeScript()` dans le `<head>` pour
-éviter le flash de thème incorrect. Tous les composants sont clients — le
-paquet porte `"use client"`.
+`suppressHydrationWarning` sur `<html>` est nécessaire : le script pose
+`data-theme` avant l'hydratation, et React signalerait sinon l'écart avec le
+balisage rendu côté serveur.
+
+`themeScript(storageKey)` accepte une clé de stockage si le projet en impose
+une ; sans argument, elle vaut celle de `ThemeProvider`.
+
+Tous les composants sont **clients** — le paquet porte `"use client"`. En
+Next.js app router, les importer depuis un Server Component fonctionne : la
+frontière est franchie par le paquet lui-même.
 
 ## Premier écran
 
