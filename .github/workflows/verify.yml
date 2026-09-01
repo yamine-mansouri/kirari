@@ -24,6 +24,11 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # Le README et le guide d'usage partent dans les paquets npm : une copie
+      # périmée ment au consommateur sans que rien n'échoue.
+      - name: Documentation synchronisée
+        run: pnpm check:docs
+
       - name: Types
         run: pnpm typecheck
 

@@ -28,8 +28,15 @@
 @import "./base/app.css";
 @import "./motion/reduced-motion.css";
 
-/* Fait analyser les classes de la bibliothèque React par Tailwind, pour que
-   le consommateur n'ait pas à déclarer `@source` lui-même.
-   Le chemin fonctionne depuis `src/` comme depuis `dist/` : les deux sont à
-   un niveau de profondeur dans leur package. */
-@source "../../react/dist";
+/* Pas de `@source` vers la bibliothèque React ici, et c'est délibéré.
+   Tailwind résout ces chemins depuis l'emplacement RÉEL du fichier CSS. Sous
+   pnpm, ce paquet est un lien vers un répertoire isolé du magasin, où
+   `@kirari-ds/react` n'existe pas : la ligne ne trouverait rien, et aucune
+   classe de composant ne serait générée. La panne est silencieuse — les
+   tokens sortent, les composants sont nus.
+
+   Le scan revient donc au projet consommateur, depuis SON fichier CSS :
+
+       @source "../node_modules/@kirari-ds/react/dist";
+
+   Voir AGENTS.md, « Installation dans un projet ». */

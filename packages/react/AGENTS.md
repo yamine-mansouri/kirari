@@ -19,13 +19,21 @@ Tailwind v4 est une dépendance **obligatoire** — Kirari ne fonctionne pas san
 @import "tailwindcss";
 @import "@kirari-ds/core";
 @import "./kirari-theme.css";   /* optionnel — la palette du projet */
+
+@source "../node_modules/@kirari-ds/react/dist";
 ```
 
 L'ordre compte deux fois : Tailwind d'abord pour que les blocs `@theme` s'y
 greffent, le thème du projet en dernier pour qu'il l'emporte sur Sakura.
 
-`@kirari-ds/core` déclare déjà son `@source` vers la bibliothèque React :
-aucune configuration de scan à ajouter.
+**La ligne `@source` n'est pas optionnelle.** Tailwind ignore `node_modules`
+par défaut : sans elle les tokens sortent, mais aucune classe de composant
+n'est générée et l'interface s'affiche nue. Kirari ne peut pas la déclarer à
+sa place — Tailwind résout ces chemins depuis l'emplacement réel du fichier,
+que le gestionnaire de paquets choisit.
+
+Le chemin est relatif au fichier CSS. Depuis `src/app.css`, la racine du
+projet est un cran au-dessus ; à ajuster si le CSS est ailleurs.
 
 Poser les deux providers une fois, à la racine :
 

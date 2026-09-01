@@ -41,11 +41,16 @@ npm i @kirari-ds/core @kirari-ds/react tailwindcss
 @import "tailwindcss";
 @import "@kirari-ds/core";
 @import "./kirari-theme.css";   /* optionnel — la palette du projet */
+
+@source "../node_modules/@kirari-ds/react/dist";
 ```
 
 L'ordre compte deux fois : Tailwind d'abord pour que les blocs `@theme` s'y
 greffent, le thème du projet en dernier pour qu'il l'emporte sur Sakura.
-Le scan des composants est déjà déclaré par Kirari, rien à configurer.
+
+**La ligne `@source` n'est pas optionnelle** : Tailwind ignore `node_modules`,
+et sans elle aucune classe de composant n'est générée — l'interface s'affiche
+nue. Son chemin est relatif au fichier CSS, à ajuster si le tien est ailleurs.
 
 Tous les composants sont **clients** : le paquet porte `"use client"`, et Base
 UI est embarqué comme dépendance — rien de plus à installer. En Next.js app
