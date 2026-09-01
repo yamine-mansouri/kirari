@@ -128,6 +128,13 @@ de `motion/reduced-motion.css`, qui écrase la durée plutôt que de supprimer
 l'animation — sans quoi une entrée démarrée à `opacity: 0` resterait
 invisible.
 
+## Publier
+
+Voir [`RELEASING.md`](./RELEASING.md) : réglages npm, numérotation, tag,
+workflow, et comment rattraper une mauvaise version. Les deux paquets
+avancent sur un même numéro — `react` déclare `core` en peer, leurs versions
+ne divergent jamais.
+
 ## Avant de livrer
 
 ```bash

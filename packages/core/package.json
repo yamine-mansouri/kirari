@@ -9,6 +9,8 @@
     "url": "git+https://github.com/yamine-mansouri/kirari.git",
     "directory": "packages/core"
   },
+  "bugs": "https://github.com/yamine-mansouri/kirari/issues",
+  "homepage": "https://yamine-mansouri.github.io/kirari/",
   "keywords": [
     "design-system",
     "css",
